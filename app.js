@@ -47,67 +47,55 @@
     return HABIT_ICONS[k] || HABIT_ICONS.energy;
   }
 
-  // --- Role Model Vision Board Items (Physique & Charisma) ---
+  // --- Jay Park Role Model Vision Board Items (4 Images: Physique, Ink & Charisma) ---
   const ROLE_MODELS = [
     {
-      id: 'rm-3',
-      src: './assets/role-model-3.jpg',
-      pillar: 'PHYSIQUE & CHARISMA',
-      badge: 'LEAN 6-PACK',
-      shortTitle: 'หุ่นลีน · Six-Pack ชัด',
-      shortSub: 'Lean V-Taper & Smile',
-      title: 'Lean Six-Pack & Natural Charisma',
-      subtitle: 'หุ่นลีนคมชัด · กล้ามท้องและไหล่สมส่วน พร้อมรอยยิ้มที่มั่นใจ',
-      focus: 'วินัยวันนี้: ออกกำลังกาย 30 นาที + ดื่มน้ำ 8 แก้ว คุมโภชนาการให้ลีนคมชัดและรักษามวลกล้ามเนื้อ',
+      id: 'jay-1',
+      src: './assets/jay-1.jpg',
+      pillar: 'PHYSIQUE & INK',
+      badge: 'STAGE FIT',
+      shortTitle: 'หุ่นลีน · รอยสักอก',
+      shortSub: 'Six-Pack & Lion Ink',
+      title: 'Stage Physique & Chest Lion Tattoo',
+      subtitle: 'หุ่นลีน Six-Pack · รอยสักเต็มอกซ้ายและแขน',
+      focus: 'วินัยวันนี้: ออกกำลังกาย 30 นาที + คุมอาหารให้ลีนคมชัด เพื่อรักษากล้ามท้องและสัดส่วนช่วงบนให้เฟิร์มตลอดเวลา',
+      pos: '50% 24%'
+    },
+    {
+      id: 'jay-2',
+      src: './assets/jay-2.jpg',
+      pillar: 'INK & AESTHETIC',
+      badge: 'PASSION INK',
+      shortTitle: 'ลีนคม · รอยสัก',
+      shortSub: 'Rib & Neck Tattoo',
+      title: 'Lean Core & Iconic Ribcage Ink',
+      subtitle: 'ลำตัวลีนไร้ไขมัน · รอยสักสีข้างและเข็มทิศต้นคอ',
+      focus: 'วินัยวันนี้: ดื่มน้ำ 8 แก้ว ลดของทอด/หวาน เพื่อลดเปอร์เซ็นต์ไขมันให้เห็นไลน์กล้ามเนื้อด้านข้างชัดเจน',
+      pos: '50% 28%'
+    },
+    {
+      id: 'jay-3',
+      src: './assets/jay-3.jpg',
+      pillar: 'CHARISMA & SLEEVE',
+      badge: 'FULL SLEEVE',
+      shortTitle: 'อกชัด · แขนสัก',
+      shortSub: 'Stage Smirk & Sleeve',
+      title: 'Sculpted Pecs & Full Tattoo Sleeve',
+      subtitle: 'กล้ามอกคมชัด · รอยสักเต็มแขนซ้ายและรอยยิ้มมั่นใจ',
+      focus: 'วินัยวันนี้: โฟกัสเวทเทรนนิ่งช่วงอก ไหล่ และแกนกลางลำตัว สร้างพลังและความมั่นใจในทุกท่วงท่า',
       pos: '50% 22%'
     },
     {
-      id: 'rm-2',
-      src: './assets/role-model-2.jpg',
-      pillar: 'PHYSIQUE',
-      badge: 'V-TAPER',
-      shortTitle: 'หุ่น V-Taper ชัด',
-      shortSub: 'Aesthetic Chest',
-      title: 'Sculpted Chest & Broad Shoulders',
-      subtitle: 'โครงสร้างไหล่กว้าง · กล้ามอกและแขนดูแข็งแรงมีพลัง',
-      focus: 'วินัยวันนี้: โฟกัสเวทเทรนนิ่งช่วงบน (อก ไหล่ หลัง) และพักผ่อนให้เพียงพอเพื่อซ่อมแซมกล้ามเนื้อ',
-      pos: '50% 34%'
-    },
-    {
-      id: 'rm-1',
-      src: './assets/role-model-1.jpg',
-      pillar: 'CHARISMA & PHYSIQUE',
-      badge: 'CLEAN FIT',
-      shortTitle: 'ลุคคลีนมินิมอล',
-      shortSub: 'Sharp Jawline',
-      title: 'Clean White-Tee Masculine Fit',
-      subtitle: 'ใส่เสื้อยืดสีขาวแล้วดูดี · กรอบหน้าชัด แขนเฟิร์ม สายตาสุขุม',
-      focus: 'วินัยวันนี้: ดื่มน้ำเปล่าให้ครบ 2 ลิตร และเข้านอนก่อน 23:30 น. เพื่อความสดชื่นและกรอบหน้าที่คมชัด',
+      id: 'jay-4',
+      src: './assets/jay-4.jpg',
+      pillar: 'ICONIC CHARISMA',
+      badge: 'BOSS AURA',
+      shortTitle: 'ออร่า · โทนดำ',
+      shortSub: 'All-Black & Silver Chain',
+      title: 'All-Black Charisma & Compass Neck Ink',
+      subtitle: 'ลุคเสื้อดำโซ่เงิน · รอยสักเข็มทิศและรอยยิ้มมีเสน่ห์',
+      focus: 'วินัยวันนี้: โฟกัสงานสำคัญให้เสร็จ อ่านหนังสือ 20 นาที และพักผ่อนตรงเวลา เพื่อบุคลิกผู้นำที่นิ่งและทรงพลัง',
       pos: '50% 18%'
-    },
-    {
-      id: 'rm-4',
-      src: './assets/role-model-4.jpg',
-      pillar: 'CHARISMA',
-      badge: 'PRESENCE',
-      shortTitle: 'ออร่าความมั่นใจ',
-      shortSub: 'Iconic Presence',
-      title: 'Effortless Confidence & Leadership Aura',
-      subtitle: 'บุคลิกภาพที่นิ่ง สุขุม มีเสน่ห์ และสไตล์ที่เฉียบคม',
-      focus: 'วินัยวันนี้: โฟกัสงานสำคัญของวันให้สำเร็จตามแผน เพื่อสร้างความภูมิใจและความมั่นใจจากภายใน',
-      pos: '50% 20%'
-    },
-    {
-      id: 'rm-5',
-      src: './assets/role-model-5.jpg',
-      pillar: 'CHARISMA & AURA',
-      badge: 'AURA',
-      shortTitle: 'เสน่ห์สายตาดึงดูด',
-      shortSub: 'Magnetic Gaze',
-      title: 'Calm Intensity & Magnetic Presence',
-      subtitle: 'ความนิ่ง ลึกซึ้ง และเสน่ห์ที่เกิดจากคนที่มีวินัยในตัวเองสูง',
-      focus: 'วินัยวันนี้: อ่านหนังสือ 20 นาที พัฒนาความคิด สมาธิ และทัศนคติที่เฉียบคมทุกวัน',
-      pos: '50% 24%'
     }
   ];
 
@@ -116,8 +104,8 @@
     activeTab: 'today',
     todayFocusDate: toLocalDateStr(),
     quickAddPriority: 'medium',
-    visionFeaturedId: localStorage.getItem('dailyflow_vision_featured') || 'rm-3',
-    visionActiveId: 'rm-3',
+    visionFeaturedId: localStorage.getItem('dailyflow_vision_featured_jay') || 'jay-1',
+    visionActiveId: 'jay-1',
     visionMonoTone: localStorage.getItem('dailyflow_vision_mono') === '1',
     todoFilterStatus: 'all',
     todoFilterCategory: 'all',
@@ -553,7 +541,7 @@
 
     const statusTextEl = document.getElementById('header-status-text');
     if (statusTextEl) {
-      statusTextEl.textContent = `TELEMETRY • ${overallPct}% EFFICIENCY`;
+      statusTextEl.textContent = `INK & CHARISMA • ${overallPct}% DONE`;
     }
 
     document.getElementById('today-overall-pill').textContent = `${overallPct}%`;
@@ -776,8 +764,8 @@
           `).join('')}
         </div>
         <div class="vision-banner-info">
-          <div class="vision-banner-title">ต้นแบบ · หุ่นลีน & Charisma</div>
-          <div class="vision-banner-sub">เช็คอินวันนี้ ${doneTodayCount}/${habits.length} · แตะดู Vision Board</div>
+          <div class="vision-banner-title">Jay Park · หุ่นลีน & Charisma</div>
+          <div class="vision-banner-sub">เช็คอินวันนี้ ${doneTodayCount}/${habits.length} · แตะดู 4 ภาพต้นแบบ</div>
         </div>
         <span class="section-link" style="flex-shrink:0;">เปิด ↗</span>
       `;
@@ -1363,13 +1351,17 @@
     }
 
     // Role Model Vision Board Controls
+    const btnBrandAvatar = document.getElementById('btn-brand-avatar');
+    if (btnBrandAvatar) {
+      btnBrandAvatar.addEventListener('click', () => openVisionModal('jay-4'));
+    }
     const btnToggleVisionTone = document.getElementById('btn-toggle-vision-tone');
     if (btnToggleVisionTone) {
       btnToggleVisionTone.addEventListener('click', () => {
         uiState.visionMonoTone = !uiState.visionMonoTone;
         localStorage.setItem('dailyflow_vision_mono', uiState.visionMonoTone ? '1' : '0');
         renderVisionBoard();
-        showToast(uiState.visionMonoTone ? 'โทนภาพขาว-ดำ (Noir Editorial)' : 'โทนภาพสีจริง (Full Color)');
+        showToast(uiState.visionMonoTone ? 'โทนภาพขาว-ดำ (Noir Ink)' : 'โทนภาพสีจริง (Full Color)');
       });
     }
     const btnOpenVisionBoard = document.getElementById('btn-open-vision-board');
@@ -1392,7 +1384,7 @@
     if (btnVisionPin) {
       btnVisionPin.addEventListener('click', () => {
         uiState.visionFeaturedId = uiState.visionActiveId;
-        localStorage.setItem('dailyflow_vision_featured', uiState.visionFeaturedId);
+        localStorage.setItem('dailyflow_vision_featured_jay', uiState.visionFeaturedId);
         renderVisionBoard();
         renderVisionModalContent();
         showToast('ตั้งเป็นภาพหลักในหน้าแรกแล้ว');
