@@ -431,10 +431,8 @@
     else greeting = 'สวัสดีตอนเย็น';
 
     const eyebrowEl = document.getElementById('today-eyebrow');
-    if (eyebrowEl) eyebrowEl.textContent = formatEditorialEyebrow(today);
+    if (eyebrowEl) eyebrowEl.textContent = formatFullThaiDate(today);
     document.getElementById('today-greeting').textContent = greeting;
-    document.getElementById('today-full-date').textContent = formatFullThaiDate(today);
-    document.getElementById('header-date-sub').textContent = formatFullThaiDate(today);
 
     const allTodos = store.state.todos;
     const dueTodayOrOverdue = allTodos.filter(
@@ -442,6 +440,7 @@
     );
     const completedTodayCount = dueTodayOrOverdue.filter((t) => t.completed).length;
     const totalTodayTodos = dueTodayOrOverdue.length;
+    const pendingTodayCount = dueTodayOrOverdue.filter((t) => !t.completed).length;
     const todoPct = totalTodayTodos > 0 ? Math.round((completedTodayCount / totalTodayTodos) * 100) : 100;
 
     const todayDow = parseLocalDate(today).getDay();
@@ -456,10 +455,20 @@
     const totalDone = completedTodayCount + doneHabitsToday;
     const overallPct = totalItems > 0 ? Math.round((totalDone / totalItems) * 100) : 0;
 
+    const subText = pendingTodayCount > 0
+      ? `โฟกัสวันนี้เหลือ ${pendingTodayCount} งาน · นิสัยสำเร็จ ${doneHabitsToday}/${totalHabitsToday}`
+      : `เคลียร์งานวันนี้ครบแล้ว · นิสัยสำเร็จ ${doneHabitsToday}/${totalHabitsToday}`;
+    document.getElementById('today-full-date').textContent = subText;
+
+    const statusTextEl = document.getElementById('header-status-text');
+    if (statusTextEl) {
+      statusTextEl.textContent = `TELEMETRY • ${overallPct}% EFFICIENCY`;
+    }
+
     document.getElementById('today-overall-pill').textContent = `${overallPct}%`;
     const ringCircle = document.getElementById('today-ring-circle');
     if (ringCircle) {
-      const circumference = 175.93; // 2 * PI * 28
+      const circumference = 213.63; // 2 * PI * 34
       const offset = circumference - (overallPct / 100) * circumference;
       ringCircle.style.strokeDashoffset = `${offset}`;
     }
@@ -469,7 +478,7 @@
     document.getElementById('hero-habit-count').textContent = `${doneHabitsToday}/${totalHabitsToday}`;
     document.getElementById('hero-habit-bar').style.width = `${habitPct}%`;
 
-    // Render Today Habits Grid
+    // Render Today Habits Grid (Vertical Tesla Control Tile Layout)
     document.getElementById('today-habits-badge').textContent = `${doneHabitsToday}/${totalHabitsToday}`;
     const habitsContainer = document.getElementById('today-habits-container');
     if (habitsForToday.length === 0) {
@@ -483,12 +492,17 @@
         const stats = calculateHabitStats(hab, today);
         return `
           <button type="button" class="today-habit-tile ${stats.isDoneToday ? 'done' : ''}" data-action="toggle-habit-date" data-id="${hab.id}" data-date="${today}">
-            <div class="habit-tile-icon">
-              ${stats.isDoneToday ? ICONS.check : getHabitSvg(hab.icon)}
+            <div class="habit-tile-top">
+              <div class="habit-tile-icon">
+                ${stats.isDoneToday ? ICONS.check : getHabitSvg(hab.icon)}
+              </div>
+              <span class="habit-streak-pill ${stats.isDoneToday ? 'done' : ''}">
+                ${stats.isDoneToday ? '✓ วันนี้' : `${stats.currentStreak}d`}
+              </span>
             </div>
             <div class="habit-tile-info">
               <div class="habit-tile-title">${escapeHtml(hab.title)}</div>
-              <div class="habit-tile-streak">${stats.currentStreak} วันต่อเนื่อง</div>
+              <div class="habit-tile-streak">${stats.isDoneToday ? `ต่อเนื่อง ${stats.currentStreak} วัน` : 'แตะเพื่อเช็คอิน'}</div>
             </div>
           </button>
         `;
@@ -496,7 +510,6 @@
     }
 
     // Render Today & Overdue Todos
-    const pendingTodayCount = dueTodayOrOverdue.filter((t) => !t.completed).length;
     document.getElementById('today-todos-badge').textContent = `${pendingTodayCount}`;
     const todosContainer = document.getElementById('today-todos-container');
 
@@ -803,12 +816,17 @@
         const isDoneOnDate = !!(hab.logs && hab.logs[selDate]);
         return `
           <button type="button" class="today-habit-tile ${isDoneOnDate ? 'done' : ''}" data-action="toggle-habit-date" data-id="${hab.id}" data-date="${selDate}">
-            <div class="habit-tile-icon">
-              ${isDoneOnDate ? ICONS.check : getHabitSvg(hab.icon)}
+            <div class="habit-tile-top">
+              <div class="habit-tile-icon">
+                ${isDoneOnDate ? ICONS.check : getHabitSvg(hab.icon)}
+              </div>
+              <span class="habit-streak-pill ${isDoneOnDate ? 'done' : ''}">
+                ${isDoneOnDate ? '✓ บันทึกแล้ว' : 'รอเช็คอิน'}
+              </span>
             </div>
             <div class="habit-tile-info">
               <div class="habit-tile-title">${escapeHtml(hab.title)}</div>
-              <div class="habit-tile-streak">${isDoneOnDate ? 'เช็คอินแล้ว' : 'แตะเพื่อบันทึก'}</div>
+              <div class="habit-tile-streak">${isDoneOnDate ? 'เช็คอินเรียบร้อย' : 'แตะเพื่อบันทึก'}</div>
             </div>
           </button>
         `;
@@ -1110,8 +1128,11 @@
       showToast(next === 'dark' ? 'โหมด Tesla Obsidian (Dark)' : 'โหมด Titanium Pearl (Light)');
     });
 
-    // Header Add Habit Button
-    document.getElementById('btn-header-add-habit').addEventListener('click', () => openHabitModal());
+    // Today Section Add Habit Button
+    const btnTodayNewHabit = document.getElementById('btn-today-new-habit');
+    if (btnTodayNewHabit) {
+      btnTodayNewHabit.addEventListener('click', () => openHabitModal());
+    }
 
     // Dock Center Add Button
     document.getElementById('fab-main-add').addEventListener('click', () => {
@@ -1489,12 +1510,12 @@
     if ('caches' in window) {
       caches.keys().then((keys) => {
         keys.forEach((k) => {
-          if (k !== 'dailyflow-pwa-v4') caches.delete(k);
+          if (k !== 'dailyflow-pwa-v5') caches.delete(k);
         });
       });
     }
     if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
-      navigator.serviceWorker.register('./sw.js?v=4').then((reg) => {
+      navigator.serviceWorker.register('./sw.js?v=5').then((reg) => {
         reg.update();
       }).catch((err) => {
         console.warn('SW registration skipped:', err);
