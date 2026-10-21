@@ -1,0 +1,20 @@
+{
+  "name": "DailyFlow — Personal Planner",
+  "short_name": "DailyFlow",
+  "description": "Minimal Clean Personal To-Do, Habits & Calendar",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#09090b",
+  "theme_color": "#fbfbf9",
+  "lang": "th",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
