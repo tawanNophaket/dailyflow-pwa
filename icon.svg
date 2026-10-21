@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a1d24" />
+      <stop offset="100%" stop-color="#090a0d" />
+    </linearGradient>
+    <linearGradient id="rim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.22" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.03" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)" />
+  <rect x="18" y="18" width="476" height="476" rx="96" fill="none" stroke="url(#rim)" stroke-width="4" />
+  <!-- Telemetry Arc -->
+  <circle cx="256" cy="256" r="142" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="16" />
+  <path d="M 133 185 A 142 142 0 1 1 379 185" fill="none" stroke="#e31937" stroke-width="16" stroke-linecap="round" />
+  <!-- Precision Check -->
+  <path d="M204 260 L242 298 L316 218" fill="none" stroke="#f5f6f8" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" />
+  <!-- Status LED -->
+  <circle cx="256" cy="114" r="8" fill="#e31937" />
+</svg>
