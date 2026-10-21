@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=7" />
+  <link rel="stylesheet" href="styles.css?v=8" />
 </head>
 <body>
   <div class="toast-container" id="toast-container"></div>
@@ -167,6 +167,19 @@
           <button type="submit" class="btn-primary-sm">เพิ่ม</button>
         </form>
 
+        <!-- Role Model Vision Board (Physique & Charisma) -->
+        <div class="section-header">
+          <div class="section-title">
+            <span>ต้นแบบ · หุ่น & Charisma</span>
+            <span class="section-badge" id="vision-mode-badge">5</span>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px; flex-shrink:0;">
+            <button type="button" class="section-link" id="btn-toggle-vision-tone" title="สลับโทนภาพ สีจริง / ขาวดำ">สีจริง</button>
+            <button type="button" class="section-link" id="btn-open-vision-board">เต็มจอ ↗</button>
+          </div>
+        </div>
+        <div class="vision-bento-grid" id="today-vision-grid" aria-label="Role Model Vision Board"></div>
+
         <!-- Today's Habits Quick Check-in -->
         <div class="section-header">
           <div class="section-title">
@@ -249,6 +262,9 @@
             <div class="stat-mini-label">เช็คอินสะสม</div>
           </div>
         </div>
+
+        <!-- Role Model Motivation Banner inside Habits -->
+        <div class="habits-vision-banner" id="habits-vision-banner"></div>
 
         <div class="section-header" style="margin-top: 4px;">
           <div class="section-title">
@@ -644,7 +660,40 @@
     </div>
   </div>
 
-  <script src="db.js?v=7"></script>
-  <script src="app.js?v=7"></script>
+  <!-- ==================== MODAL 5: ROLE MODEL VISION BOARD LIGHTBOX ==================== -->
+  <div class="modal-backdrop" id="vision-modal">
+    <div class="modal-sheet vision-modal-sheet" role="dialog" aria-modal="true" aria-labelledby="vision-modal-title">
+      <div class="modal-handle"></div>
+      <div class="modal-header" style="margin-bottom: 12px;">
+        <div>
+          <div class="vision-modal-eyebrow" id="vision-modal-pillar">PHYSIQUE & CHARISMA</div>
+          <h2 class="modal-title" id="vision-modal-title">Role Model Vision Board</h2>
+        </div>
+        <button class="icon-btn" data-close-modal="vision-modal" aria-label="ปิด">✕</button>
+      </div>
+
+      <div class="vision-stage-wrap">
+        <img id="vision-stage-img" class="vision-stage-img" src="./assets/role-model-3.jpg" alt="Role Model" />
+        <button type="button" class="vision-nav-btn prev" id="btn-vision-prev" aria-label="ภาพก่อนหน้า">‹</button>
+        <button type="button" class="vision-nav-btn next" id="btn-vision-next" aria-label="ภาพถัดไป">›</button>
+        <div class="vision-stage-overlay">
+          <span class="vision-stage-badge" id="vision-stage-badge">1 / 5</span>
+          <div class="vision-stage-sub" id="vision-stage-sub"></div>
+        </div>
+      </div>
+
+      <div class="vision-focus-box" id="vision-focus-box"></div>
+
+      <div class="vision-thumbs-row" id="vision-thumbs-row"></div>
+
+      <div class="modal-footer" style="margin-top: 12px;">
+        <button type="button" class="btn-full btn-cancel" id="btn-vision-pin-featured">ตั้งเป็นภาพหลักหน้าแรก</button>
+        <button type="button" class="btn-full btn-save" data-close-modal="vision-modal">พร้อมลุยวันนี้</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="db.js?v=8"></script>
+  <script src="app.js?v=8"></script>
 </body>
 </html>
