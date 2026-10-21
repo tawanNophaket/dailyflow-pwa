@@ -47,11 +47,78 @@
     return HABIT_ICONS[k] || HABIT_ICONS.energy;
   }
 
+  // --- Role Model Vision Board Items (Physique & Charisma) ---
+  const ROLE_MODELS = [
+    {
+      id: 'rm-3',
+      src: './assets/role-model-3.jpg',
+      pillar: 'PHYSIQUE & CHARISMA',
+      badge: 'LEAN 6-PACK',
+      shortTitle: 'หุ่นลีน · Six-Pack ชัด',
+      shortSub: 'Lean V-Taper & Smile',
+      title: 'Lean Six-Pack & Natural Charisma',
+      subtitle: 'หุ่นลีนคมชัด · กล้ามท้องและไหล่สมส่วน พร้อมรอยยิ้มที่มั่นใจ',
+      focus: 'วินัยวันนี้: ออกกำลังกาย 30 นาที + ดื่มน้ำ 8 แก้ว คุมโภชนาการให้ลีนคมชัดและรักษามวลกล้ามเนื้อ',
+      pos: '50% 22%'
+    },
+    {
+      id: 'rm-2',
+      src: './assets/role-model-2.jpg',
+      pillar: 'PHYSIQUE',
+      badge: 'V-TAPER',
+      shortTitle: 'หุ่น V-Taper ชัด',
+      shortSub: 'Aesthetic Chest',
+      title: 'Sculpted Chest & Broad Shoulders',
+      subtitle: 'โครงสร้างไหล่กว้าง · กล้ามอกและแขนดูแข็งแรงมีพลัง',
+      focus: 'วินัยวันนี้: โฟกัสเวทเทรนนิ่งช่วงบน (อก ไหล่ หลัง) และพักผ่อนให้เพียงพอเพื่อซ่อมแซมกล้ามเนื้อ',
+      pos: '50% 34%'
+    },
+    {
+      id: 'rm-1',
+      src: './assets/role-model-1.jpg',
+      pillar: 'CHARISMA & PHYSIQUE',
+      badge: 'CLEAN FIT',
+      shortTitle: 'ลุคคลีนมินิมอล',
+      shortSub: 'Sharp Jawline',
+      title: 'Clean White-Tee Masculine Fit',
+      subtitle: 'ใส่เสื้อยืดสีขาวแล้วดูดี · กรอบหน้าชัด แขนเฟิร์ม สายตาสุขุม',
+      focus: 'วินัยวันนี้: ดื่มน้ำเปล่าให้ครบ 2 ลิตร และเข้านอนก่อน 23:30 น. เพื่อความสดชื่นและกรอบหน้าที่คมชัด',
+      pos: '50% 18%'
+    },
+    {
+      id: 'rm-4',
+      src: './assets/role-model-4.jpg',
+      pillar: 'CHARISMA',
+      badge: 'PRESENCE',
+      shortTitle: 'ออร่าความมั่นใจ',
+      shortSub: 'Iconic Presence',
+      title: 'Effortless Confidence & Leadership Aura',
+      subtitle: 'บุคลิกภาพที่นิ่ง สุขุม มีเสน่ห์ และสไตล์ที่เฉียบคม',
+      focus: 'วินัยวันนี้: โฟกัสงานสำคัญของวันให้สำเร็จตามแผน เพื่อสร้างความภูมิใจและความมั่นใจจากภายใน',
+      pos: '50% 20%'
+    },
+    {
+      id: 'rm-5',
+      src: './assets/role-model-5.jpg',
+      pillar: 'CHARISMA & AURA',
+      badge: 'AURA',
+      shortTitle: 'เสน่ห์สายตาดึงดูด',
+      shortSub: 'Magnetic Gaze',
+      title: 'Calm Intensity & Magnetic Presence',
+      subtitle: 'ความนิ่ง ลึกซึ้ง และเสน่ห์ที่เกิดจากคนที่มีวินัยในตัวเองสูง',
+      focus: 'วินัยวันนี้: อ่านหนังสือ 20 นาที พัฒนาความคิด สมาธิ และทัศนคติที่เฉียบคมทุกวัน',
+      pos: '50% 24%'
+    }
+  ];
+
   // --- UI State ---
   const uiState = {
     activeTab: 'today',
     todayFocusDate: toLocalDateStr(),
     quickAddPriority: 'medium',
+    visionFeaturedId: localStorage.getItem('dailyflow_vision_featured') || 'rm-3',
+    visionActiveId: 'rm-3',
+    visionMonoTone: localStorage.getItem('dailyflow_vision_mono') === '1',
     todoFilterStatus: 'all',
     todoFilterCategory: 'all',
     todoSearchQuery: '',
@@ -549,6 +616,9 @@
         : `เพิ่มงานสำหรับ ${formatShortThaiDate(focusDate)}...`;
     }
 
+    // Render Role Model Vision Board (5-Card Bento Showcase)
+    renderVisionBoard();
+
     // Render Compact 2x2 Tactile Habit Capsules
     document.getElementById('today-habits-badge').textContent = `${doneHabitsToday}/${totalHabitsToday}`;
     const habitsContainer = document.getElementById('today-habits-container');
@@ -696,6 +766,22 @@
     document.getElementById('hab-stat-today').textContent = `${todayRate}%`;
     document.getElementById('hab-stat-best-streak').textContent = `${maxBestStreak}d`;
     document.getElementById('hab-stat-total').textContent = `${totalCheckinsAll}`;
+
+    const habitsBanner = document.getElementById('habits-vision-banner');
+    if (habitsBanner) {
+      habitsBanner.innerHTML = `
+        <div class="vision-avatar-stack">
+          ${ROLE_MODELS.map((rm) => `
+            <img class="vision-avatar-item" src="${rm.src}" alt="${escapeHtml(rm.shortTitle)}" style="object-position:${rm.pos};" />
+          `).join('')}
+        </div>
+        <div class="vision-banner-info">
+          <div class="vision-banner-title">ต้นแบบ · หุ่นลีน & Charisma</div>
+          <div class="vision-banner-sub">เช็คอินวันนี้ ${doneTodayCount}/${habits.length} · แตะดู Vision Board</div>
+        </div>
+        <span class="section-link" style="flex-shrink:0;">เปิด ↗</span>
+      `;
+    }
 
     const last7Days = [];
     for (let i = 6; i >= 0; i--) {
@@ -1014,6 +1100,80 @@
   }
 
   // --- Modal Helpers ---
+  // --- 6.5 Role Model Vision Board & Lightbox Modal ---
+  function renderVisionBoard() {
+    const grid = document.getElementById('today-vision-grid');
+    if (!grid) return;
+
+    grid.classList.toggle('mono-tone', !!uiState.visionMonoTone);
+    const toneBtn = document.getElementById('btn-toggle-vision-tone');
+    if (toneBtn) {
+      toneBtn.textContent = uiState.visionMonoTone ? 'โทนขาวดำ' : 'สีจริง';
+    }
+
+    const featured = ROLE_MODELS.find((r) => r.id === uiState.visionFeaturedId) || ROLE_MODELS[0];
+    const others = ROLE_MODELS.filter((r) => r.id !== featured.id);
+    const ordered = [featured, ...others];
+
+    grid.innerHTML = ordered.map((rm, idx) => {
+      const isFeatured = idx === 0;
+      return `
+        <button type="button" class="vision-card ${isFeatured ? 'is-featured' : ''}" data-action="open-vision-item" data-id="${rm.id}">
+          <img class="vision-card-img" src="${rm.src}" alt="${escapeHtml(rm.title)}" style="object-position:${rm.pos};" loading="eager" />
+          <div class="vision-card-caption">
+            ${isFeatured ? `<span class="vision-card-pill">${escapeHtml(rm.badge)}</span>` : ''}
+            <div class="vision-card-title">${escapeHtml(rm.shortTitle)}</div>
+            ${isFeatured ? `<div class="vision-card-sub">${escapeHtml(rm.shortSub)}</div>` : ''}
+          </div>
+        </button>
+      `;
+    }).join('');
+  }
+
+  function openVisionModal(roleModelId = null) {
+    uiState.visionActiveId = roleModelId || uiState.visionFeaturedId || ROLE_MODELS[0].id;
+    renderVisionModalContent();
+    openModal('vision-modal');
+  }
+
+  function renderVisionModalContent() {
+    const idx = Math.max(0, ROLE_MODELS.findIndex((r) => r.id === uiState.visionActiveId));
+    const current = ROLE_MODELS[idx] || ROLE_MODELS[0];
+
+    document.getElementById('vision-modal-pillar').textContent = current.pillar;
+    document.getElementById('vision-modal-title').textContent = current.title;
+
+    const stageImg = document.getElementById('vision-stage-img');
+    stageImg.src = current.src;
+    stageImg.style.objectPosition = current.pos;
+
+    document.getElementById('vision-stage-badge').textContent = `${idx + 1} / ${ROLE_MODELS.length}`;
+    document.getElementById('vision-stage-sub').textContent = current.subtitle;
+    document.getElementById('vision-focus-box').textContent = current.focus;
+
+    const pinBtn = document.getElementById('btn-vision-pin-featured');
+    if (pinBtn) {
+      const isAlreadyPinned = current.id === uiState.visionFeaturedId;
+      pinBtn.textContent = isAlreadyPinned ? '✓ ภาพหลักหน้าแรก' : 'ตั้งเป็นภาพหลักหน้าแรก';
+    }
+
+    const thumbsRow = document.getElementById('vision-thumbs-row');
+    if (thumbsRow) {
+      thumbsRow.innerHTML = ROLE_MODELS.map((rm) => `
+        <button type="button" class="vision-thumb-btn ${rm.id === current.id ? 'active' : ''}" data-action="select-vision-thumb" data-id="${rm.id}">
+          <img src="${rm.src}" alt="${escapeHtml(rm.shortTitle)}" style="object-position:${rm.pos};" />
+        </button>
+      `).join('');
+    }
+  }
+
+  function cycleVisionSlide(delta) {
+    const idx = Math.max(0, ROLE_MODELS.findIndex((r) => r.id === uiState.visionActiveId));
+    const nextIdx = (idx + delta + ROLE_MODELS.length) % ROLE_MODELS.length;
+    uiState.visionActiveId = ROLE_MODELS[nextIdx].id;
+    renderVisionModalContent();
+  }
+
   function openModal(modalId) {
     const el = document.getElementById(modalId);
     if (el) el.classList.add('open');
@@ -1202,6 +1362,43 @@
       btnTodayNewTodo.addEventListener('click', () => openTodoModal(null, uiState.todayFocusDate));
     }
 
+    // Role Model Vision Board Controls
+    const btnToggleVisionTone = document.getElementById('btn-toggle-vision-tone');
+    if (btnToggleVisionTone) {
+      btnToggleVisionTone.addEventListener('click', () => {
+        uiState.visionMonoTone = !uiState.visionMonoTone;
+        localStorage.setItem('dailyflow_vision_mono', uiState.visionMonoTone ? '1' : '0');
+        renderVisionBoard();
+        showToast(uiState.visionMonoTone ? 'โทนภาพขาว-ดำ (Noir Editorial)' : 'โทนภาพสีจริง (Full Color)');
+      });
+    }
+    const btnOpenVisionBoard = document.getElementById('btn-open-vision-board');
+    if (btnOpenVisionBoard) {
+      btnOpenVisionBoard.addEventListener('click', () => openVisionModal());
+    }
+    const habitsVisionBanner = document.getElementById('habits-vision-banner');
+    if (habitsVisionBanner) {
+      habitsVisionBanner.addEventListener('click', () => openVisionModal());
+    }
+    const btnVisionPrev = document.getElementById('btn-vision-prev');
+    if (btnVisionPrev) {
+      btnVisionPrev.addEventListener('click', () => cycleVisionSlide(-1));
+    }
+    const btnVisionNext = document.getElementById('btn-vision-next');
+    if (btnVisionNext) {
+      btnVisionNext.addEventListener('click', () => cycleVisionSlide(1));
+    }
+    const btnVisionPin = document.getElementById('btn-vision-pin-featured');
+    if (btnVisionPin) {
+      btnVisionPin.addEventListener('click', () => {
+        uiState.visionFeaturedId = uiState.visionActiveId;
+        localStorage.setItem('dailyflow_vision_featured', uiState.visionFeaturedId);
+        renderVisionBoard();
+        renderVisionModalContent();
+        showToast('ตั้งเป็นภาพหลักในหน้าแรกแล้ว');
+      });
+    }
+
     // Reset Today Scrubber Button
     const btnHeroResetToday = document.getElementById('btn-hero-reset-today');
     if (btnHeroResetToday) {
@@ -1296,6 +1493,11 @@
       } else if (action === 'select-hero-date') {
         uiState.todayFocusDate = actionEl.dataset.date;
         renderTodayView();
+      } else if (action === 'open-vision-item') {
+        openVisionModal(actionEl.dataset.id);
+      } else if (action === 'select-vision-thumb') {
+        uiState.visionActiveId = actionEl.dataset.id;
+        renderVisionModalContent();
       }
     });
 
