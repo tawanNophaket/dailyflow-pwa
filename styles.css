@@ -70,29 +70,29 @@
 }
 
 [data-theme="dark"] {
-  /* Dark Mode — Monochromatic Matte Obsidian & Brushed Titanium (Tesla / Linear Style) */
-  --bg-outer: #050507;
-  --bg-app: #0a0b0d;
-  --bg-app-glow: radial-gradient(110% 35% at 50% 0%, rgba(255, 255, 255, 0.04) 0%, transparent 72%);
-  --bg-surface: linear-gradient(180deg, #141519 0%, #111216 100%);
-  --bg-surface-solid: #141519;
-  --bg-subtle: #191b20;
-  --bg-hover: #22252c;
-  --bg-glass: rgba(10, 11, 13, 0.84);
-  --bg-dock: rgba(19, 20, 25, 0.90);
+  /* Dark Mode — Jay Park Edition: Obsidian Ink Black, Smoked Charcoal & Sterling Silver Chrome */
+  --bg-outer: #030406;
+  --bg-app: #07080a;
+  --bg-app-glow: radial-gradient(115% 40% at 50% 0%, rgba(235, 238, 245, 0.05) 0%, transparent 72%);
+  --bg-surface: linear-gradient(180deg, #121318 0%, #0d0e12 100%);
+  --bg-surface-solid: #111216;
+  --bg-subtle: #17191f;
+  --bg-hover: #20232b;
+  --bg-glass: rgba(7, 8, 10, 0.86);
+  --bg-dock: rgba(16, 17, 22, 0.92);
 
-  --text-primary: #f0f1f4;
-  --text-secondary: #8f94a0;
-  --text-muted: #5b606d;
+  --text-primary: #f2f4f8;
+  --text-secondary: #9298a6;
+  --text-muted: #5d6270;
 
-  --border-hairline: rgba(255, 255, 255, 0.068);
-  --border-strong: rgba(255, 255, 255, 0.15);
-  --specular-rim: inset 0 1px 0 rgba(255, 255, 255, 0.065);
+  --border-hairline: rgba(255, 255, 255, 0.075);
+  --border-strong: rgba(255, 255, 255, 0.17);
+  --specular-rim: inset 0 1px 0 rgba(255, 255, 255, 0.085);
 
-  /* Brushed Satin Titanium Primary CTA (Calm, Cohesive, Zero Loud Blue!) */
-  --btn-primary-bg: linear-gradient(180deg, #eceef2 0%, #d5d8e0 100%);
-  --btn-primary-fg: #0c0d10;
-  --btn-primary-shadow: inset 0 1px 0 #ffffff, 0 4px 14px rgba(0, 0, 0, 0.45);
+  /* Brushed Sterling Silver / Chrome Chain Primary CTA */
+  --btn-primary-bg: linear-gradient(180deg, #f0f2f7 0%, #cfd4df 100%);
+  --btn-primary-fg: #08090c;
+  --btn-primary-shadow: inset 0 1px 0 #ffffff, 0 4px 14px rgba(0, 0, 0, 0.55);
 
   /* Muted, Desaturated Semantic Micro-Tones */
   --tesla-red: #d4545d;
@@ -211,17 +211,26 @@ svg {
 }
 
 .brand-mark {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
   background: var(--bg-subtle);
-  border: 1px solid var(--border-strong);
-  box-shadow: var(--specular-rim);
+  border: 1.5px solid var(--border-strong);
+  box-shadow: var(--specular-rim), 0 3px 10px rgba(0, 0, 0, 0.35);
   color: var(--text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+.brand-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .header-titles {
@@ -394,15 +403,27 @@ svg {
 /* --- Monochromatic Executive Hero Bento Card (Today Tab) --- */
 .hero-bento-card {
   background:
-    radial-gradient(circle at 88% 18%, rgba(255, 255, 255, 0.04) 0%, transparent 65%),
+    radial-gradient(circle at 88% 18%, rgba(255, 255, 255, 0.05) 0%, transparent 65%),
     var(--bg-surface);
   border: 1px solid var(--border-hairline);
   border-radius: var(--radius-lg);
   padding: 16px 17px 14px;
   margin-bottom: 12px;
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--specular-rim), var(--shadow-card);
   position: relative;
   overflow: hidden;
+}
+
+.tattoo-compass-watermark {
+  position: absolute;
+  top: -16px;
+  right: -16px;
+  width: 146px;
+  height: 146px;
+  color: var(--text-primary);
+  opacity: 0.045;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .hero-top {
@@ -765,11 +786,11 @@ svg {
   color: var(--text-primary);
 }
 
-/* --- Role Model Vision Board (Physique & Charisma Bento Showcase) --- */
+/* --- Role Model Vision Board (4-Card Vertical Jay Park Ink & Charisma Deck) --- */
 .vision-bento-grid {
   display: grid;
-  grid-template-columns: 1.28fr 1fr 1fr;
-  grid-template-rows: 80px 80px;
+  grid-template-columns: 1.24fr 1fr 1fr 1fr;
+  grid-template-rows: 148px;
   gap: 6px;
   margin-bottom: 14px;
   width: 100%;
@@ -781,7 +802,7 @@ svg {
   overflow: hidden;
   border: 1px solid var(--border-hairline);
   background: var(--bg-surface);
-  box-shadow: var(--shadow-card);
+  box-shadow: var(--specular-rim), var(--shadow-card);
   cursor: pointer;
   min-width: 0;
   padding: 0;
@@ -798,7 +819,8 @@ svg {
 }
 
 .vision-card.is-featured {
-  grid-row: span 2;
+  grid-row: span 1;
+  border-color: var(--border-strong);
 }
 
 .vision-card-img {
@@ -806,12 +828,12 @@ svg {
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: contrast(1.03) saturate(0.96);
+  filter: contrast(1.05) saturate(0.95);
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), filter 0.3s ease;
 }
 
 .vision-bento-grid.mono-tone .vision-card-img {
-  filter: grayscale(100%) contrast(1.1);
+  filter: grayscale(100%) contrast(1.12);
 }
 
 .vision-card:hover .vision-card-img {
@@ -821,8 +843,8 @@ svg {
 .vision-card-caption {
   position: absolute;
   inset: auto 0 0 0;
-  padding: 18px 8px 6px;
-  background: linear-gradient(to top, rgba(8, 9, 12, 0.88) 0%, rgba(8, 9, 12, 0.38) 58%, transparent 100%);
+  padding: 22px 6px 6px;
+  background: linear-gradient(to top, rgba(6, 7, 10, 0.92) 0%, rgba(6, 7, 10, 0.42) 58%, transparent 100%);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -830,13 +852,13 @@ svg {
 }
 
 .vision-card-pill {
-  font-size: 0.5rem;
+  font-size: 0.48rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: #eceef2;
-  background: rgba(18, 19, 24, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  padding: 1.5px 6px;
+  color: #f0f2f7;
+  background: rgba(15, 16, 20, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 1.5px 5px;
   border-radius: 99px;
   margin-bottom: 3px;
   backdrop-filter: blur(6px);
@@ -844,7 +866,7 @@ svg {
 }
 
 .vision-card-title {
-  font-size: 0.63rem;
+  font-size: 0.62rem;
   font-weight: 600;
   color: #f5f6f8;
   line-height: 1.2;
@@ -855,12 +877,12 @@ svg {
 }
 
 .vision-card.is-featured .vision-card-title {
-  font-size: 0.73rem;
+  font-size: 0.68rem;
   font-weight: 700;
 }
 
 .vision-card-sub {
-  font-size: 0.58rem;
+  font-size: 0.55rem;
   color: rgba(236, 238, 242, 0.78);
   margin-top: 1px;
   white-space: nowrap;
@@ -1023,7 +1045,7 @@ svg {
 
 .vision-thumbs-row {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 6px;
 }
 
