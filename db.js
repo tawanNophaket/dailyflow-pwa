@@ -198,7 +198,7 @@ function createStarterData() {
     habits: [
       {
         id: generateId('hab'),
-        title: 'ดื่มน้ำเปล่าครบ 8 แก้ว (2 ลิตร)',
+        title: 'ดื่มน้ำเปล่า 8 แก้ว (2 ลิตร)',
         icon: 'hydration',
         color: '#3e6ae1',
         frequencyDays: [0, 1, 2, 3, 4, 5, 6],
@@ -207,7 +207,7 @@ function createStarterData() {
       },
       {
         id: generateId('hab'),
-        title: 'ออกกำลังกาย / ขยับร่างกาย 30 นาที',
+        title: 'ออกกำลังกาย 30 นาที',
         icon: 'fitness',
         color: '#e31937',
         frequencyDays: [1, 3, 5, 6],
@@ -216,7 +216,7 @@ function createStarterData() {
       },
       {
         id: generateId('hab'),
-        title: 'อ่านหนังสือหรือฟังพอดแคสต์ 20 นาที',
+        title: 'อ่านหนังสือ 20 นาที',
         icon: 'reading',
         color: '#10b981',
         frequencyDays: [0, 1, 2, 3, 4, 5, 6],
@@ -225,7 +225,7 @@ function createStarterData() {
       },
       {
         id: generateId('hab'),
-        title: 'เข้านอนก่อน 23:30 น. (งดไถมือถือก่อนนอน)',
+        title: 'เข้านอนก่อน 23:30 น.',
         icon: 'sleep',
         color: '#f59e0b',
         frequencyDays: [0, 1, 2, 3, 4, 5, 6],
