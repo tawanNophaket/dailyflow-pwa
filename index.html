@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=6" />
+  <link rel="stylesheet" href="styles.css?v=7" />
 </head>
 <body>
   <div class="toast-container" id="toast-container"></div>
@@ -95,21 +95,23 @@
       <!-- ==================== TAB 1: TODAY ==================== -->
       <section class="tab-view active" id="view-today">
         <div class="hero-bento-card">
-          <div class="hero-ambient-glow" aria-hidden="true"></div>
           <div class="hero-top">
             <div class="hero-copy">
-              <div class="hero-eyebrow">
-                <span class="status-led"></span>
-                <span id="today-eyebrow">วันพุธที่ 21 ตุลาคม 2026</span>
+              <div class="hero-eyebrow-row">
+                <div class="hero-eyebrow">
+                  <span class="status-led"></span>
+                  <span id="today-eyebrow">วันพุธที่ 21 ตุลาคม 2026</span>
+                </div>
+                <button type="button" class="today-reset-pill" id="btn-hero-reset-today" style="display:none;">กลับมาวันนี้</button>
               </div>
-              <div class="hero-greeting" id="today-greeting">สวัสดีครับ</div>
+              <div class="hero-greeting" id="today-greeting">สวัสดีตอนเย็น</div>
               <div class="hero-date-full" id="today-full-date">โฟกัสเป้าหมายสำคัญประจำวัน</div>
             </div>
             <div class="progress-ring-wrap">
               <svg class="progress-ring-svg" viewBox="0 0 88 88">
                 <defs>
                   <linearGradient id="telemetryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#e4e6eb" />
+                    <stop offset="0%" stop-color="#f0f1f4" />
                     <stop offset="100%" stop-color="#8e94a4" />
                   </linearGradient>
                 </defs>
@@ -118,15 +120,16 @@
               </svg>
               <div class="progress-ring-center">
                 <span class="progress-ring-text" id="today-overall-pill">0%</span>
-                <span class="progress-ring-sub">PROGRESS</span>
+                <span class="progress-ring-sub">DONE</span>
               </div>
             </div>
           </div>
 
+          <!-- Compact Inline Telemetry Bars -->
           <div class="hero-metrics">
             <div class="hero-metric-box">
               <div class="hero-metric-label">
-                <span>งานวันนี้</span>
+                <span>งานที่สำเร็จ</span>
                 <strong id="hero-todo-count">0/0</strong>
               </div>
               <div class="hero-progress-track">
@@ -135,7 +138,7 @@
             </div>
             <div class="hero-metric-box">
               <div class="hero-metric-label">
-                <span>นิสัยวันนี้</span>
+                <span>เช็คอินนิสัย</span>
                 <strong id="hero-habit-count">0/0</strong>
               </div>
               <div class="hero-progress-track">
@@ -143,29 +146,36 @@
               </div>
             </div>
           </div>
+
+          <!-- Interactive 7-Day Week Scrubber Strip -->
+          <div class="hero-week-scrubber" id="hero-week-scrubber" aria-label="เลือกวันในสัปดาห์"></div>
         </div>
 
-        <!-- Quick Capture Bar -->
+        <!-- Smart Quick Capture Bar (Title + Inline Priority & Time) -->
         <form class="quick-add-box" id="quick-add-todo-form">
           <span class="quick-add-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="12" y1="5" x2="12" y2="19"></line>
               <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>
           </span>
-          <input type="text" id="quick-add-todo-input" placeholder="เพิ่มงานด่วนสำหรับวันนี้..." autocomplete="off" />
+          <input type="text" id="quick-add-todo-input" placeholder="เพิ่มงานด่วน..." autocomplete="off" />
+          <button type="button" class="quick-meta-btn" id="btn-quick-prio" title="เปลี่ยนระดับความสำคัญ">
+            <span class="prio-dot medium" id="quick-prio-dot"></span>
+            <span id="quick-prio-label">ปกติ</span>
+          </button>
           <button type="submit" class="btn-primary-sm">เพิ่ม</button>
         </form>
 
         <!-- Today's Habits Quick Check-in -->
         <div class="section-header">
           <div class="section-title">
-            <span>นิสัยประจำวัน</span>
+            <span id="today-habits-heading">นิสัยประจำวัน</span>
             <span class="section-badge" id="today-habits-badge">0/0</span>
           </div>
           <div style="display:flex; align-items:center; gap:12px;">
             <button type="button" class="section-link" id="btn-today-new-habit">+ เพิ่มนิสัย</button>
-            <button type="button" class="section-link" data-goto-tab="habits">ดูทั้งหมด →</button>
+            <button type="button" class="section-link" data-goto-tab="habits">ทั้งหมด →</button>
           </div>
         </div>
         <div class="today-habits-grid" id="today-habits-container"></div>
@@ -173,10 +183,13 @@
         <!-- Today's & Overdue Tasks -->
         <div class="section-header">
           <div class="section-title">
-            <span>รายการงานวันนี้</span>
+            <span id="today-todos-heading">ตารางงาน & โฟกัส</span>
             <span class="section-badge" id="today-todos-badge">0</span>
           </div>
-          <button type="button" class="section-link" data-goto-tab="todos">จัดการงาน →</button>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <button type="button" class="section-link" id="btn-today-new-todo">+ เพิ่มงาน</button>
+            <button type="button" class="section-link" data-goto-tab="todos">ทั้งหมด →</button>
+          </div>
         </div>
         <div class="todo-list" id="today-todos-container"></div>
       </section>
@@ -631,7 +644,7 @@
     </div>
   </div>
 
-  <script src="db.js?v=6"></script>
-  <script src="app.js?v=6"></script>
+  <script src="db.js?v=7"></script>
+  <script src="app.js?v=7"></script>
 </body>
 </html>
