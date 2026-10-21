@@ -1,19 +1,25 @@
 {
-  "name": "DailyFlow — Personal Planner",
+  "name": "DailyFlow — Jay Park Edition",
   "short_name": "DailyFlow",
-  "description": "Minimal Clean Personal To-Do, Habits & Calendar",
+  "description": "Personal To-Do, Habits & Calendar — Jay Park Ink & Charisma Edition",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#09090b",
-  "theme_color": "#fbfbf9",
+  "background_color": "#07080a",
+  "theme_color": "#07080a",
   "lang": "th",
   "icons": [
     {
-      "src": "icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "assets/app-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/app-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]
