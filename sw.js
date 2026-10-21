@@ -1,10 +1,10 @@
-const CACHE_NAME = 'dailyflow-pwa-v6';
+const CACHE_NAME = 'dailyflow-pwa-v7';
 const ASSETS = [
   './',
   './index.html',
-  './styles.css?v=6',
-  './db.js?v=6',
-  './app.js?v=6',
+  './styles.css?v=7',
+  './db.js?v=7',
+  './app.js?v=7',
   './manifest.json',
   './icon.svg'
 ];
