@@ -1,64 +1,68 @@
 /* ==========================================================================
-   DailyFlow v5 — TESLA CYBER-LUXURY & LINEAR PRECISION EDITION
-   Atmospheric Studio Lighting • Anodized Glass Controls • Zero Visual Clutter
+   DailyFlow v6 — MONOCHROMATIC TITANIUM & QUIET LUXURY EDITION
+   Typography: Anuphan (Cadson Demak Loopless Thai) + Inter
+   Palette: Matte Obsidian, Brushed Titanium, Satin Silver & Muted Accents
    ========================================================================== */
 
 :root {
-  /* Light Mode — Titanium Pearl & Anodized Silver */
-  --bg-outer: #e4e7ec;
-  --bg-app: #f4f6f9;
-  --bg-app-glow:
-    radial-gradient(120% 40% at 50% -8%, rgba(59, 107, 249, 0.10) 0%, rgba(16, 185, 129, 0.04) 45%, transparent 78%);
-  --bg-surface: linear-gradient(165deg, #ffffff 0%, #f8fafc 100%);
+  /* Light Mode — Warm Alabaster Paper & Brushed Pewter */
+  --bg-outer: #e6e7eb;
+  --bg-app: #f7f7f5;
+  --bg-app-glow: radial-gradient(110% 35% at 50% 0%, rgba(20, 20, 24, 0.03) 0%, transparent 75%);
+  --bg-surface: #ffffff;
   --bg-surface-solid: #ffffff;
-  --bg-subtle: #edf0f5;
-  --bg-hover: #e2e6ee;
-  --bg-glass: rgba(244, 246, 249, 0.85);
-  --bg-dock: rgba(255, 255, 255, 0.90);
+  --bg-subtle: #f0f0ee;
+  --bg-hover: #e6e6e3;
+  --bg-glass: rgba(247, 247, 245, 0.88);
+  --bg-dock: rgba(255, 255, 255, 0.92);
 
-  --text-primary: #0c0e13;
-  --text-secondary: #525967;
-  --text-muted: #858d9d;
+  --text-primary: #121316;
+  --text-secondary: #5c606a;
+  --text-muted: #8c909b;
 
-  --border-hairline: rgba(12, 14, 19, 0.075);
-  --border-strong: rgba(12, 14, 19, 0.15);
-  --specular-rim: inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  --border-hairline: rgba(18, 19, 22, 0.075);
+  --border-strong: rgba(18, 19, 22, 0.16);
+  --specular-rim: inset 0 1px 0 rgba(255, 255, 255, 0.9);
 
-  /* Illuminated Metallic & Anodized Accents */
-  --btn-primary-bg: linear-gradient(135deg, #2557e8 0%, #1d44bd 100%);
+  /* Monochromatic Carbon Primary Controls (Light Mode) */
+  --btn-primary-bg: linear-gradient(180deg, #23252b 0%, #141519 100%);
   --btn-primary-fg: #ffffff;
-  --btn-primary-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 4px 14px rgba(37, 87, 232, 0.28);
+  --btn-primary-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 4px 12px rgba(18, 19, 22, 0.14);
 
-  --tesla-red: #e31937;
-  --tesla-red-soft: rgba(227, 25, 55, 0.10);
-  --tesla-blue: #2557e8;
-  --tesla-blue-soft: rgba(37, 87, 232, 0.10);
-  --emerald: #059669;
-  --emerald-bright: #10b981;
-  --emerald-soft: rgba(16, 185, 129, 0.11);
-  --amber: #d97706;
-  --amber-soft: rgba(217, 119, 6, 0.11);
+  /* Muted, Desaturated Semantic Micro-Tones (Never Neon!) */
+  --tesla-red: #bf434c;
+  --tesla-red-soft: rgba(191, 67, 76, 0.09);
+  --tesla-blue: #3d4352;
+  --tesla-blue-soft: rgba(61, 67, 82, 0.08);
+  --emerald: #3b7d63;
+  --emerald-bright: #3b7d63;
+  --emerald-soft: rgba(59, 125, 99, 0.10);
+  --amber: #b57c36;
+  --amber-soft: rgba(181, 124, 54, 0.10);
 
-  /* Active Chip / Matrix Surfaces in Light Mode */
-  --chip-active-bg: linear-gradient(135deg, #161922 0%, #0c0e13 100%);
-  --chip-active-border: #0c0e13;
+  /* Active Chip & Matrix Surfaces (Light Mode) */
+  --chip-active-bg: #18191e;
+  --chip-active-border: #18191e;
   --chip-active-fg: #ffffff;
 
-  --habit-done-card-bg: linear-gradient(155deg, rgba(16, 185, 129, 0.09) 0%, #ffffff 70%);
-  --habit-done-card-border: rgba(16, 185, 129, 0.38);
-  --matrix-checked-bg: linear-gradient(145deg, #10b981 0%, #059669 100%);
-  --matrix-checked-border: #059669;
+  --habit-done-card-bg: #ffffff;
+  --habit-done-card-border: rgba(18, 19, 22, 0.18);
+  --habit-done-icon-bg: #18191e;
+  --habit-done-icon-fg: #ffffff;
+
+  --matrix-checked-bg: #1c1e24;
+  --matrix-checked-border: #1c1e24;
   --matrix-checked-fg: #ffffff;
 
   /* Elevation */
-  --shadow-card: var(--specular-rim), 0 2px 6px rgba(12, 14, 19, 0.035), 0 10px 24px rgba(12, 14, 19, 0.035);
-  --shadow-dock: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 14px 36px rgba(12, 14, 19, 0.12);
-  --shadow-modal: 0 -16px 48px rgba(0, 0, 0, 0.16);
+  --shadow-card: 0 1px 3px rgba(18, 19, 22, 0.03), 0 6px 16px rgba(18, 19, 22, 0.025);
+  --shadow-dock: 0 12px 32px rgba(18, 19, 22, 0.10), 0 1px 3px rgba(18, 19, 22, 0.05);
+  --shadow-modal: 0 -14px 44px rgba(0, 0, 0, 0.14);
 
   --radius-xs: 8px;
   --radius-sm: 12px;
-  --radius-md: 18px;
-  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
   --radius-full: 9999px;
 
   --safe-top: env(safe-area-inset-top, 0px);
@@ -66,58 +70,61 @@
 }
 
 [data-theme="dark"] {
-  /* Dark Mode — Signature Tesla Obsidian Carbon & Studio Spotlight */
-  --bg-outer: #020305;
-  --bg-app: #07080c;
-  --bg-app-glow:
-    radial-gradient(125% 42% at 50% -6%, rgba(59, 107, 249, 0.20) 0%, rgba(16, 185, 129, 0.06) 45%, transparent 78%);
-  --bg-surface: linear-gradient(165deg, rgba(24, 28, 38, 0.92) 0%, rgba(13, 15, 21, 0.96) 100%);
-  --bg-surface-solid: #12151e;
-  --bg-subtle: rgba(10, 12, 17, 0.78);
-  --bg-hover: #1e2330;
-  --bg-glass: rgba(7, 8, 12, 0.80);
-  --bg-dock: rgba(16, 19, 27, 0.86);
+  /* Dark Mode — Monochromatic Matte Obsidian & Brushed Titanium (Tesla / Linear Style) */
+  --bg-outer: #050507;
+  --bg-app: #0a0b0d;
+  --bg-app-glow: radial-gradient(110% 35% at 50% 0%, rgba(255, 255, 255, 0.04) 0%, transparent 72%);
+  --bg-surface: linear-gradient(180deg, #141519 0%, #111216 100%);
+  --bg-surface-solid: #141519;
+  --bg-subtle: #191b20;
+  --bg-hover: #22252c;
+  --bg-glass: rgba(10, 11, 13, 0.84);
+  --bg-dock: rgba(19, 20, 25, 0.90);
 
-  --text-primary: #f6f8fb;
-  --text-secondary: #929bb0;
-  --text-muted: #586174;
+  --text-primary: #f0f1f4;
+  --text-secondary: #8f94a0;
+  --text-muted: #5b606d;
 
-  --border-hairline: rgba(255, 255, 255, 0.075);
-  --border-strong: rgba(255, 255, 255, 0.16);
-  --specular-rim: inset 0 1px 0 rgba(255, 255, 255, 0.095);
+  --border-hairline: rgba(255, 255, 255, 0.068);
+  --border-strong: rgba(255, 255, 255, 0.15);
+  --specular-rim: inset 0 1px 0 rgba(255, 255, 255, 0.065);
 
-  /* Illuminated Cobalt-Titanium Primary Controls (No Harsh White Blocks!) */
-  --btn-primary-bg: linear-gradient(135deg, #4b7bff 0%, #2751d9 100%);
-  --btn-primary-fg: #ffffff;
-  --btn-primary-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.32), 0 6px 18px rgba(47, 94, 240, 0.36);
+  /* Brushed Satin Titanium Primary CTA (Calm, Cohesive, Zero Loud Blue!) */
+  --btn-primary-bg: linear-gradient(180deg, #eceef2 0%, #d5d8e0 100%);
+  --btn-primary-fg: #0c0d10;
+  --btn-primary-shadow: inset 0 1px 0 #ffffff, 0 4px 14px rgba(0, 0, 0, 0.45);
 
-  --tesla-red: #ff2e4c;
-  --tesla-red-soft: rgba(255, 46, 76, 0.14);
-  --tesla-blue: #5282ff;
-  --tesla-blue-soft: rgba(82, 130, 255, 0.15);
-  --emerald: #10b981;
-  --emerald-bright: #34d399;
-  --emerald-soft: rgba(16, 185, 129, 0.15);
-  --amber: #fbbf24;
-  --amber-soft: rgba(251, 191, 36, 0.14);
+  /* Muted, Desaturated Semantic Micro-Tones */
+  --tesla-red: #d4545d;
+  --tesla-red-soft: rgba(212, 84, 93, 0.12);
+  --tesla-blue: #b8beca;
+  --tesla-blue-soft: rgba(255, 255, 255, 0.07);
+  --emerald: #529478;
+  --emerald-bright: #68ab8e;
+  --emerald-soft: rgba(82, 148, 120, 0.13);
+  --amber: #c9964c;
+  --amber-soft: rgba(201, 150, 76, 0.12);
 
-  /* Active Chip & Matrix Surfaces in Dark Mode (Anodized Glowing Glass) */
-  --chip-active-bg: linear-gradient(135deg, rgba(82, 130, 255, 0.28) 0%, rgba(43, 84, 219, 0.14) 100%);
-  --chip-active-border: rgba(82, 130, 255, 0.65);
-  --chip-active-fg: #ffffff;
+  /* Active Chip & Matrix Surfaces in Dark Mode (Anodized Gunmetal — Not Stark White!) */
+  --chip-active-bg: #252830;
+  --chip-active-border: rgba(255, 255, 255, 0.22);
+  --chip-active-fg: #f2f3f5;
 
-  --habit-done-card-bg: linear-gradient(155deg, rgba(16, 185, 129, 0.15) 0%, rgba(14, 17, 24, 0.96) 72%);
-  --habit-done-card-border: rgba(16, 185, 129, 0.45);
-  --matrix-checked-bg: linear-gradient(165deg, rgba(16, 185, 129, 0.28) 0%, rgba(5, 150, 105, 0.12) 100%);
-  --matrix-checked-border: rgba(52, 211, 153, 0.55);
-  --matrix-checked-fg: #34d399;
+  --habit-done-card-bg: linear-gradient(180deg, #181a20 0%, #131519 100%);
+  --habit-done-card-border: rgba(255, 255, 255, 0.17);
+  --habit-done-icon-bg: linear-gradient(180deg, #e8eaef 0%, #cfd3dc 100%);
+  --habit-done-icon-fg: #0c0d10;
 
-  --shadow-card: var(--specular-rim), 0 10px 28px rgba(0, 0, 0, 0.50);
-  --shadow-dock: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 18px 44px rgba(0, 0, 0, 0.80);
-  --shadow-modal: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 -18px 54px rgba(0, 0, 0, 0.85);
+  --matrix-checked-bg: #23262f;
+  --matrix-checked-border: rgba(255, 255, 255, 0.22);
+  --matrix-checked-fg: #eef0f4;
+
+  --shadow-card: var(--specular-rim), 0 8px 22px rgba(0, 0, 0, 0.42);
+  --shadow-dock: inset 0 1px 0 rgba(255, 255, 255, 0.10), 0 16px 40px rgba(0, 0, 0, 0.78);
+  --shadow-modal: inset 0 1px 0 rgba(255, 255, 255, 0.10), 0 -16px 50px rgba(0, 0, 0, 0.82);
 }
 
-/* --- Base Reset & Precision Typography --- */
+/* --- Base Reset & Anuphan + Inter Precision Typography --- */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -127,11 +134,11 @@
 
 html, body {
   height: 100%;
-  font-family: 'Plus Jakarta Sans', 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Inter', 'Anuphan', -apple-system, BlinkMacSystemFont, sans-serif;
   background-color: var(--bg-outer);
   color: var(--text-primary);
-  line-height: 1.48;
-  letter-spacing: -0.01em;
+  line-height: 1.5;
+  letter-spacing: -0.008em;
   font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -180,7 +187,7 @@ svg {
   }
 }
 
-/* --- Top Header (Cockpit Status Bar) --- */
+/* --- Top Header (Minimal Executive Cockpit) --- */
 .top-header {
   position: sticky;
   top: 0;
@@ -204,18 +211,17 @@ svg {
 }
 
 .brand-mark {
-  width: 36px;
-  height: 36px;
-  border-radius: 11px;
-  background: linear-gradient(145deg, rgba(82, 130, 255, 0.22) 0%, rgba(16, 185, 129, 0.12) 100%);
-  border: 1px solid rgba(82, 130, 255, 0.42);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 4px 14px rgba(59, 107, 249, 0.2);
-  color: var(--tesla-blue);
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--specular-rim);
+  color: var(--text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  position: relative;
 }
 
 .header-titles {
@@ -223,17 +229,17 @@ svg {
 }
 
 .header-titles h1 {
-  font-size: 0.94rem;
-  font-weight: 800;
+  font-size: 0.90rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   line-height: 1.15;
 }
 
 .header-subtitle {
-  font-size: 0.63rem;
+  font-size: 0.62rem;
   color: var(--text-secondary);
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-top: 2px;
@@ -244,11 +250,10 @@ svg {
 }
 
 .live-pulse-dot {
-  width: 5.5px;
-  height: 5.5px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: var(--emerald-bright);
-  box-shadow: 0 0 8px var(--emerald-bright);
   flex-shrink: 0;
 }
 
@@ -260,9 +265,9 @@ svg {
 }
 
 .icon-btn {
-  width: 37px;
-  height: 37px;
-  border-radius: 11px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   background: var(--bg-surface);
   border: 1px solid var(--border-hairline);
   box-shadow: var(--specular-rim);
@@ -283,11 +288,10 @@ svg {
   position: absolute;
   top: 7px;
   right: 7px;
-  width: 6.5px;
-  height: 6.5px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: var(--tesla-red);
-  box-shadow: 0 0 8px var(--tesla-red);
   display: none;
 }
 
@@ -299,10 +303,10 @@ svg {
 .heads-up-alert {
   margin: 12px 18px 0;
   background: var(--bg-surface);
-  border: 1px solid var(--tesla-red);
+  border: 1px solid var(--border-strong);
   border-radius: var(--radius-md);
   padding: 14px;
-  box-shadow: 0 10px 30px rgba(227, 25, 55, 0.25);
+  box-shadow: var(--shadow-card);
   display: none;
   flex-direction: column;
   gap: 10px;
@@ -322,10 +326,10 @@ svg {
 
 .heads-up-tag {
   font-size: 0.64rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--tesla-red);
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -334,7 +338,7 @@ svg {
 
 .heads-up-title {
   font-size: 0.88rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text-primary);
 }
 
@@ -347,10 +351,10 @@ svg {
   flex: 1;
   padding: 8px 12px;
   border-radius: 9px;
-  background: var(--tesla-red);
-  color: #ffffff;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 600;
   text-align: center;
 }
 
@@ -362,7 +366,7 @@ svg {
   border: 1px solid var(--border-hairline);
   color: var(--text-secondary);
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 500;
   text-align: center;
 }
 
@@ -375,7 +379,7 @@ svg {
 
 .tab-view {
   display: none;
-  animation: viewEnter 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: viewEnter 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .tab-view.active {
@@ -383,16 +387,16 @@ svg {
 }
 
 @keyframes viewEnter {
-  from { opacity: 0; transform: translateY(5px); }
+  from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- Tesla Telemetry Hero Bento Card (Today Tab) --- */
+/* --- Monochromatic Executive Hero Bento Card (Today Tab) --- */
 .hero-bento-card {
   background:
-    radial-gradient(circle at 86% 22%, rgba(82, 130, 255, 0.18) 0%, rgba(16, 185, 129, 0.06) 42%, transparent 70%),
+    radial-gradient(circle at 88% 18%, rgba(255, 255, 255, 0.045) 0%, transparent 65%),
     var(--bg-surface);
-  border: 1px solid var(--border-strong);
+  border: 1px solid var(--border-hairline);
   border-radius: var(--radius-lg);
   padding: 20px;
   margin-bottom: 14px;
@@ -424,45 +428,44 @@ svg {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.69rem;
-  font-weight: 600;
+  font-size: 0.7rem;
+  font-weight: 500;
   color: var(--text-secondary);
   background: var(--bg-subtle);
   border: 1px solid var(--border-hairline);
   padding: 3px 10px;
   border-radius: var(--radius-full);
-  margin-bottom: 9px;
+  margin-bottom: 10px;
 }
 
 .status-led {
-  width: 6px;
-  height: 6px;
+  width: 5.5px;
+  height: 5.5px;
   border-radius: 50%;
   background: var(--emerald-bright);
-  box-shadow: 0 0 8px var(--emerald-bright);
   flex-shrink: 0;
 }
 
 .hero-greeting {
-  font-size: 1.44rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   color: var(--text-primary);
-  line-height: 1.15;
+  line-height: 1.2;
 }
 
 .hero-date-full {
-  font-size: 0.76rem;
+  font-size: 0.77rem;
   color: var(--text-secondary);
   margin-top: 4px;
-  font-weight: 500;
+  font-weight: 400;
 }
 
-/* Unclipped Dual-Gradient Telemetry Gauge Ring */
+/* Precision Titanium Telemetry Gauge Ring */
 .progress-ring-wrap {
   position: relative;
-  width: 82px;
-  height: 82px;
+  width: 80px;
+  height: 80px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -471,22 +474,22 @@ svg {
 
 .progress-ring-svg {
   transform: rotate(-90deg);
-  width: 82px;
-  height: 82px;
+  width: 80px;
+  height: 80px;
   overflow: visible;
 }
 
 .progress-ring-bg {
   fill: none;
   stroke: var(--border-hairline);
-  stroke-width: 6.5;
+  stroke-width: 5.5;
 }
 
 .progress-ring-value {
   fill: none;
-  stroke-width: 6.5;
+  stroke: var(--text-primary);
+  stroke-width: 5.5;
   stroke-linecap: round;
-  filter: drop-shadow(0 0 7px rgba(82, 130, 255, 0.45));
   transition: stroke-dashoffset 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -500,16 +503,16 @@ svg {
 }
 
 .progress-ring-text {
-  font-size: 0.94rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   color: var(--text-primary);
 }
 
 .progress-ring-sub {
-  font-size: 0.5rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-size: 0.46rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   color: var(--text-muted);
   margin-top: 3px;
 }
@@ -533,8 +536,8 @@ svg {
 }
 
 .hero-metric-label {
-  font-size: 0.71rem;
-  font-weight: 600;
+  font-size: 0.72rem;
+  font-weight: 500;
   color: var(--text-secondary);
   display: flex;
   justify-content: space-between;
@@ -544,12 +547,12 @@ svg {
 
 .hero-metric-label strong {
   color: var(--text-primary);
-  font-weight: 800;
-  font-size: 0.8rem;
+  font-weight: 700;
+  font-size: 0.78rem;
 }
 
 .hero-progress-track {
-  height: 5px;
+  height: 4px;
   background: var(--border-hairline);
   border-radius: 99px;
   overflow: hidden;
@@ -557,15 +560,13 @@ svg {
 
 .hero-progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #3b6bf9, #60a5fa);
+  background: var(--text-primary);
   border-radius: 99px;
-  box-shadow: 0 0 10px rgba(82, 130, 255, 0.55);
   transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hero-progress-fill.emerald-bar {
-  background: linear-gradient(90deg, #059669, #34d399);
-  box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+  background: var(--text-secondary);
 }
 
 /* --- Quick Capture Bar --- */
@@ -577,17 +578,17 @@ svg {
   background: var(--bg-surface);
   border: 1px solid var(--border-hairline);
   padding: 6px 6px 6px 14px;
-  border-radius: 15px;
+  border-radius: 14px;
   box-shadow: var(--shadow-card);
   transition: border-color 0.16s ease;
 }
 
 .quick-add-box:focus-within {
-  border-color: var(--tesla-blue);
+  border-color: var(--border-strong);
 }
 
 .quick-add-icon {
-  color: var(--tesla-blue);
+  color: var(--text-muted);
   display: flex;
 }
 
@@ -607,11 +608,10 @@ svg {
   background: var(--btn-primary-bg);
   color: var(--btn-primary-fg);
   box-shadow: var(--btn-primary-shadow);
-  font-weight: 700;
+  font-weight: 600;
   font-size: 0.75rem;
-  padding: 8px 15px;
-  border-radius: 11px;
-  letter-spacing: 0.01em;
+  padding: 7px 14px;
+  border-radius: 10px;
   transition: opacity 0.15s ease, transform 0.1s ease;
   white-space: nowrap;
   display: inline-flex;
@@ -621,8 +621,8 @@ svg {
 }
 
 .btn-primary-sm:active {
-  transform: scale(0.96);
-  opacity: 0.92;
+  transform: scale(0.97);
+  opacity: 0.9;
 }
 
 /* --- Section Headers --- */
@@ -630,15 +630,14 @@ svg {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 20px 0 11px;
+  margin: 20px 0 10px;
   gap: 8px;
 }
 
 .section-title {
-  font-size: 0.69rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  font-size: 0.73rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   color: var(--text-secondary);
   display: flex;
   align-items: center;
@@ -646,19 +645,18 @@ svg {
 }
 
 .section-badge {
-  font-size: 0.66rem;
-  font-weight: 700;
+  font-size: 0.67rem;
+  font-weight: 600;
   padding: 1px 8px;
   border-radius: var(--radius-full);
   background: var(--bg-subtle);
   color: var(--text-primary);
   border: 1px solid var(--border-hairline);
-  letter-spacing: 0;
 }
 
 .section-link {
   font-size: 0.74rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-secondary);
   display: inline-flex;
   align-items: center;
@@ -670,7 +668,7 @@ svg {
   color: var(--text-primary);
 }
 
-/* --- Today Habits Quick Grid (Vertical Tesla Vehicle-Control Bento Tiles!) --- */
+/* --- Today Habits Quick Grid (Monochromatic Titanium Control Tiles) --- */
 .today-habits-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -688,17 +686,16 @@ svg {
   flex-direction: column;
   justify-content: space-between;
   gap: 11px;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.18s ease;
   box-shadow: var(--shadow-card);
   text-align: left;
   width: 100%;
   min-width: 0;
   overflow: hidden;
-  position: relative;
 }
 
 .today-habit-tile:active {
-  transform: scale(0.98);
+  transform: scale(0.985);
 }
 
 .today-habit-tile.done {
@@ -715,40 +712,39 @@ svg {
 }
 
 .habit-tile-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 11px;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   background: var(--bg-subtle);
   border: 1px solid var(--border-hairline);
-  color: var(--tesla-blue);
-  transition: all 0.2s ease;
+  color: var(--text-secondary);
+  transition: all 0.18s ease;
 }
 
 .today-habit-tile.done .habit-tile-icon {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: #ffffff;
-  border-color: rgba(52, 211, 153, 0.6);
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+  background: var(--habit-done-icon-bg);
+  color: var(--habit-done-icon-fg);
+  border-color: transparent;
 }
 
 .habit-streak-pill {
   font-size: 0.65rem;
-  font-weight: 700;
+  font-weight: 600;
   padding: 2px 8px;
   border-radius: var(--radius-full);
   background: var(--bg-subtle);
   border: 1px solid var(--border-hairline);
-  color: var(--text-secondary);
+  color: var(--text-muted);
   white-space: nowrap;
 }
 
 .habit-streak-pill.done {
   background: var(--emerald-soft);
-  border-color: rgba(16, 185, 129, 0.4);
+  border-color: rgba(104, 171, 142, 0.28);
   color: var(--emerald-bright);
 }
 
@@ -759,17 +755,17 @@ svg {
 
 .habit-tile-title {
   font-size: 0.82rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text-primary);
-  line-height: 1.32;
+  line-height: 1.35;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-. habit-tile-streak, .habit-tile-streak {
-  font-size: 0.68rem;
-  color: var(--text-secondary);
+.habit-tile-streak {
+  font-size: 0.69rem;
+  color: var(--text-muted);
   margin-top: 2px;
   white-space: nowrap;
   overflow: hidden;
@@ -777,7 +773,7 @@ svg {
 }
 
 .today-habit-tile.done .habit-tile-streak {
-  color: var(--emerald-bright);
+  color: var(--text-secondary);
 }
 
 /* --- Filter Chips & Search Bar --- */
@@ -798,7 +794,7 @@ svg {
 }
 
 .search-input-wrap input:focus {
-  border-color: var(--tesla-blue);
+  border-color: var(--border-strong);
 }
 
 .search-input-wrap .search-icon {
@@ -829,7 +825,7 @@ svg {
   background: var(--bg-surface);
   border: 1px solid var(--border-hairline);
   font-size: 0.74rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-secondary);
   white-space: nowrap;
   transition: all 0.15s ease;
@@ -839,14 +835,14 @@ svg {
   background: var(--chip-active-bg);
   color: var(--chip-active-fg);
   border-color: var(--chip-active-border);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  font-weight: 600;
 }
 
-/* --- Linear-Grade Task Cards with Laser Priority Edge --- */
+/* --- Calm Architectural Task Cards (No Loud Neon Edge!) --- */
 .todo-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 9px;
   width: 100%;
 }
 
@@ -854,37 +850,11 @@ svg {
   background: var(--bg-surface);
   border: 1px solid var(--border-hairline);
   border-radius: var(--radius-md);
-  padding: 14px 14px 14px 17px;
+  padding: 14px;
   box-shadow: var(--shadow-card);
   transition: all 0.16s ease;
   width: 100%;
   min-width: 0;
-  position: relative;
-  overflow: hidden;
-}
-
-.todo-card::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 12px;
-  bottom: 12px;
-  width: 3.5px;
-  border-radius: 0 4px 4px 0;
-  background: var(--tesla-blue);
-}
-
-.todo-card.priority-high::before {
-  background: var(--tesla-red);
-  box-shadow: 0 0 10px var(--tesla-red);
-}
-
-.todo-card.priority-medium::before {
-  background: var(--amber);
-}
-
-.todo-card.priority-low::before {
-  background: var(--tesla-blue);
 }
 
 .todo-card:hover {
@@ -892,7 +862,7 @@ svg {
 }
 
 .todo-card.completed {
-  opacity: 0.55;
+  opacity: 0.5;
   box-shadow: none;
 }
 
@@ -904,35 +874,25 @@ svg {
 }
 
 .check-circle {
-  width: 21px;
-  height: 21px;
-  border-radius: 7px;
-  border: 1.6px solid var(--border-strong);
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 1.5px solid var(--border-strong);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  margin-top: 1px;
+  margin-top: 2px;
   transition: all 0.16s ease;
   background: var(--bg-subtle);
   color: transparent;
 }
 
-.todo-card.priority-high .check-circle:not(.checked) {
-  border-color: rgba(255, 46, 76, 0.75);
-  background: var(--tesla-red-soft);
-}
-
-.todo-card.priority-medium .check-circle:not(.checked) {
-  border-color: rgba(251, 191, 36, 0.75);
-}
-
 .todo-card.completed .check-circle,
 .check-circle.checked {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  border-color: #10b981;
-  color: #ffffff;
-  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.35);
+  background: var(--habit-done-icon-bg);
+  border-color: transparent;
+  color: var(--habit-done-icon-fg);
 }
 
 .todo-body {
@@ -942,11 +902,11 @@ svg {
 }
 
 .todo-title {
-  font-size: 0.88rem;
-  font-weight: 700;
+  font-size: 0.87rem;
+  font-weight: 600;
   color: var(--text-primary);
   word-break: break-word;
-  line-height: 1.36;
+  line-height: 1.4;
 }
 
 .todo-card.completed .todo-title {
@@ -957,7 +917,7 @@ svg {
 .todo-note {
   font-size: 0.75rem;
   color: var(--text-secondary);
-  margin-top: 3px;
+  margin-top: 2px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -975,9 +935,9 @@ svg {
 .meta-pill {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  font-size: 0.67rem;
-  font-weight: 600;
+  gap: 5px;
+  font-size: 0.68rem;
+  font-weight: 500;
   padding: 2px 8px;
   border-radius: 6px;
   background: var(--bg-subtle);
@@ -987,38 +947,36 @@ svg {
 
 .meta-pill.overdue {
   background: var(--tesla-red-soft);
-  border-color: rgba(255, 46, 76, 0.3);
+  border-color: rgba(212, 84, 93, 0.25);
   color: var(--tesla-red);
 }
 
 .meta-pill.today {
-  background: var(--tesla-blue-soft);
-  border-color: rgba(82, 130, 255, 0.3);
-  color: var(--tesla-blue);
-}
-
-.meta-pill.reminder-active {
   color: var(--text-primary);
   border-color: var(--border-strong);
 }
 
+.meta-pill.reminder-active {
+  color: var(--text-secondary);
+}
+
 .prio-dot {
-  width: 5.5px;
-  height: 5.5px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   display: inline-block;
   flex-shrink: 0;
 }
 
-.prio-dot.high { background: var(--tesla-red); box-shadow: 0 0 6px var(--tesla-red); }
+.prio-dot.high { background: var(--tesla-red); }
 .prio-dot.medium { background: var(--amber); }
-.prio-dot.low { background: var(--tesla-blue); }
+.prio-dot.low { background: var(--text-muted); }
 
-/* Subtasks inside Todo Card (Custom Emerald Checkboxes — Never Native White!) */
+/* Subtasks inside Todo Card */
 .subtasks-box {
   margin-top: 10px;
   padding-top: 9px;
-  padding-left: 33px;
+  padding-left: 32px;
   border-top: 1px solid var(--border-hairline);
   display: flex;
   flex-direction: column;
@@ -1043,8 +1001,8 @@ svg {
 .subtask-check {
   width: 15px;
   height: 15px;
-  border-radius: 5px;
-  border: 1.4px solid var(--border-strong);
+  border-radius: 4px;
+  border: 1.3px solid var(--border-strong);
   background: var(--bg-subtle);
   display: inline-flex;
   align-items: center;
@@ -1054,10 +1012,9 @@ svg {
 }
 
 .subtask-item.done .subtask-check {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  border-color: #10b981;
-  color: #ffffff;
-  box-shadow: 0 0 8px rgba(16, 185, 129, 0.35);
+  background: var(--matrix-checked-bg);
+  border-color: var(--matrix-checked-border);
+  color: var(--matrix-checked-fg);
 }
 
 .todo-actions {
@@ -1087,7 +1044,7 @@ svg {
   color: var(--tesla-red);
 }
 
-/* --- Habits Tab (Glowing Anodized 7-Day Consistency Matrix) --- */
+/* --- Habits Tab (Anodized Monochromatic 7-Day Consistency Matrix) --- */
 .stats-banner-row {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1106,16 +1063,14 @@ svg {
 }
 
 .stat-mini-value {
-  font-size: 1.18rem;
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-size: 1.16rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   color: var(--text-primary);
 }
 
 .stat-mini-label {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  font-size: 0.66rem;
   color: var(--text-secondary);
   margin-top: 3px;
 }
@@ -1123,7 +1078,7 @@ svg {
 .habit-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 11px;
 }
 
 .habit-card {
@@ -1153,23 +1108,23 @@ svg {
 }
 
 .habit-avatar {
-  width: 38px;
-  height: 38px;
-  border-radius: 11px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   background: var(--bg-subtle);
   border: 1px solid var(--border-hairline);
-  color: var(--tesla-blue);
+  color: var(--text-primary);
 }
 
 .habit-name {
-  font-size: 0.87rem;
-  font-weight: 700;
+  font-size: 0.86rem;
+  font-weight: 600;
   color: var(--text-primary);
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
 .habit-submeta {
@@ -1183,9 +1138,9 @@ svg {
 
 .habit-today-btn {
   padding: 7px 13px;
-  border-radius: 10px;
+  border-radius: 9px;
   font-size: 0.73rem;
-  font-weight: 700;
+  font-weight: 600;
   border: 1px solid var(--border-strong);
   background: var(--bg-subtle);
   color: var(--text-primary);
@@ -1197,13 +1152,12 @@ svg {
 }
 
 .habit-today-btn.done {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  border-color: #10b981;
-  color: #ffffff;
-  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.32);
+  background: var(--habit-done-icon-bg);
+  border-color: transparent;
+  color: var(--habit-done-icon-fg);
 }
 
-/* 7-Day Telemetry Matrix Strip (Anodized Emerald Pads instead of White Blocks) */
+/* 7-Day Telemetry Matrix Strip */
 .habit-week-strip {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
@@ -1221,20 +1175,20 @@ svg {
 }
 
 .week-day-label {
-  font-size: 0.63rem;
+  font-size: 0.64rem;
   color: var(--text-muted);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .week-day-btn {
   width: 34px;
   height: 34px;
-  border-radius: 10px;
+  border-radius: 9px;
   border: 1px solid var(--border-hairline);
   background: var(--bg-subtle);
   font-size: 0.73rem;
-  font-weight: 600;
-  color: var(--text-secondary);
+  font-weight: 500;
+  color: var(--text-muted);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1242,14 +1196,15 @@ svg {
 }
 
 .week-day-btn.today-ring {
-  border-color: var(--tesla-blue);
+  border-color: var(--border-strong);
+  color: var(--text-primary);
 }
 
 .week-day-btn.checked {
   background: var(--matrix-checked-bg) !important;
   color: var(--matrix-checked-fg) !important;
   border-color: var(--matrix-checked-border) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 2px 10px rgba(16, 185, 129, 0.18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .week-day-btn.unscheduled {
@@ -1284,20 +1239,19 @@ svg {
 }
 
 .heatmap-cell.active {
-  background: linear-gradient(135deg, #10b981, #059669) !important;
-  border-color: #34d399 !important;
-  box-shadow: 0 0 6px rgba(16, 185, 129, 0.35);
+  background: var(--text-primary) !important;
+  border-color: var(--text-primary) !important;
 }
 
 .heatmap-cell.is-today {
-  outline: 1.5px solid var(--tesla-blue);
+  outline: 1.5px solid var(--emerald-bright);
   outline-offset: 1px;
 }
 
 /* --- Unified Calendar Tab --- */
 .calendar-card {
   background: var(--bg-surface);
-  border: 1px solid var(--border-strong);
+  border: 1px solid var(--border-hairline);
   border-radius: var(--radius-lg);
   padding: 16px;
   box-shadow: var(--shadow-card);
@@ -1312,9 +1266,9 @@ svg {
 }
 
 .cal-month-title {
-  font-size: 0.96rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   color: var(--text-primary);
 }
 
@@ -1328,8 +1282,8 @@ svg {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   text-align: center;
-  font-size: 0.67rem;
-  font-weight: 700;
+  font-size: 0.68rem;
+  font-weight: 600;
   color: var(--text-muted);
   margin-bottom: 6px;
 }
@@ -1342,7 +1296,7 @@ svg {
 
 .cal-day-cell {
   min-height: 45px;
-  border-radius: 12px;
+  border-radius: 11px;
   padding: 5px 2px;
   display: flex;
   flex-direction: column;
@@ -1362,25 +1316,24 @@ svg {
 }
 
 .cal-day-cell.is-today {
-  border-color: rgba(82, 130, 255, 0.45);
-  background: rgba(82, 130, 255, 0.08);
+  border-color: var(--border-strong);
+  background: var(--bg-subtle);
 }
 
 .cal-day-cell.is-today .cal-day-num {
-  color: var(--tesla-blue);
-  font-weight: 800;
+  color: var(--text-primary);
+  font-weight: 700;
 }
 
 .cal-day-cell.is-selected {
-  background: var(--btn-primary-bg);
-  border-color: rgba(255, 255, 255, 0.25);
-  box-shadow: var(--btn-primary-shadow);
-  color: #ffffff;
+  background: var(--chip-active-bg);
+  border-color: var(--chip-active-border);
+  color: var(--chip-active-fg);
 }
 
 .cal-day-cell.is-selected .cal-day-num {
-  color: #ffffff !important;
-  font-weight: 800;
+  color: var(--chip-active-fg) !important;
+  font-weight: 700;
 }
 
 .cal-day-num {
@@ -1391,7 +1344,7 @@ svg {
   align-items: center;
   justify-content: center;
   font-size: 0.77rem;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .cal-dots-row {
@@ -1411,9 +1364,6 @@ svg {
 .cal-dot.todo-done { background: var(--text-muted); }
 .cal-dot.habit-done { background: var(--emerald-bright); }
 
-.cal-day-cell.is-selected .cal-dot.todo-pending { background: #ffffff; }
-.cal-day-cell.is-selected .cal-dot.habit-done { background: #6ee7b7; }
-
 .agenda-header-box {
   display: flex;
   align-items: center;
@@ -1424,8 +1374,7 @@ svg {
 
 .agenda-date-title {
   font-size: 0.92rem;
-  font-weight: 800;
-  letter-spacing: -0.015em;
+  font-weight: 700;
 }
 
 .agenda-sub-section {
@@ -1433,12 +1382,11 @@ svg {
 }
 
 .agenda-sub-title {
-  font-size: 0.68rem;
-  font-weight: 800;
+  font-size: 0.7rem;
+  font-weight: 600;
   color: var(--text-secondary);
   margin-bottom: 9px;
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
+  letter-spacing: 0.04em;
 }
 
 /* --- Settings & Backup Tab --- */
@@ -1453,7 +1401,7 @@ svg {
 
 .settings-group h3 {
   font-size: 0.86rem;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 4px;
   display: flex;
   align-items: center;
@@ -1461,7 +1409,7 @@ svg {
 }
 
 .settings-desc {
-  font-size: 0.74rem;
+  font-size: 0.75rem;
   color: var(--text-secondary);
   margin-bottom: 12px;
 }
@@ -1480,7 +1428,7 @@ svg {
   padding: 8px;
   border-radius: 8px;
   font-size: 0.74rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-secondary);
   text-align: center;
   transition: all 0.15s ease;
@@ -1490,6 +1438,7 @@ svg {
   background: var(--chip-active-bg);
   color: var(--chip-active-fg);
   border: 1px solid var(--chip-active-border);
+  font-weight: 600;
 }
 
 .settings-btn-grid {
@@ -1504,7 +1453,7 @@ svg {
   border: 1px solid var(--border-hairline);
   background: var(--bg-subtle);
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-primary);
   display: inline-flex;
   align-items: center;
@@ -1519,7 +1468,7 @@ svg {
 }
 
 .btn-danger-outline {
-  border-color: rgba(255, 46, 76, 0.35);
+  border-color: rgba(212, 84, 93, 0.3);
   color: var(--tesla-red);
   background: var(--tesla-red-soft);
 }
@@ -1573,8 +1522,8 @@ svg {
   background: var(--bg-dock);
   backdrop-filter: blur(26px);
   -webkit-backdrop-filter: blur(26px);
-  border: 1px solid var(--border-strong);
-  border-radius: 24px;
+  border: 1px solid var(--border-hairline);
+  border-radius: 22px;
   height: 62px;
   padding: 0 8px;
   display: grid;
@@ -1590,29 +1539,23 @@ svg {
   justify-content: center;
   gap: 3px;
   height: 48px;
-  border-radius: 15px;
+  border-radius: 14px;
   color: var(--text-muted);
-  font-size: 0.64rem;
-  font-weight: 600;
+  font-size: 0.65rem;
+  font-weight: 500;
   transition: all 0.16s ease;
-  position: relative;
 }
 
 .nav-item.active {
   color: var(--text-primary);
-  font-weight: 700;
-}
-
-.nav-item.active svg {
-  color: var(--tesla-blue);
-  filter: drop-shadow(0 0 6px rgba(82, 130, 255, 0.45));
+  font-weight: 600;
 }
 
 .nav-center-add {
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   margin: 0 auto;
-  border-radius: 14px;
+  border-radius: 13px;
   background: var(--btn-primary-bg);
   color: var(--btn-primary-fg);
   box-shadow: var(--btn-primary-shadow);
@@ -1685,8 +1628,7 @@ svg {
 
 .modal-title {
   font-size: 0.96rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-weight: 700;
 }
 
 .form-group {
@@ -1695,8 +1637,8 @@ svg {
 
 .form-label {
   display: block;
-  font-size: 0.72rem;
-  font-weight: 600;
+  font-size: 0.73rem;
+  font-weight: 500;
   color: var(--text-secondary);
   margin-bottom: 5px;
 }
@@ -1713,7 +1655,7 @@ svg {
 }
 
 .form-input:focus, .form-textarea:focus, .form-select:focus {
-  border-color: var(--tesla-blue);
+  border-color: var(--border-strong);
 }
 
 .form-row-2 {
@@ -1734,7 +1676,7 @@ svg {
   border: 1px solid var(--border-hairline);
   background: var(--bg-subtle);
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-secondary);
   display: flex;
   align-items: center;
@@ -1746,6 +1688,7 @@ svg {
   background: var(--chip-active-bg);
   border-color: var(--chip-active-border);
   color: var(--chip-active-fg);
+  font-weight: 600;
 }
 
 .weekday-btn {
@@ -1755,7 +1698,7 @@ svg {
   border: 1px solid var(--border-hairline);
   background: var(--bg-subtle);
   font-size: 0.74rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-secondary);
 }
 
@@ -1763,6 +1706,7 @@ svg {
   background: var(--chip-active-bg);
   border-color: var(--chip-active-border);
   color: var(--chip-active-fg);
+  font-weight: 600;
 }
 
 .icon-picker-grid {
@@ -1816,8 +1760,8 @@ svg {
 .btn-full {
   flex: 1;
   padding: 11px;
-  border-radius: 12px;
-  font-weight: 700;
+  border-radius: 11px;
+  font-weight: 600;
   font-size: 0.85rem;
   text-align: center;
 }
@@ -1871,7 +1815,7 @@ svg {
   padding: 9px 16px;
   border-radius: var(--radius-full);
   font-size: 0.76rem;
-  font-weight: 700;
+  font-weight: 600;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
   animation: toastIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
