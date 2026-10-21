@@ -1,12 +1,17 @@
-const CACHE_NAME = 'dailyflow-pwa-v7';
+const CACHE_NAME = 'dailyflow-pwa-v8';
 const ASSETS = [
   './',
   './index.html',
-  './styles.css?v=7',
-  './db.js?v=7',
-  './app.js?v=7',
+  './styles.css?v=8',
+  './db.js?v=8',
+  './app.js?v=8',
   './manifest.json',
-  './icon.svg'
+  './icon.svg',
+  './assets/role-model-1.jpg',
+  './assets/role-model-2.jpg',
+  './assets/role-model-3.jpg',
+  './assets/role-model-4.jpg',
+  './assets/role-model-5.jpg'
 ];
 
 self.addEventListener('install', (event) => {
