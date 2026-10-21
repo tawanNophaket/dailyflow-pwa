@@ -1,51 +1,64 @@
 /* ==========================================================================
-   DailyFlow — TESLA LUXURY OS EDITION (Mobile-First Precision UI)
-   Inspired by Tesla Mobile App, Model S Plaid Telemetry & Anodized Titanium
+   DailyFlow v5 — TESLA CYBER-LUXURY & LINEAR PRECISION EDITION
+   Atmospheric Studio Lighting • Anodized Glass Controls • Zero Visual Clutter
    ========================================================================== */
 
 :root {
-  /* Light Mode — Tesla Pearl White & Anodized Silver */
-  --bg-outer: #e5e7eb;
-  --bg-app: #f4f5f7;
-  --bg-app-glow: radial-gradient(ellipse 90% 28% at 50% 0%, rgba(62, 106, 225, 0.06), transparent 70%);
-  --bg-surface: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
+  /* Light Mode — Titanium Pearl & Anodized Silver */
+  --bg-outer: #e4e7ec;
+  --bg-app: #f4f6f9;
+  --bg-app-glow:
+    radial-gradient(120% 40% at 50% -8%, rgba(59, 107, 249, 0.10) 0%, rgba(16, 185, 129, 0.04) 45%, transparent 78%);
+  --bg-surface: linear-gradient(165deg, #ffffff 0%, #f8fafc 100%);
   --bg-surface-solid: #ffffff;
-  --bg-subtle: #eceef2;
-  --bg-hover: #e2e5eb;
-  --bg-glass: rgba(244, 245, 247, 0.86);
-  --bg-dock: rgba(255, 255, 255, 0.92);
+  --bg-subtle: #edf0f5;
+  --bg-hover: #e2e6ee;
+  --bg-glass: rgba(244, 246, 249, 0.85);
+  --bg-dock: rgba(255, 255, 255, 0.90);
 
-  --text-primary: #0f1115;
-  --text-secondary: #5a606d;
-  --text-muted: #8c93a0;
+  --text-primary: #0c0e13;
+  --text-secondary: #525967;
+  --text-muted: #858d9d;
 
-  --border-hairline: rgba(15, 17, 21, 0.08);
-  --border-strong: rgba(15, 17, 21, 0.16);
-  --specular-rim: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --border-hairline: rgba(12, 14, 19, 0.075);
+  --border-strong: rgba(12, 14, 19, 0.15);
+  --specular-rim: inset 0 1px 0 rgba(255, 255, 255, 0.95);
 
-  /* Primary Controls & Telemetry Accents */
-  --accent-primary: #111318;
-  --accent-primary-fg: #ffffff;
-  --accent-soft: rgba(17, 19, 24, 0.06);
+  /* Illuminated Metallic & Anodized Accents */
+  --btn-primary-bg: linear-gradient(135deg, #2557e8 0%, #1d44bd 100%);
+  --btn-primary-fg: #ffffff;
+  --btn-primary-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 4px 14px rgba(37, 87, 232, 0.28);
 
   --tesla-red: #e31937;
-  --tesla-red-soft: rgba(227, 25, 55, 0.11);
-  --tesla-blue: #3e6ae1;
-  --tesla-blue-soft: rgba(62, 106, 225, 0.11);
-  --emerald: #10b981;
-  --emerald-soft: rgba(16, 185, 129, 0.12);
-  --amber: #f59e0b;
-  --amber-soft: rgba(245, 158, 11, 0.12);
+  --tesla-red-soft: rgba(227, 25, 55, 0.10);
+  --tesla-blue: #2557e8;
+  --tesla-blue-soft: rgba(37, 87, 232, 0.10);
+  --emerald: #059669;
+  --emerald-bright: #10b981;
+  --emerald-soft: rgba(16, 185, 129, 0.11);
+  --amber: #d97706;
+  --amber-soft: rgba(217, 119, 6, 0.11);
+
+  /* Active Chip / Matrix Surfaces in Light Mode */
+  --chip-active-bg: linear-gradient(135deg, #161922 0%, #0c0e13 100%);
+  --chip-active-border: #0c0e13;
+  --chip-active-fg: #ffffff;
+
+  --habit-done-card-bg: linear-gradient(155deg, rgba(16, 185, 129, 0.09) 0%, #ffffff 70%);
+  --habit-done-card-border: rgba(16, 185, 129, 0.38);
+  --matrix-checked-bg: linear-gradient(145deg, #10b981 0%, #059669 100%);
+  --matrix-checked-border: #059669;
+  --matrix-checked-fg: #ffffff;
 
   /* Elevation */
-  --shadow-card: var(--specular-rim), 0 2px 6px rgba(15, 17, 21, 0.04), 0 8px 20px rgba(15, 17, 21, 0.03);
-  --shadow-dock: 0 14px 36px rgba(15, 17, 21, 0.12), 0 1px 3px rgba(15, 17, 21, 0.05);
-  --shadow-modal: 0 -14px 44px rgba(0, 0, 0, 0.18);
+  --shadow-card: var(--specular-rim), 0 2px 6px rgba(12, 14, 19, 0.035), 0 10px 24px rgba(12, 14, 19, 0.035);
+  --shadow-dock: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 14px 36px rgba(12, 14, 19, 0.12);
+  --shadow-modal: 0 -16px 48px rgba(0, 0, 0, 0.16);
 
   --radius-xs: 8px;
   --radius-sm: 12px;
-  --radius-md: 16px;
-  --radius-lg: 22px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
   --radius-full: 9999px;
 
   --safe-top: env(safe-area-inset-top, 0px);
@@ -53,41 +66,55 @@
 }
 
 [data-theme="dark"] {
-  /* Dark Mode — Signature Tesla Obsidian Carbon & Brushed Gunmetal */
-  --bg-outer: #030406;
-  --bg-app: #090a0d;
-  --bg-app-glow: radial-gradient(ellipse 95% 30% at 50% 0%, rgba(255, 255, 255, 0.055), transparent 72%);
-  --bg-surface: linear-gradient(180deg, #16181f 0%, #101217 100%);
-  --bg-surface-solid: #14161c;
-  --bg-subtle: #0c0e12;
-  --bg-hover: #1f222b;
-  --bg-glass: rgba(9, 10, 13, 0.84);
-  --bg-dock: rgba(18, 20, 26, 0.9);
+  /* Dark Mode — Signature Tesla Obsidian Carbon & Studio Spotlight */
+  --bg-outer: #020305;
+  --bg-app: #07080c;
+  --bg-app-glow:
+    radial-gradient(125% 42% at 50% -6%, rgba(59, 107, 249, 0.20) 0%, rgba(16, 185, 129, 0.06) 45%, transparent 78%);
+  --bg-surface: linear-gradient(165deg, rgba(24, 28, 38, 0.92) 0%, rgba(13, 15, 21, 0.96) 100%);
+  --bg-surface-solid: #12151e;
+  --bg-subtle: rgba(10, 12, 17, 0.78);
+  --bg-hover: #1e2330;
+  --bg-glass: rgba(7, 8, 12, 0.80);
+  --bg-dock: rgba(16, 19, 27, 0.86);
 
-  --text-primary: #f5f6f8;
-  --text-secondary: #8e95a5;
-  --text-muted: #555b69;
+  --text-primary: #f6f8fb;
+  --text-secondary: #929bb0;
+  --text-muted: #586174;
 
   --border-hairline: rgba(255, 255, 255, 0.075);
-  --border-strong: rgba(255, 255, 255, 0.17);
-  --specular-rim: inset 0 1px 0 rgba(255, 255, 255, 0.085);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --specular-rim: inset 0 1px 0 rgba(255, 255, 255, 0.095);
 
-  --accent-primary: #f5f6f8;
-  --accent-primary-fg: #090a0d;
-  --accent-soft: rgba(255, 255, 255, 0.08);
+  /* Illuminated Cobalt-Titanium Primary Controls (No Harsh White Blocks!) */
+  --btn-primary-bg: linear-gradient(135deg, #4b7bff 0%, #2751d9 100%);
+  --btn-primary-fg: #ffffff;
+  --btn-primary-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.32), 0 6px 18px rgba(47, 94, 240, 0.36);
 
-  --tesla-red: #ff2947;
-  --tesla-red-soft: rgba(255, 41, 71, 0.15);
-  --tesla-blue: #4e7cfe;
-  --tesla-blue-soft: rgba(78, 124, 254, 0.15);
+  --tesla-red: #ff2e4c;
+  --tesla-red-soft: rgba(255, 46, 76, 0.14);
+  --tesla-blue: #5282ff;
+  --tesla-blue-soft: rgba(82, 130, 255, 0.15);
   --emerald: #10b981;
+  --emerald-bright: #34d399;
   --emerald-soft: rgba(16, 185, 129, 0.15);
   --amber: #fbbf24;
-  --amber-soft: rgba(251, 191, 36, 0.15);
+  --amber-soft: rgba(251, 191, 36, 0.14);
 
-  --shadow-card: var(--specular-rim), 0 8px 24px rgba(0, 0, 0, 0.48);
-  --shadow-dock: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 16px 40px rgba(0, 0, 0, 0.75);
-  --shadow-modal: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 -16px 52px rgba(0, 0, 0, 0.8);
+  /* Active Chip & Matrix Surfaces in Dark Mode (Anodized Glowing Glass) */
+  --chip-active-bg: linear-gradient(135deg, rgba(82, 130, 255, 0.28) 0%, rgba(43, 84, 219, 0.14) 100%);
+  --chip-active-border: rgba(82, 130, 255, 0.65);
+  --chip-active-fg: #ffffff;
+
+  --habit-done-card-bg: linear-gradient(155deg, rgba(16, 185, 129, 0.15) 0%, rgba(14, 17, 24, 0.96) 72%);
+  --habit-done-card-border: rgba(16, 185, 129, 0.45);
+  --matrix-checked-bg: linear-gradient(165deg, rgba(16, 185, 129, 0.28) 0%, rgba(5, 150, 105, 0.12) 100%);
+  --matrix-checked-border: rgba(52, 211, 153, 0.55);
+  --matrix-checked-fg: #34d399;
+
+  --shadow-card: var(--specular-rim), 0 10px 28px rgba(0, 0, 0, 0.50);
+  --shadow-dock: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 18px 44px rgba(0, 0, 0, 0.80);
+  --shadow-modal: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 -18px 54px rgba(0, 0, 0, 0.85);
 }
 
 /* --- Base Reset & Precision Typography --- */
@@ -144,12 +171,12 @@ svg {
   flex-direction: column;
   overflow-x: hidden;
   padding-top: var(--safe-top);
-  padding-bottom: calc(100px + var(--safe-bottom));
+  padding-bottom: calc(108px + var(--safe-bottom));
 }
 
 @media (min-width: 520px) {
   .app-shell {
-    box-shadow: 0 0 0 1px var(--border-hairline), 0 28px 70px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 0 0 1px var(--border-hairline), 0 28px 70px rgba(0, 0, 0, 0.45);
   }
 }
 
@@ -159,8 +186,8 @@ svg {
   top: 0;
   z-index: 30;
   background: var(--bg-glass);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border-bottom: 1px solid var(--border-hairline);
   padding: 13px 18px;
   display: flex;
@@ -177,30 +204,18 @@ svg {
 }
 
 .brand-mark {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-strong);
-  box-shadow: var(--shadow-card);
-  color: var(--text-primary);
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
+  background: linear-gradient(145deg, rgba(82, 130, 255, 0.22) 0%, rgba(16, 185, 129, 0.12) 100%);
+  border: 1px solid rgba(82, 130, 255, 0.42);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 4px 14px rgba(59, 107, 249, 0.2);
+  color: var(--tesla-blue);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   position: relative;
-}
-
-.brand-mark::after {
-  content: '';
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--tesla-red);
-  box-shadow: 0 0 6px var(--tesla-red);
 }
 
 .header-titles {
@@ -211,31 +226,43 @@ svg {
   font-size: 0.94rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   line-height: 1.15;
 }
 
 .header-subtitle {
-  font-size: 0.7rem;
+  font-size: 0.63rem;
   color: var(--text-secondary);
-  font-weight: 500;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   margin-top: 2px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+}
+
+.live-pulse-dot {
+  width: 5.5px;
+  height: 5.5px;
+  border-radius: 50%;
+  background: var(--emerald-bright);
+  box-shadow: 0 0 8px var(--emerald-bright);
+  flex-shrink: 0;
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   flex-shrink: 0;
 }
 
 .icon-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
+  width: 37px;
+  height: 37px;
+  border-radius: 11px;
   background: var(--bg-surface);
   border: 1px solid var(--border-hairline);
   box-shadow: var(--specular-rim);
@@ -254,10 +281,10 @@ svg {
 
 .notif-badge-dot {
   position: absolute;
-  top: 6px;
-  right: 6px;
-  width: 7px;
-  height: 7px;
+  top: 7px;
+  right: 7px;
+  width: 6.5px;
+  height: 6.5px;
   border-radius: 50%;
   background: var(--tesla-red);
   box-shadow: 0 0 8px var(--tesla-red);
@@ -274,8 +301,8 @@ svg {
   background: var(--bg-surface);
   border: 1px solid var(--tesla-red);
   border-radius: var(--radius-md);
-  padding: 13px 14px;
-  box-shadow: 0 8px 28px rgba(227, 25, 55, 0.22);
+  padding: 14px;
+  box-shadow: 0 10px 30px rgba(227, 25, 55, 0.25);
   display: none;
   flex-direction: column;
   gap: 10px;
@@ -342,13 +369,13 @@ svg {
 /* --- Main View Content --- */
 .main-content {
   flex: 1;
-  padding: 16px 18px 24px;
+  padding: 16px 18px 28px;
   width: 100%;
 }
 
 .tab-view {
   display: none;
-  animation: viewEnter 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: viewEnter 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .tab-view.active {
@@ -356,14 +383,16 @@ svg {
 }
 
 @keyframes viewEnter {
-  from { opacity: 0; transform: translateY(4px); }
+  from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 /* --- Tesla Telemetry Hero Bento Card (Today Tab) --- */
 .hero-bento-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-hairline);
+  background:
+    radial-gradient(circle at 86% 22%, rgba(82, 130, 255, 0.18) 0%, rgba(16, 185, 129, 0.06) 42%, transparent 70%),
+    var(--bg-surface);
+  border: 1px solid var(--border-strong);
   border-radius: var(--radius-lg);
   padding: 20px;
   margin-bottom: 14px;
@@ -372,53 +401,68 @@ svg {
   overflow: hidden;
 }
 
+.hero-ambient-glow {
+  display: none;
+}
+
 .hero-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 14px;
   margin-bottom: 18px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-copy {
+  min-width: 0;
+  flex: 1;
 }
 
 .hero-eyebrow {
-  font-size: 0.64rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--text-muted);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 5px;
+  font-size: 0.69rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-hairline);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: 9px;
 }
 
 .status-led {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--emerald);
-  box-shadow: 0 0 8px var(--emerald);
+  background: var(--emerald-bright);
+  box-shadow: 0 0 8px var(--emerald-bright);
+  flex-shrink: 0;
 }
 
 .hero-greeting {
-  font-size: 1.32rem;
-  font-weight: 700;
-  letter-spacing: -0.025em;
+  font-size: 1.44rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
   color: var(--text-primary);
-  line-height: 1.18;
+  line-height: 1.15;
 }
 
 .hero-date-full {
   font-size: 0.76rem;
   color: var(--text-secondary);
-  margin-top: 3px;
+  margin-top: 4px;
+  font-weight: 500;
 }
 
-/* Telemetry Gauge Ring */
+/* Unclipped Dual-Gradient Telemetry Gauge Ring */
 .progress-ring-wrap {
   position: relative;
-  width: 68px;
-  height: 68px;
+  width: 82px;
+  height: 82px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -427,31 +471,47 @@ svg {
 
 .progress-ring-svg {
   transform: rotate(-90deg);
-  width: 68px;
-  height: 68px;
+  width: 82px;
+  height: 82px;
+  overflow: visible;
 }
 
 .progress-ring-bg {
   fill: none;
-  stroke: var(--bg-subtle);
-  stroke-width: 5.5;
+  stroke: var(--border-hairline);
+  stroke-width: 6.5;
 }
 
 .progress-ring-value {
   fill: none;
-  stroke: var(--tesla-blue);
-  stroke-width: 5.5;
+  stroke-width: 6.5;
   stroke-linecap: round;
-  filter: drop-shadow(0 0 6px rgba(78, 124, 254, 0.45));
-  transition: stroke-dashoffset 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  filter: drop-shadow(0 0 7px rgba(82, 130, 255, 0.45));
+  transition: stroke-dashoffset 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.progress-ring-center {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 .progress-ring-text {
-  position: absolute;
-  font-size: 0.82rem;
+  font-size: 0.94rem;
   font-weight: 800;
   letter-spacing: -0.03em;
   color: var(--text-primary);
+}
+
+.progress-ring-sub {
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  margin-top: 3px;
 }
 
 .hero-metrics {
@@ -460,6 +520,8 @@ svg {
   gap: 10px;
   padding-top: 15px;
   border-top: 1px solid var(--border-hairline);
+  position: relative;
+  z-index: 1;
 }
 
 .hero-metric-box {
@@ -471,10 +533,8 @@ svg {
 }
 
 .hero-metric-label {
-  font-size: 0.7rem;
+  font-size: 0.71rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
   color: var(--text-secondary);
   display: flex;
   justify-content: space-between;
@@ -484,12 +544,12 @@ svg {
 
 .hero-metric-label strong {
   color: var(--text-primary);
-  font-weight: 700;
-  font-size: 0.78rem;
+  font-weight: 800;
+  font-size: 0.8rem;
 }
 
 .hero-progress-track {
-  height: 4px;
+  height: 5px;
   background: var(--border-hairline);
   border-radius: 99px;
   overflow: hidden;
@@ -497,15 +557,15 @@ svg {
 
 .hero-progress-fill {
   height: 100%;
-  background: var(--tesla-blue);
+  background: linear-gradient(90deg, #3b6bf9, #60a5fa);
   border-radius: 99px;
-  box-shadow: 0 0 8px rgba(78, 124, 254, 0.5);
-  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 0 10px rgba(82, 130, 255, 0.55);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hero-progress-fill.emerald-bar {
-  background: var(--emerald);
-  box-shadow: 0 0 8px rgba(16, 185, 129, 0.45);
+  background: linear-gradient(90deg, #059669, #34d399);
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
 }
 
 /* --- Quick Capture Bar --- */
@@ -513,21 +573,21 @@ svg {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
   background: var(--bg-surface);
   border: 1px solid var(--border-hairline);
   padding: 6px 6px 6px 14px;
-  border-radius: var(--radius-md);
+  border-radius: 15px;
   box-shadow: var(--shadow-card);
   transition: border-color 0.16s ease;
 }
 
 .quick-add-box:focus-within {
-  border-color: var(--border-strong);
+  border-color: var(--tesla-blue);
 }
 
 .quick-add-icon {
-  color: var(--text-muted);
+  color: var(--tesla-blue);
   display: flex;
 }
 
@@ -535,7 +595,7 @@ svg {
   flex: 1;
   min-width: 0;
   font-size: 0.85rem;
-  padding: 5px 0;
+  padding: 6px 0;
   color: var(--text-primary);
 }
 
@@ -544,12 +604,13 @@ svg {
 }
 
 .btn-primary-sm {
-  background: var(--accent-primary);
-  color: var(--accent-primary-fg);
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+  box-shadow: var(--btn-primary-shadow);
   font-weight: 700;
-  font-size: 0.74rem;
-  padding: 8px 14px;
-  border-radius: 10px;
+  font-size: 0.75rem;
+  padding: 8px 15px;
+  border-radius: 11px;
   letter-spacing: 0.01em;
   transition: opacity 0.15s ease, transform 0.1s ease;
   white-space: nowrap;
@@ -560,22 +621,22 @@ svg {
 }
 
 .btn-primary-sm:active {
-  transform: scale(0.97);
-  opacity: 0.9;
+  transform: scale(0.96);
+  opacity: 0.92;
 }
 
-/* --- Section Headers (Tesla Telemetry Micro-Labels) --- */
+/* --- Section Headers --- */
 .section-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 20px 0 10px;
+  margin: 20px 0 11px;
   gap: 8px;
 }
 
 .section-title {
-  font-size: 0.68rem;
-  font-weight: 700;
+  font-size: 0.69rem;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--text-secondary);
@@ -587,7 +648,7 @@ svg {
 .section-badge {
   font-size: 0.66rem;
   font-weight: 700;
-  padding: 1px 7px;
+  padding: 1px 8px;
   border-radius: var(--radius-full);
   background: var(--bg-subtle);
   color: var(--text-primary);
@@ -596,7 +657,7 @@ svg {
 }
 
 .section-link {
-  font-size: 0.73rem;
+  font-size: 0.74rem;
   font-weight: 600;
   color: var(--text-secondary);
   display: inline-flex;
@@ -609,12 +670,12 @@ svg {
   color: var(--text-primary);
 }
 
-/* --- Today Habits Quick Grid (Zero Overflow Guaranteed) --- */
+/* --- Today Habits Quick Grid (Vertical Tesla Vehicle-Control Bento Tiles!) --- */
 .today-habits-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 9px;
-  margin-bottom: 18px;
+  gap: 10px;
+  margin-bottom: 20px;
   width: 100%;
 }
 
@@ -622,77 +683,101 @@ svg {
   background: var(--bg-surface);
   border: 1px solid var(--border-hairline);
   border-radius: var(--radius-md);
-  padding: 12px;
+  padding: 13px 14px;
   display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  transition: all 0.18s ease;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 11px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: var(--shadow-card);
   text-align: left;
   width: 100%;
   min-width: 0;
   overflow: hidden;
+  position: relative;
 }
 
 .today-habit-tile:active {
-  transform: scale(0.985);
+  transform: scale(0.98);
 }
 
 .today-habit-tile.done {
-  border-color: rgba(16, 185, 129, 0.35);
+  background: var(--habit-done-card-bg);
+  border-color: var(--habit-done-card-border);
+}
+
+.habit-tile-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
 }
 
 .habit-tile-icon {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
+  width: 36px;
+  height: 36px;
+  border-radius: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   background: var(--bg-subtle);
   border: 1px solid var(--border-hairline);
-  color: var(--text-secondary);
-  transition: all 0.18s ease;
-  margin-top: 1px;
+  color: var(--tesla-blue);
+  transition: all 0.2s ease;
 }
 
 .today-habit-tile.done .habit-tile-icon {
-  background: var(--emerald);
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: #ffffff;
-  border-color: var(--emerald);
-  box-shadow: 0 0 12px rgba(16, 185, 129, 0.35);
+  border-color: rgba(52, 211, 153, 0.6);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
+}
+
+.habit-streak-pill {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-hairline);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.habit-streak-pill.done {
+  background: var(--emerald-soft);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: var(--emerald-bright);
 }
 
 .habit-tile-info {
-  flex: 1;
+  width: 100%;
   min-width: 0;
-  overflow: hidden;
 }
 
 .habit-tile-title {
-  font-size: 0.79rem;
-  font-weight: 600;
+  font-size: 0.82rem;
+  font-weight: 700;
   color: var(--text-primary);
   line-height: 1.32;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  word-break: break-word;
-}
-
-.today-habit-tile.done .habit-tile-title {
-  color: var(--text-secondary);
-}
-
-.habit-tile-streak {
-  font-size: 0.67rem;
-  color: var(--text-muted);
-  margin-top: 3px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+. habit-tile-streak, .habit-tile-streak {
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.today-habit-tile.done .habit-tile-streak {
+  color: var(--emerald-bright);
 }
 
 /* --- Filter Chips & Search Bar --- */
@@ -713,7 +798,7 @@ svg {
 }
 
 .search-input-wrap input:focus {
-  border-color: var(--border-strong);
+  border-color: var(--tesla-blue);
 }
 
 .search-input-wrap .search-icon {
@@ -739,7 +824,7 @@ svg {
 }
 
 .filter-chip {
-  padding: 6px 12px;
+  padding: 6px 13px;
   border-radius: var(--radius-full);
   background: var(--bg-surface);
   border: 1px solid var(--border-hairline);
@@ -751,16 +836,17 @@ svg {
 }
 
 .filter-chip.active {
-  background: var(--accent-primary);
-  color: var(--accent-primary-fg);
-  border-color: var(--accent-primary);
+  background: var(--chip-active-bg);
+  color: var(--chip-active-fg);
+  border-color: var(--chip-active-border);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
-/* --- Tesla Precision To-Do List Cards --- */
+/* --- Linear-Grade Task Cards with Laser Priority Edge --- */
 .todo-list {
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  gap: 10px;
   width: 100%;
 }
 
@@ -768,11 +854,37 @@ svg {
   background: var(--bg-surface);
   border: 1px solid var(--border-hairline);
   border-radius: var(--radius-md);
-  padding: 13px 14px;
+  padding: 14px 14px 14px 17px;
   box-shadow: var(--shadow-card);
   transition: all 0.16s ease;
   width: 100%;
   min-width: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.todo-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 3.5px;
+  border-radius: 0 4px 4px 0;
+  background: var(--tesla-blue);
+}
+
+.todo-card.priority-high::before {
+  background: var(--tesla-red);
+  box-shadow: 0 0 10px var(--tesla-red);
+}
+
+.todo-card.priority-medium::before {
+  background: var(--amber);
+}
+
+.todo-card.priority-low::before {
+  background: var(--tesla-blue);
 }
 
 .todo-card:hover {
@@ -780,46 +892,47 @@ svg {
 }
 
 .todo-card.completed {
-  opacity: 0.5;
+  opacity: 0.55;
   box-shadow: none;
 }
 
 .todo-main-row {
   display: flex;
   align-items: flex-start;
-  gap: 11px;
+  gap: 12px;
   min-width: 0;
 }
 
 .check-circle {
-  width: 20px;
-  height: 20px;
-  border-radius: 6px;
-  border: 1.5px solid var(--border-strong);
+  width: 21px;
+  height: 21px;
+  border-radius: 7px;
+  border: 1.6px solid var(--border-strong);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-top: 1px;
   transition: all 0.16s ease;
   background: var(--bg-subtle);
   color: transparent;
 }
 
 .todo-card.priority-high .check-circle:not(.checked) {
-  border-color: var(--tesla-red);
+  border-color: rgba(255, 46, 76, 0.75);
   background: var(--tesla-red-soft);
 }
 
 .todo-card.priority-medium .check-circle:not(.checked) {
-  border-color: var(--amber);
+  border-color: rgba(251, 191, 36, 0.75);
 }
 
 .todo-card.completed .check-circle,
 .check-circle.checked {
-  background: var(--accent-primary);
-  border-color: var(--accent-primary);
-  color: var(--accent-primary-fg);
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-color: #10b981;
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.35);
 }
 
 .todo-body {
@@ -829,11 +942,11 @@ svg {
 }
 
 .todo-title {
-  font-size: 0.87rem;
-  font-weight: 600;
+  font-size: 0.88rem;
+  font-weight: 700;
   color: var(--text-primary);
   word-break: break-word;
-  line-height: 1.38;
+  line-height: 1.36;
 }
 
 .todo-card.completed .todo-title {
@@ -844,7 +957,7 @@ svg {
 .todo-note {
   font-size: 0.75rem;
   color: var(--text-secondary);
-  margin-top: 2px;
+  margin-top: 3px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -856,7 +969,7 @@ svg {
   flex-wrap: wrap;
   align-items: center;
   gap: 5px;
-  margin-top: 8px;
+  margin-top: 9px;
 }
 
 .meta-pill {
@@ -865,7 +978,7 @@ svg {
   gap: 4px;
   font-size: 0.67rem;
   font-weight: 600;
-  padding: 2px 7px;
+  padding: 2px 8px;
   border-radius: 6px;
   background: var(--bg-subtle);
   border: 1px solid var(--border-hairline);
@@ -874,18 +987,19 @@ svg {
 
 .meta-pill.overdue {
   background: var(--tesla-red-soft);
-  border-color: rgba(227, 25, 55, 0.25);
+  border-color: rgba(255, 46, 76, 0.3);
   color: var(--tesla-red);
 }
 
 .meta-pill.today {
   background: var(--tesla-blue-soft);
-  border-color: rgba(78, 124, 254, 0.25);
+  border-color: rgba(82, 130, 255, 0.3);
   color: var(--tesla-blue);
 }
 
 .meta-pill.reminder-active {
   color: var(--text-primary);
+  border-color: var(--border-strong);
 }
 
 .prio-dot {
@@ -900,15 +1014,15 @@ svg {
 .prio-dot.medium { background: var(--amber); }
 .prio-dot.low { background: var(--tesla-blue); }
 
-/* Subtasks inside Todo Card */
+/* Subtasks inside Todo Card (Custom Emerald Checkboxes — Never Native White!) */
 .subtasks-box {
-  margin-top: 9px;
-  padding-top: 8px;
-  padding-left: 31px;
+  margin-top: 10px;
+  padding-top: 9px;
+  padding-left: 33px;
   border-top: 1px solid var(--border-hairline);
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
 }
 
 .subtask-item {
@@ -921,26 +1035,29 @@ svg {
   cursor: pointer;
 }
 
-.subtask-item.done span {
+.subtask-item.done span:last-child {
   text-decoration: line-through;
   color: var(--text-muted);
 }
 
 .subtask-check {
-  width: 14px;
-  height: 14px;
-  border-radius: 4px;
-  border: 1.25px solid var(--border-strong);
+  width: 15px;
+  height: 15px;
+  border-radius: 5px;
+  border: 1.4px solid var(--border-strong);
+  background: var(--bg-subtle);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  transition: all 0.15s ease;
 }
 
 .subtask-item.done .subtask-check {
-  background: var(--accent-primary);
-  border-color: var(--accent-primary);
-  color: var(--accent-primary-fg);
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-color: #10b981;
+  color: #ffffff;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.35);
 }
 
 .todo-actions {
@@ -952,7 +1069,7 @@ svg {
 .mini-action-btn {
   width: 28px;
   height: 28px;
-  border-radius: 7px;
+  border-radius: 8px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -970,11 +1087,11 @@ svg {
   color: var(--tesla-red);
 }
 
-/* --- Habits Tab --- */
+/* --- Habits Tab (Glowing Anodized 7-Day Consistency Matrix) --- */
 .stats-banner-row {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
+  gap: 9px;
   margin-bottom: 16px;
 }
 
@@ -989,7 +1106,7 @@ svg {
 }
 
 .stat-mini-value {
-  font-size: 1.14rem;
+  font-size: 1.18rem;
   font-weight: 800;
   letter-spacing: -0.03em;
   color: var(--text-primary);
@@ -1006,14 +1123,14 @@ svg {
 .habit-list {
   display: flex;
   flex-direction: column;
-  gap: 11px;
+  gap: 12px;
 }
 
 .habit-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-hairline);
   border-radius: var(--radius-md);
-  padding: 14px;
+  padding: 15px;
   box-shadow: var(--shadow-card);
   min-width: 0;
 }
@@ -1023,7 +1140,7 @@ svg {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  margin-bottom: 12px;
+  margin-bottom: 13px;
 }
 
 .habit-title-group {
@@ -1036,27 +1153,27 @@ svg {
 }
 
 .habit-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   background: var(--bg-subtle);
   border: 1px solid var(--border-hairline);
-  color: var(--text-primary);
+  color: var(--tesla-blue);
 }
 
 .habit-name {
-  font-size: 0.86rem;
-  font-weight: 600;
+  font-size: 0.87rem;
+  font-weight: 700;
   color: var(--text-primary);
   line-height: 1.3;
 }
 
 .habit-submeta {
-  font-size: 0.69rem;
+  font-size: 0.7rem;
   color: var(--text-secondary);
   display: flex;
   align-items: center;
@@ -1065,8 +1182,8 @@ svg {
 }
 
 .habit-today-btn {
-  padding: 7px 12px;
-  border-radius: 9px;
+  padding: 7px 13px;
+  border-radius: 10px;
   font-size: 0.73rem;
   font-weight: 700;
   border: 1px solid var(--border-strong);
@@ -1080,18 +1197,18 @@ svg {
 }
 
 .habit-today-btn.done {
-  background: var(--emerald);
-  border-color: var(--emerald);
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-color: #10b981;
   color: #ffffff;
-  box-shadow: 0 0 14px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.32);
 }
 
-/* 7-Day Telemetry Matrix Strip */
+/* 7-Day Telemetry Matrix Strip (Anodized Emerald Pads instead of White Blocks) */
 .habit-week-strip {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 5px;
-  padding-top: 11px;
+  gap: 6px;
+  padding-top: 12px;
   border-top: 1px solid var(--border-hairline);
 }
 
@@ -1099,29 +1216,29 @@ svg {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   min-width: 0;
 }
 
 .week-day-label {
-  font-size: 0.62rem;
+  font-size: 0.63rem;
   color: var(--text-muted);
   font-weight: 600;
 }
 
 .week-day-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
   border: 1px solid var(--border-hairline);
   background: var(--bg-subtle);
-  font-size: 0.72rem;
+  font-size: 0.73rem;
   font-weight: 600;
   color: var(--text-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.15s ease;
+  transition: all 0.16s ease;
 }
 
 .week-day-btn.today-ring {
@@ -1129,9 +1246,10 @@ svg {
 }
 
 .week-day-btn.checked {
-  background: var(--accent-primary) !important;
-  color: var(--accent-primary-fg) !important;
-  border-color: var(--accent-primary) !important;
+  background: var(--matrix-checked-bg) !important;
+  color: var(--matrix-checked-fg) !important;
+  border-color: var(--matrix-checked-border) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 2px 10px rgba(16, 185, 129, 0.18);
 }
 
 .week-day-btn.unscheduled {
@@ -1142,10 +1260,10 @@ svg {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
-  padding-top: 8px;
+  margin-top: 11px;
+  padding-top: 9px;
   border-top: 1px solid var(--border-hairline);
-  font-size: 0.69rem;
+  font-size: 0.7rem;
   color: var(--text-muted);
 }
 
@@ -1166,22 +1284,22 @@ svg {
 }
 
 .heatmap-cell.active {
-  background: var(--tesla-blue) !important;
-  border-color: var(--tesla-blue) !important;
-  box-shadow: 0 0 6px rgba(78, 124, 254, 0.35);
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  border-color: #34d399 !important;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.35);
 }
 
 .heatmap-cell.is-today {
-  outline: 1.5px solid var(--emerald);
+  outline: 1.5px solid var(--tesla-blue);
   outline-offset: 1px;
 }
 
 /* --- Unified Calendar Tab --- */
 .calendar-card {
   background: var(--bg-surface);
-  border: 1px solid var(--border-hairline);
+  border: 1px solid var(--border-strong);
   border-radius: var(--radius-lg);
-  padding: 15px;
+  padding: 16px;
   box-shadow: var(--shadow-card);
   margin-bottom: 18px;
 }
@@ -1190,12 +1308,12 @@ svg {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .cal-month-title {
-  font-size: 0.94rem;
-  font-weight: 700;
+  font-size: 0.96rem;
+  font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--text-primary);
 }
@@ -1203,14 +1321,14 @@ svg {
 .cal-nav-group {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
 }
 
 .cal-weekdays {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   text-align: center;
-  font-size: 0.66rem;
+  font-size: 0.67rem;
   font-weight: 700;
   color: var(--text-muted);
   margin-bottom: 6px;
@@ -1219,19 +1337,20 @@ svg {
 .cal-days-grid {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 3px;
+  gap: 4px;
 }
 
 .cal-day-cell {
-  min-height: 44px;
-  border-radius: 10px;
-  padding: 4px 2px;
+  min-height: 45px;
+  border-radius: 12px;
+  padding: 5px 2px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  transition: all 0.14s ease;
+  transition: all 0.15s ease;
+  border: 1px solid transparent;
 }
 
 .cal-day-cell:hover {
@@ -1242,18 +1361,26 @@ svg {
   opacity: 0.25;
 }
 
+.cal-day-cell.is-today {
+  border-color: rgba(82, 130, 255, 0.45);
+  background: rgba(82, 130, 255, 0.08);
+}
+
 .cal-day-cell.is-today .cal-day-num {
   color: var(--tesla-blue);
   font-weight: 800;
 }
 
 .cal-day-cell.is-selected {
-  background: var(--accent-primary);
-  color: var(--accent-primary-fg);
+  background: var(--btn-primary-bg);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: var(--btn-primary-shadow);
+  color: #ffffff;
 }
 
 .cal-day-cell.is-selected .cal-day-num {
-  color: var(--accent-primary-fg) !important;
+  color: #ffffff !important;
+  font-weight: 800;
 }
 
 .cal-day-num {
@@ -1263,7 +1390,7 @@ svg {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.76rem;
+  font-size: 0.77rem;
   font-weight: 600;
 }
 
@@ -1282,7 +1409,10 @@ svg {
 
 .cal-dot.todo-pending { background: var(--tesla-red); }
 .cal-dot.todo-done { background: var(--text-muted); }
-.cal-dot.habit-done { background: var(--emerald); }
+.cal-dot.habit-done { background: var(--emerald-bright); }
+
+.cal-day-cell.is-selected .cal-dot.todo-pending { background: #ffffff; }
+.cal-day-cell.is-selected .cal-dot.habit-done { background: #6ee7b7; }
 
 .agenda-header-box {
   display: flex;
@@ -1293,22 +1423,22 @@ svg {
 }
 
 .agenda-date-title {
-  font-size: 0.9rem;
-  font-weight: 700;
+  font-size: 0.92rem;
+  font-weight: 800;
   letter-spacing: -0.015em;
 }
 
 .agenda-sub-section {
-  margin-top: 14px;
+  margin-top: 16px;
 }
 
 .agenda-sub-title {
   font-size: 0.68rem;
-  font-weight: 700;
-  color: var(--text-muted);
-  margin-bottom: 8px;
+  font-weight: 800;
+  color: var(--text-secondary);
+  margin-bottom: 9px;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.09em;
 }
 
 /* --- Settings & Backup Tab --- */
@@ -1322,7 +1452,7 @@ svg {
 }
 
 .settings-group h3 {
-  font-size: 0.85rem;
+  font-size: 0.86rem;
   font-weight: 700;
   margin-bottom: 4px;
   display: flex;
@@ -1339,16 +1469,16 @@ svg {
 .theme-Segment {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 4px;
+  gap: 5px;
   background: var(--bg-subtle);
   padding: 4px;
-  border-radius: 10px;
+  border-radius: 11px;
   border: 1px solid var(--border-hairline);
 }
 
 .theme-opt-btn {
   padding: 8px;
-  border-radius: 7px;
+  border-radius: 8px;
   font-size: 0.74rem;
   font-weight: 600;
   color: var(--text-secondary);
@@ -1357,9 +1487,9 @@ svg {
 }
 
 .theme-opt-btn.active {
-  background: var(--bg-surface-solid);
-  color: var(--text-primary);
-  box-shadow: var(--shadow-card);
+  background: var(--chip-active-bg);
+  color: var(--chip-active-fg);
+  border: 1px solid var(--chip-active-border);
 }
 
 .settings-btn-grid {
@@ -1370,7 +1500,7 @@ svg {
 
 .btn-outline {
   padding: 10px 12px;
-  border-radius: 10px;
+  border-radius: 11px;
   border: 1px solid var(--border-hairline);
   background: var(--bg-subtle);
   font-size: 0.75rem;
@@ -1389,7 +1519,7 @@ svg {
 }
 
 .btn-danger-outline {
-  border-color: rgba(227, 25, 55, 0.3);
+  border-color: rgba(255, 46, 76, 0.35);
   color: var(--tesla-red);
   background: var(--tesla-red-soft);
 }
@@ -1415,7 +1545,20 @@ svg {
   margin-bottom: 2px;
 }
 
-/* --- Floating Glass Bottom Dock --- */
+/* --- Bottom Vignette Fade Mask & Floating Glass Dock --- */
+.bottom-fade-mask {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  height: calc(92px + var(--safe-bottom));
+  background: linear-gradient(to top, var(--bg-app) 38%, transparent 100%);
+  pointer-events: none;
+  z-index: 40;
+}
+
 .bottom-dock-wrap {
   position: fixed;
   bottom: calc(12px + var(--safe-bottom));
@@ -1428,14 +1571,14 @@ svg {
 
 .bottom-nav {
   background: var(--bg-dock);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
-  border: 1px solid var(--border-hairline);
-  border-radius: 22px;
-  height: 60px;
+  backdrop-filter: blur(26px);
+  -webkit-backdrop-filter: blur(26px);
+  border: 1px solid var(--border-strong);
+  border-radius: 24px;
+  height: 62px;
   padding: 0 8px;
   display: grid;
-  grid-template-columns: 1fr 1fr 54px 1fr 1fr;
+  grid-template-columns: 1fr 1fr 58px 1fr 1fr;
   align-items: center;
   box-shadow: var(--shadow-dock);
 }
@@ -1446,29 +1589,36 @@ svg {
   align-items: center;
   justify-content: center;
   gap: 3px;
-  height: 46px;
-  border-radius: 14px;
+  height: 48px;
+  border-radius: 15px;
   color: var(--text-muted);
-  font-size: 0.63rem;
+  font-size: 0.64rem;
   font-weight: 600;
   transition: all 0.16s ease;
+  position: relative;
 }
 
 .nav-item.active {
   color: var(--text-primary);
+  font-weight: 700;
+}
+
+.nav-item.active svg {
+  color: var(--tesla-blue);
+  filter: drop-shadow(0 0 6px rgba(82, 130, 255, 0.45));
 }
 
 .nav-center-add {
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   margin: 0 auto;
-  border-radius: 13px;
-  background: var(--accent-primary);
-  color: var(--accent-primary-fg);
+  border-radius: 14px;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+  box-shadow: var(--btn-primary-shadow);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
   transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -1480,9 +1630,9 @@ svg {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(0, 0, 0, 0.66);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   z-index: 100;
   display: none;
   align-items: flex-end;
@@ -1534,8 +1684,8 @@ svg {
 }
 
 .modal-title {
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-size: 0.96rem;
+  font-weight: 800;
   letter-spacing: -0.02em;
 }
 
@@ -1555,7 +1705,7 @@ svg {
   width: 100%;
   background: var(--bg-subtle);
   border: 1px solid var(--border-hairline);
-  border-radius: 10px;
+  border-radius: 11px;
   padding: 10px 12px;
   font-size: 0.85rem;
   color: var(--text-primary);
@@ -1563,7 +1713,7 @@ svg {
 }
 
 .form-input:focus, .form-textarea:focus, .form-select:focus {
-  border-color: var(--border-strong);
+  border-color: var(--tesla-blue);
 }
 
 .form-row-2 {
@@ -1579,7 +1729,7 @@ svg {
 
 .prio-option {
   flex: 1;
-  padding: 8px;
+  padding: 9px;
   border-radius: 10px;
   border: 1px solid var(--border-hairline);
   background: var(--bg-subtle);
@@ -1593,9 +1743,9 @@ svg {
 }
 
 .prio-option.active {
-  background: var(--accent-primary);
-  border-color: var(--accent-primary);
-  color: var(--accent-primary-fg);
+  background: var(--chip-active-bg);
+  border-color: var(--chip-active-border);
+  color: var(--chip-active-fg);
 }
 
 .weekday-btn {
@@ -1610,9 +1760,9 @@ svg {
 }
 
 .weekday-btn.active {
-  background: var(--accent-primary);
-  border-color: var(--accent-primary);
-  color: var(--accent-primary-fg);
+  background: var(--chip-active-bg);
+  border-color: var(--chip-active-border);
+  color: var(--chip-active-fg);
 }
 
 .icon-picker-grid {
@@ -1634,9 +1784,9 @@ svg {
 }
 
 .emoji-opt.active {
-  border-color: var(--accent-primary);
-  background: var(--accent-primary);
-  color: var(--accent-primary-fg);
+  background: var(--chip-active-bg);
+  border-color: var(--chip-active-border);
+  color: var(--chip-active-fg);
 }
 
 .color-picker-row {
@@ -1666,19 +1816,21 @@ svg {
 .btn-full {
   flex: 1;
   padding: 11px;
-  border-radius: 11px;
-  font-weight: 600;
+  border-radius: 12px;
+  font-weight: 700;
   font-size: 0.85rem;
   text-align: center;
 }
 
 .btn-save {
-  background: var(--accent-primary);
-  color: var(--accent-primary-fg);
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-fg);
+  box-shadow: var(--btn-primary-shadow);
 }
 
 .btn-cancel {
   background: var(--bg-subtle);
+  border: 1px solid var(--border-hairline);
   color: var(--text-secondary);
 }
 
@@ -1700,26 +1852,31 @@ svg {
 /* Toast Notification */
 .toast-container {
   position: fixed;
-  top: calc(var(--safe-top) + 14px);
+  top: calc(16px + var(--safe-top));
   left: 50%;
   transform: translateX(-50%);
   z-index: 200;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
   pointer-events: none;
-  width: 88%;
-  max-width: 340px;
+  width: max-content;
+  max-width: 90vw;
 }
 
 .toast-msg {
-  background: var(--accent-primary);
-  color: var(--accent-primary-fg);
-  padding: 10px 14px;
-  border-radius: 10px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  box-shadow: var(--shadow-dock);
-  text-align: center;
-  animation: viewEnter 0.2s ease;
+  background: var(--bg-surface-solid);
+  color: var(--text-primary);
+  border: 1px solid var(--border-strong);
+  padding: 9px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.76rem;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  animation: toastIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(-10px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
