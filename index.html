@@ -16,9 +16,9 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=5" />
+  <link rel="stylesheet" href="styles.css?v=6" />
 </head>
 <body>
   <div class="toast-container" id="toast-container"></div>
@@ -109,8 +109,8 @@
               <svg class="progress-ring-svg" viewBox="0 0 88 88">
                 <defs>
                   <linearGradient id="telemetryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#4e7cfe" />
-                    <stop offset="100%" stop-color="#10b981" />
+                    <stop offset="0%" stop-color="#e4e6eb" />
+                    <stop offset="100%" stop-color="#8e94a4" />
                   </linearGradient>
                 </defs>
                 <circle class="progress-ring-bg" cx="44" cy="44" r="34"></circle>
@@ -118,7 +118,7 @@
               </svg>
               <div class="progress-ring-center">
                 <span class="progress-ring-text" id="today-overall-pill">0%</span>
-                <span class="progress-ring-sub">SCORE</span>
+                <span class="progress-ring-sub">PROGRESS</span>
               </div>
             </div>
           </div>
@@ -160,11 +160,11 @@
         <!-- Today's Habits Quick Check-in -->
         <div class="section-header">
           <div class="section-title">
-            <span>HABIT CONTROLS</span>
+            <span>นิสัยประจำวัน</span>
             <span class="section-badge" id="today-habits-badge">0/0</span>
           </div>
-          <div style="display:flex; align-items:center; gap:10px;">
-            <button type="button" class="section-link" id="btn-today-new-habit" style="color:var(--tesla-blue);">+ นิสัย</button>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <button type="button" class="section-link" id="btn-today-new-habit">+ เพิ่มนิสัย</button>
             <button type="button" class="section-link" data-goto-tab="habits">ดูทั้งหมด →</button>
           </div>
         </div>
@@ -173,7 +173,7 @@
         <!-- Today's & Overdue Tasks -->
         <div class="section-header">
           <div class="section-title">
-            <span>PRIORITY QUEUE • งานวันนี้</span>
+            <span>รายการงานวันนี้</span>
             <span class="section-badge" id="today-todos-badge">0</span>
           </div>
           <button type="button" class="section-link" data-goto-tab="todos">จัดการงาน →</button>
@@ -631,7 +631,7 @@
     </div>
   </div>
 
-  <script src="db.js?v=5"></script>
-  <script src="app.js?v=5"></script>
+  <script src="db.js?v=6"></script>
+  <script src="app.js?v=6"></script>
 </body>
 </html>
