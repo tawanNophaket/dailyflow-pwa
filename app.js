@@ -1510,12 +1510,12 @@
     if ('caches' in window) {
       caches.keys().then((keys) => {
         keys.forEach((k) => {
-          if (k !== 'dailyflow-pwa-v5') caches.delete(k);
+          if (k !== 'dailyflow-pwa-v6') caches.delete(k);
         });
       });
     }
     if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
-      navigator.serviceWorker.register('./sw.js?v=5').then((reg) => {
+      navigator.serviceWorker.register('./sw.js?v=6').then((reg) => {
         reg.update();
       }).catch((err) => {
         console.warn('SW registration skipped:', err);
