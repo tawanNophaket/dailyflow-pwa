@@ -736,6 +736,7 @@ svg {
   display: flex;
   align-items: center;
   gap: 7px;
+  white-space: nowrap;
 }
 
 .section-badge {
@@ -746,6 +747,7 @@ svg {
   background: var(--bg-subtle);
   color: var(--text-primary);
   border: 1px solid var(--border-hairline);
+  white-space: nowrap;
 }
 
 .section-link {
@@ -756,10 +758,297 @@ svg {
   align-items: center;
   gap: 4px;
   transition: color 0.15s ease;
+  white-space: nowrap;
 }
 
 .section-link:hover {
   color: var(--text-primary);
+}
+
+/* --- Role Model Vision Board (Physique & Charisma Bento Showcase) --- */
+.vision-bento-grid {
+  display: grid;
+  grid-template-columns: 1.28fr 1fr 1fr;
+  grid-template-rows: 80px 80px;
+  gap: 6px;
+  margin-bottom: 14px;
+  width: 100%;
+}
+
+.vision-card {
+  position: relative;
+  border-radius: 13px;
+  overflow: hidden;
+  border: 1px solid var(--border-hairline);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  min-width: 0;
+  padding: 0;
+  text-align: left;
+  transition: transform 0.16s ease, border-color 0.16s ease;
+}
+
+.vision-card:active {
+  transform: scale(0.985);
+}
+
+.vision-card:hover {
+  border-color: var(--border-strong);
+}
+
+.vision-card.is-featured {
+  grid-row: span 2;
+}
+
+.vision-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: contrast(1.03) saturate(0.96);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), filter 0.3s ease;
+}
+
+.vision-bento-grid.mono-tone .vision-card-img {
+  filter: grayscale(100%) contrast(1.1);
+}
+
+.vision-card:hover .vision-card-img {
+  transform: scale(1.04);
+}
+
+.vision-card-caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 18px 8px 6px;
+  background: linear-gradient(to top, rgba(8, 9, 12, 0.88) 0%, rgba(8, 9, 12, 0.38) 58%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.vision-card-pill {
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #eceef2;
+  background: rgba(18, 19, 24, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 1.5px 6px;
+  border-radius: 99px;
+  margin-bottom: 3px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.vision-card-title {
+  font-size: 0.63rem;
+  font-weight: 600;
+  color: #f5f6f8;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.vision-card.is-featured .vision-card-title {
+  font-size: 0.73rem;
+  font-weight: 700;
+}
+
+.vision-card-sub {
+  font-size: 0.58rem;
+  color: rgba(236, 238, 242, 0.78);
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+/* Habits Tab Role Model Motivation Banner */
+.habits-vision-banner {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  border-radius: 14px;
+  padding: 10px 11px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 9px;
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  transition: border-color 0.16s ease;
+}
+
+.habits-vision-banner:hover {
+  border-color: var(--border-strong);
+}
+
+.vision-avatar-stack {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding-left: 8px;
+}
+
+.vision-avatar-item {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1.5px solid var(--bg-surface-solid);
+  margin-left: -8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.vision-banner-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.vision-banner-title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vision-banner-sub {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Role Model Lightbox Modal */
+.vision-modal-eyebrow {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+}
+
+.vision-stage-wrap {
+  position: relative;
+  width: 100%;
+  height: 340px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  background: #08090c;
+  margin-bottom: 10px;
+}
+
+.vision-stage-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.vision-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(12, 13, 16, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #f5f6f8;
+  font-size: 1.15rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2;
+}
+
+.vision-nav-btn.prev { left: 10px; }
+.vision-nav-btn.next { right: 10px; }
+
+.vision-stage-overlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 24px 12px 10px;
+  background: linear-gradient(to top, rgba(8, 9, 12, 0.9) 0%, rgba(8, 9, 12, 0.4) 60%, transparent 100%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.vision-stage-badge {
+  font-size: 0.64rem;
+  font-weight: 700;
+  color: #eceef2;
+  background: rgba(20, 21, 25, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 2px 8px;
+  border-radius: 99px;
+  flex-shrink: 0;
+}
+
+.vision-stage-sub {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #eceef2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vision-focus-box {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-hairline);
+  border-radius: 11px;
+  padding: 9px 12px;
+  font-size: 0.73rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  margin-bottom: 10px;
+}
+
+.vision-thumbs-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.vision-thumb-btn {
+  height: 56px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1.5px solid var(--border-hairline);
+  padding: 0;
+  opacity: 0.58;
+  transition: all 0.16s ease;
+  background: var(--bg-subtle);
+}
+
+.vision-thumb-btn.active {
+  opacity: 1;
+  border-color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.vision-thumb-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* --- Compact 2x2 Tactile Habit Capsules (Fits Above the Fold!) --- */
