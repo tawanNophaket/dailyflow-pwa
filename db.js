@@ -198,7 +198,7 @@ function createStarterData() {
     habits: [
       {
         id: generateId('hab'),
-        title: 'ดื่มน้ำเปล่า 8 แก้ว (2 ลิตร)',
+        title: 'ดื่มน้ำเปล่า 8 แก้ว',
         icon: 'hydration',
         color: '#3e6ae1',
         frequencyDays: [0, 1, 2, 3, 4, 5, 6],
