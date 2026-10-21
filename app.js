@@ -50,6 +50,8 @@
   // --- UI State ---
   const uiState = {
     activeTab: 'today',
+    todayFocusDate: toLocalDateStr(),
+    quickAddPriority: 'medium',
     todoFilterStatus: 'all',
     todoFilterCategory: 'all',
     todoSearchQuery: '',
@@ -364,7 +366,7 @@
     renderAll();
   }
 
-  // --- Render Precision To-Do Card HTML ---
+  // --- Render Precision To-Do Card HTML (Clean Linear / Things 3 Metadata Layout) ---
   function renderTodoCardHTML(todo) {
     const today = toLocalDateStr();
     const isOverdue = !todo.completed && todo.dueDate && todo.dueDate < today;
@@ -376,11 +378,17 @@
 
     const subtasks = Array.isArray(todo.subtasks) ? todo.subtasks : [];
     const doneSubs = subtasks.filter((s) => s.done).length;
+    const subPct = subtasks.length > 0 ? Math.round((doneSubs / subtasks.length) * 100) : 0;
 
     const datePillClass = isOverdue ? 'overdue' : (isToday ? 'today' : '');
     const timeText = todo.dueTime ? ` · ${todo.dueTime}` : '';
     const hasReminder = todo.reminderMinutes && todo.reminderMinutes !== 'none';
     const remLabel = hasReminder ? REMINDER_LABELS[todo.reminderMinutes] || 'แจ้งเตือน' : '';
+
+    const inlineItems = [];
+    if (hasReminder) inlineItems.push(`เตือน${remLabel.replace('ล่วงหน้า ', ' ')}`);
+    inlineItems.push(cat.name);
+    if (todo.tags && todo.tags.length > 0) inlineItems.push(`#${todo.tags[0]}`);
 
     return `
       <div class="todo-card priority-${todo.priority} ${todo.completed ? 'completed' : ''}" data-todo-id="${todo.id}">
@@ -396,10 +404,7 @@
                 <span class="prio-dot ${todo.priority}"></span>
                 ${isOverdue ? 'เลยกำหนด · ' : ''}${formatShortThaiDate(todo.dueDate)}${escapeHtml(timeText)}
               </span>
-              ${hasReminder ? `<span class="meta-pill reminder-active">${ICONS.bellSm} ${escapeHtml(remLabel)}</span>` : ''}
-              <span class="meta-pill">${escapeHtml(cat.name)}</span>
-              ${subtasks.length > 0 ? `<span class="meta-pill">${doneSubs}/${subtasks.length} ย่อย</span>` : ''}
-              ${(todo.tags || []).map((tag) => `<span class="meta-pill">#${escapeHtml(tag)}</span>`).join('')}
+              <span class="todo-inline-meta">${inlineItems.map(escapeHtml).join(' · ')}</span>
             </div>
           </div>
           <div class="todo-actions">
@@ -409,6 +414,12 @@
         </div>
         ${subtasks.length > 0 ? `
           <div class="subtasks-box">
+            <div class="subtasks-progress-row">
+              <div class="subtasks-progress-track">
+                <div class="subtasks-progress-fill" style="width:${subPct}%"></div>
+              </div>
+              <span class="subtasks-count">${doneSubs}/${subtasks.length}</span>
+            </div>
             ${subtasks.map((sub) => `
               <div class="subtask-item ${sub.done ? 'done' : ''}" data-action="toggle-subtask" data-todo-id="${todo.id}" data-sub-id="${sub.id}">
                 <span class="subtask-check">${sub.done ? ICONS.checkSm : ''}</span>
@@ -421,9 +432,12 @@
     `;
   }
 
-  // --- 1. Render TODAY View ---
+  // --- 1. Render TODAY View (With Interactive 7-Day Date Scrubber & Compact Layout) ---
   function renderTodayView() {
     const today = toLocalDateStr();
+    const focusDate = uiState.todayFocusDate || today;
+    const isFocusingToday = focusDate === today;
+
     const hour = new Date().getHours();
     let greeting = 'สวัสดีครับ';
     if (hour < 12) greeting = 'อรุณสวัสดิ์';
@@ -431,24 +445,34 @@
     else greeting = 'สวัสดีตอนเย็น';
 
     const eyebrowEl = document.getElementById('today-eyebrow');
-    if (eyebrowEl) eyebrowEl.textContent = formatFullThaiDate(today);
-    document.getElementById('today-greeting').textContent = greeting;
+    if (eyebrowEl) eyebrowEl.textContent = formatFullThaiDate(focusDate);
+
+    const resetBtn = document.getElementById('btn-hero-reset-today');
+    if (resetBtn) {
+      resetBtn.style.display = isFocusingToday ? 'none' : 'inline-flex';
+    }
+
+    document.getElementById('today-greeting').textContent = isFocusingToday
+      ? greeting
+      : `แผนงาน · ${formatShortThaiDate(focusDate)}`;
 
     const allTodos = store.state.todos;
-    const dueTodayOrOverdue = allTodos.filter(
-      (t) => t.dueDate === today || (!t.completed && t.dueDate < today)
+    const dueOnFocus = allTodos.filter((t) =>
+      isFocusingToday
+        ? (t.dueDate === today || (!t.completed && t.dueDate < today))
+        : (t.dueDate === focusDate)
     );
-    const completedTodayCount = dueTodayOrOverdue.filter((t) => t.completed).length;
-    const totalTodayTodos = dueTodayOrOverdue.length;
-    const pendingTodayCount = dueTodayOrOverdue.filter((t) => !t.completed).length;
+    const completedTodayCount = dueOnFocus.filter((t) => t.completed).length;
+    const totalTodayTodos = dueOnFocus.length;
+    const pendingTodayCount = dueOnFocus.filter((t) => !t.completed).length;
     const todoPct = totalTodayTodos > 0 ? Math.round((completedTodayCount / totalTodayTodos) * 100) : 100;
 
-    const todayDow = parseLocalDate(today).getDay();
+    const focusDow = parseLocalDate(focusDate).getDay();
     const habits = store.state.habits;
-    const scheduledHabits = habits.filter((h) => (h.frequencyDays || []).includes(todayDow));
-    const habitsForToday = scheduledHabits.length > 0 ? scheduledHabits : habits;
-    const doneHabitsToday = habitsForToday.filter((h) => h.logs && h.logs[today]).length;
-    const totalHabitsToday = habitsForToday.length;
+    const scheduledHabits = habits.filter((h) => (h.frequencyDays || []).includes(focusDow));
+    const habitsForDay = scheduledHabits.length > 0 ? scheduledHabits : habits;
+    const doneHabitsToday = habitsForDay.filter((h) => h.logs && h.logs[focusDate]).length;
+    const totalHabitsToday = habitsForDay.length;
     const habitPct = totalHabitsToday > 0 ? Math.round((doneHabitsToday / totalHabitsToday) * 100) : 100;
 
     const totalItems = totalTodayTodos + totalHabitsToday;
@@ -456,8 +480,8 @@
     const overallPct = totalItems > 0 ? Math.round((totalDone / totalItems) * 100) : 0;
 
     const subText = pendingTodayCount > 0
-      ? `โฟกัสวันนี้เหลือ ${pendingTodayCount} งาน · นิสัยสำเร็จ ${doneHabitsToday}/${totalHabitsToday}`
-      : `เคลียร์งานวันนี้ครบแล้ว · นิสัยสำเร็จ ${doneHabitsToday}/${totalHabitsToday}`;
+      ? `เหลือ ${pendingTodayCount} งานที่ต้องทำ · เช็คอินนิสัย ${doneHabitsToday}/${totalHabitsToday}`
+      : `เคลียร์งานครบแล้ว · เช็คอินนิสัย ${doneHabitsToday}/${totalHabitsToday}`;
     document.getElementById('today-full-date').textContent = subText;
 
     const statusTextEl = document.getElementById('header-status-text');
@@ -478,31 +502,76 @@
     document.getElementById('hero-habit-count').textContent = `${doneHabitsToday}/${totalHabitsToday}`;
     document.getElementById('hero-habit-bar').style.width = `${habitPct}%`;
 
-    // Render Today Habits Grid (Vertical Tesla Control Tile Layout)
+    // Render Interactive 7-Day Week Scrubber (Mon - Sun around focusDate)
+    const scrubberEl = document.getElementById('hero-week-scrubber');
+    if (scrubberEl) {
+      const curObj = parseLocalDate(focusDate);
+      const dowOffset = (curObj.getDay() + 6) % 7; // Monday = 0
+      const weekStart = new Date(curObj.getFullYear(), curObj.getMonth(), curObj.getDate() - dowOffset);
+      const weekCells = [];
+      for (let i = 0; i < 7; i++) {
+        const d = new Date(weekStart.getFullYear(), weekStart.getMonth(), weekStart.getDate() + i);
+        const dStr = toLocalDateStr(d);
+        const hasPending = allTodos.some((t) => !t.completed && t.dueDate === dStr);
+        const hasDoneHab = habits.some((h) => h.logs && h.logs[dStr]);
+        weekCells.push({
+          dateStr: dStr,
+          dowLabel: THAI_DAYS_SHORT[d.getDay()],
+          dayNum: d.getDate(),
+          isToday: dStr === today,
+          isSelected: dStr === focusDate,
+          hasPending,
+          hasDoneHab
+        });
+      }
+      scrubberEl.innerHTML = weekCells.map((c) => `
+        <button
+          type="button"
+          class="scrubber-day-btn ${c.isSelected ? 'active' : ''} ${c.isToday ? 'is-today' : ''}"
+          data-action="select-hero-date"
+          data-date="${c.dateStr}"
+        >
+          <span class="scrubber-dow">${c.dowLabel}</span>
+          <span class="scrubber-num">${c.dayNum}</span>
+          <span class="scrubber-dots">
+            ${c.hasPending ? '<i class="s-dot pending"></i>' : ''}
+            ${c.hasDoneHab ? '<i class="s-dot habit"></i>' : ''}
+          </span>
+        </button>
+      `).join('');
+    }
+
+    // Update section headings & quick-add placeholder for focused date
+    const quickInput = document.getElementById('quick-add-todo-input');
+    if (quickInput) {
+      quickInput.placeholder = isFocusingToday
+        ? 'เพิ่มงานด่วนสำหรับวันนี้...'
+        : `เพิ่มงานสำหรับ ${formatShortThaiDate(focusDate)}...`;
+    }
+
+    // Render Compact 2x2 Tactile Habit Capsules
     document.getElementById('today-habits-badge').textContent = `${doneHabitsToday}/${totalHabitsToday}`;
     const habitsContainer = document.getElementById('today-habits-container');
-    if (habitsForToday.length === 0) {
+    if (habitsForDay.length === 0) {
       habitsContainer.innerHTML = `
         <div class="empty-state">
-          <p>ยังไม่มีนิสัยสำหรับวันนี้</p>
+          <p>ยังไม่มีนิสัยในวันนี้</p>
         </div>
       `;
     } else {
-      habitsContainer.innerHTML = habitsForToday.map((hab) => {
+      habitsContainer.innerHTML = habitsForDay.map((hab) => {
         const stats = calculateHabitStats(hab, today);
+        const isDoneOnFocus = !!(hab.logs && hab.logs[focusDate]);
         return `
-          <button type="button" class="today-habit-tile ${stats.isDoneToday ? 'done' : ''}" data-action="toggle-habit-date" data-id="${hab.id}" data-date="${today}">
-            <div class="habit-tile-top">
-              <div class="habit-tile-icon">
-                ${stats.isDoneToday ? ICONS.check : getHabitSvg(hab.icon)}
-              </div>
-              <span class="habit-streak-pill ${stats.isDoneToday ? 'done' : ''}">
-                ${stats.isDoneToday ? '✓ วันนี้' : `${stats.currentStreak}d`}
-              </span>
+          <button type="button" class="today-habit-tile ${isDoneOnFocus ? 'done' : ''}" data-action="toggle-habit-date" data-id="${hab.id}" data-date="${focusDate}">
+            <div class="habit-tile-icon">
+              ${isDoneOnFocus ? ICONS.check : getHabitSvg(hab.icon)}
             </div>
             <div class="habit-tile-info">
               <div class="habit-tile-title">${escapeHtml(hab.title)}</div>
-              <div class="habit-tile-streak">${stats.isDoneToday ? `ต่อเนื่อง ${stats.currentStreak} วัน` : 'แตะเพื่อเช็คอิน'}</div>
+              <div class="habit-tile-streak">
+                ${isDoneOnFocus ? `เช็คอินแล้ว · ${stats.currentStreak}d` : `ต่อเนื่อง ${stats.currentStreak} วัน`}
+              </div>
             </div>
           </button>
         `;
@@ -513,19 +582,19 @@
     document.getElementById('today-todos-badge').textContent = `${pendingTodayCount}`;
     const todosContainer = document.getElementById('today-todos-container');
 
-    const sortedTodayTodos = [...dueTodayOrOverdue].sort((a, b) => {
+    const sortedTodayTodos = [...dueOnFocus].sort((a, b) => {
       if (a.completed !== b.completed) return a.completed ? 1 : -1;
       const prioOrder = { high: 0, medium: 1, low: 2 };
       if (prioOrder[a.priority] !== prioOrder[b.priority]) {
         return prioOrder[a.priority] - prioOrder[b.priority];
       }
-      return (a.dueDate || '').localeCompare(b.dueDate || '');
+      return (a.dueTime || '23:59').localeCompare(b.dueTime || '23:59');
     });
 
     if (sortedTodayTodos.length === 0) {
       todosContainer.innerHTML = `
         <div class="empty-state">
-          <p>ไม่มีงานค้างสำหรับวันนี้</p>
+          <p>ไม่มีรายการงานในวันที่เลือก</p>
         </div>
       `;
     } else {
@@ -816,13 +885,8 @@
         const isDoneOnDate = !!(hab.logs && hab.logs[selDate]);
         return `
           <button type="button" class="today-habit-tile ${isDoneOnDate ? 'done' : ''}" data-action="toggle-habit-date" data-id="${hab.id}" data-date="${selDate}">
-            <div class="habit-tile-top">
-              <div class="habit-tile-icon">
-                ${isDoneOnDate ? ICONS.check : getHabitSvg(hab.icon)}
-              </div>
-              <span class="habit-streak-pill ${isDoneOnDate ? 'done' : ''}">
-                ${isDoneOnDate ? '✓ บันทึกแล้ว' : 'รอเช็คอิน'}
-              </span>
+            <div class="habit-tile-icon">
+              ${isDoneOnDate ? ICONS.check : getHabitSvg(hab.icon)}
             </div>
             <div class="habit-tile-info">
               <div class="habit-tile-title">${escapeHtml(hab.title)}</div>
@@ -1128,10 +1192,38 @@
       showToast(next === 'dark' ? 'โหมด Tesla Obsidian (Dark)' : 'โหมด Titanium Pearl (Light)');
     });
 
-    // Today Section Add Habit Button
+    // Today Section Add Habit & Add Todo Buttons
     const btnTodayNewHabit = document.getElementById('btn-today-new-habit');
     if (btnTodayNewHabit) {
       btnTodayNewHabit.addEventListener('click', () => openHabitModal());
+    }
+    const btnTodayNewTodo = document.getElementById('btn-today-new-todo');
+    if (btnTodayNewTodo) {
+      btnTodayNewTodo.addEventListener('click', () => openTodoModal(null, uiState.todayFocusDate));
+    }
+
+    // Reset Today Scrubber Button
+    const btnHeroResetToday = document.getElementById('btn-hero-reset-today');
+    if (btnHeroResetToday) {
+      btnHeroResetToday.addEventListener('click', () => {
+        uiState.todayFocusDate = toLocalDateStr();
+        renderTodayView();
+      });
+    }
+
+    // Quick Add Priority Cycling Button
+    const btnQuickPrio = document.getElementById('btn-quick-prio');
+    if (btnQuickPrio) {
+      btnQuickPrio.addEventListener('click', () => {
+        const order = ['medium', 'high', 'low'];
+        const labels = { medium: 'ปกติ', high: 'ด่วน', low: 'ทั่วไป' };
+        const nextIdx = (order.indexOf(uiState.quickAddPriority) + 1) % order.length;
+        uiState.quickAddPriority = order[nextIdx];
+        const dot = document.getElementById('quick-prio-dot');
+        const lbl = document.getElementById('quick-prio-label');
+        if (dot) dot.className = `prio-dot ${uiState.quickAddPriority}`;
+        if (lbl) lbl.textContent = labels[uiState.quickAddPriority];
+      });
     }
 
     // Dock Center Add Button
@@ -1141,7 +1233,7 @@
       } else if (uiState.activeTab === 'calendar') {
         openTodoModal(null, uiState.calendarSelectedDate);
       } else {
-        openTodoModal();
+        openTodoModal(null, uiState.todayFocusDate);
       }
     });
 
@@ -1153,12 +1245,12 @@
       if (!title) return;
       store.addTodo({
         title,
-        dueDate: toLocalDateStr(),
-        priority: 'medium',
+        dueDate: uiState.todayFocusDate || toLocalDateStr(),
+        priority: uiState.quickAddPriority || 'medium',
         category: 'personal'
       });
       input.value = '';
-      showToast('เพิ่มงานในวันนี้แล้ว');
+      showToast('เพิ่มงานเรียบร้อยแล้ว');
     });
 
     // Delegated Actions
@@ -1201,6 +1293,9 @@
       } else if (action === 'select-cal-date') {
         uiState.calendarSelectedDate = actionEl.dataset.date;
         renderCalendarView();
+      } else if (action === 'select-hero-date') {
+        uiState.todayFocusDate = actionEl.dataset.date;
+        renderTodayView();
       }
     });
 
@@ -1510,12 +1605,12 @@
     if ('caches' in window) {
       caches.keys().then((keys) => {
         keys.forEach((k) => {
-          if (k !== 'dailyflow-pwa-v6') caches.delete(k);
+          if (k !== 'dailyflow-pwa-v7') caches.delete(k);
         });
       });
     }
     if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
-      navigator.serviceWorker.register('./sw.js?v=6').then((reg) => {
+      navigator.serviceWorker.register('./sw.js?v=7').then((reg) => {
         reg.update();
       }).catch((err) => {
         console.warn('SW registration skipped:', err);
