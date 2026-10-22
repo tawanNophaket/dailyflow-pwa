@@ -10,15 +10,16 @@
   <meta name="description" content="DailyFlow — Personal To-Do, Habits & Calendar (Tesla Luxury Edition)" />
 
   <title>DailyFlow</title>
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" type="image/png" href="assets/app-icon-192.png" />
-  <link rel="apple-touch-icon" href="assets/app-icon-192.png" />
+  <link rel="manifest" href="manifest.json?v=10" />
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/app-icon-192.png?v=10" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=10" />
+  <link rel="apple-touch-icon-precomposed" href="apple-touch-icon.png?v=10" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=9" />
+  <link rel="stylesheet" href="styles.css?v=10" />
 </head>
 <body>
   <div class="toast-container" id="toast-container"></div>
@@ -28,7 +29,7 @@
     <header class="top-header">
       <div class="brand-group">
         <button type="button" class="brand-mark brand-avatar-btn" id="btn-brand-avatar" title="Jay Park Role Model">
-          <img src="assets/app-icon-192.png" alt="App Icon" class="brand-avatar-img" />
+          <img src="assets/app-icon-192.png?v=10" alt="App Icon" class="brand-avatar-img" />
         </button>
         <div class="header-titles">
           <h1 id="header-title">DAILYFLOW</h1>
@@ -353,6 +354,19 @@
 
       <!-- ==================== TAB 5: SETTINGS & BACKUP ==================== -->
       <section class="tab-view" id="view-settings">
+        <div class="settings-group" style="border-color:var(--border-strong);">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+            <img src="assets/app-icon-192.png?v=10" alt="Jay Park Icon" style="width:52px; height:52px; border-radius:14px; object-fit:cover; border:1.5px solid var(--border-strong); flex-shrink:0;" />
+            <div>
+              <h3 style="margin-bottom:2px;">ไอคอนแอป Jay Park Edition</h3>
+              <p class="settings-desc" style="margin-bottom:0;">หากไอคอนบนหน้าจอมือถือยังเป็นรูปเก่า ให้กดปุ่มด้านล่างเพื่อล้างแคชไอคอน แล้วกดติดตั้งลงหน้าจอโฮมใหม่ 1 ครั้งครับ</p>
+            </div>
+          </div>
+          <button type="button" class="btn-primary-sm" id="btn-force-refresh-pwa" style="width:100%; justify-content:center; padding:10px;">
+            รีเฟรชไอคอนใหม่ & ล้างแคชแอป (v10)
+          </button>
+        </div>
+
         <div class="settings-group" id="pwa-install-banner" style="display:none; border-color:var(--border-strong);">
           <h3>ติดตั้งแอปลงหน้าจอมือถือ</h3>
           <p class="settings-desc">ใช้งานเต็มจอสไตล์ Tesla OS และเปิดได้ทันทีแม้ไม่มีอินเทอร์เน็ต</p>
@@ -699,7 +713,7 @@
     </div>
   </div>
 
-  <script src="db.js?v=9"></script>
-  <script src="app.js?v=9"></script>
+  <script src="db.js?v=10"></script>
+  <script src="app.js?v=10"></script>
 </body>
 </html>
