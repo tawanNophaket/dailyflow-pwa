@@ -239,8 +239,8 @@
         if (reg && reg.showNotification) {
           await reg.showNotification(title, {
             body,
-            icon: './icon.svg',
-            badge: './icon.svg',
+            icon: './assets/app-icon-192.png?v=10',
+            badge: './assets/app-icon-192.png?v=10',
             tag,
             renotify: true,
             vibrate: [180, 80, 180]
@@ -248,7 +248,7 @@
           return true;
         }
       }
-      new Notification(title, { body, icon: './icon.svg', tag });
+      new Notification(title, { body, icon: './assets/app-icon-192.png?v=10', tag });
       return true;
     } catch (_) {
       return false;
@@ -1696,6 +1696,26 @@
     });
 
     // Settings Tab Actions
+    const btnForceRefreshPwa = document.getElementById('btn-force-refresh-pwa');
+    if (btnForceRefreshPwa) {
+      btnForceRefreshPwa.addEventListener('click', async () => {
+        showToast('กำลังล้างแคชไอคอนเก่าและโหลดเวอร์ชันล่าสุด...');
+        try {
+          if ('caches' in window) {
+            const keys = await caches.keys();
+            await Promise.all(keys.map((k) => caches.delete(k)));
+          }
+          if ('serviceWorker' in navigator) {
+            const regs = await navigator.serviceWorker.getRegistrations();
+            await Promise.all(regs.map((r) => r.unregister()));
+          }
+        } catch (_) {}
+        setTimeout(() => {
+          window.location.href = `./?v=${Date.now()}`;
+        }, 350);
+      });
+    }
+
     document.querySelectorAll('#theme-selector .theme-opt-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
         store.updateSettings({ theme: btn.dataset.themeVal });
