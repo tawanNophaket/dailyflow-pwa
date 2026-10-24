@@ -10,16 +10,16 @@
   <meta name="description" content="DailyFlow — Personal To-Do, Habits, Calendar & Jay Park 1.5-Hr Gym Blueprint" />
 
   <title>DailyFlow</title>
-  <link rel="manifest" href="manifest.json?v=13" />
-  <link rel="icon" type="image/png" sizes="192x192" href="assets/app-icon-192.png?v=13" />
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=13" />
-  <link rel="apple-touch-icon-precomposed" href="apple-touch-icon.png?v=13" />
+  <link rel="manifest" href="manifest.json?v=14" />
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/app-icon-192.png?v=14" />
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=14" />
+  <link rel="apple-touch-icon-precomposed" href="apple-touch-icon.png?v=14" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css?v=13" />
+  <link rel="stylesheet" href="styles.css?v=14" />
 </head>
 <body>
   <div class="toast-container" id="toast-container"></div>
@@ -29,7 +29,7 @@
     <header class="top-header">
       <div class="brand-group">
         <button type="button" class="brand-mark brand-avatar-btn" id="btn-brand-avatar" title="Jay Park Role Model">
-          <img src="assets/app-icon-192.png?v=13" alt="App Icon" class="brand-avatar-img" />
+          <img src="assets/app-icon-192.png?v=14" alt="App Icon" class="brand-avatar-img" />
         </button>
         <div class="header-titles">
           <h1 id="header-title">DAILYFLOW</h1>
@@ -41,18 +41,6 @@
       </div>
 
       <div class="header-actions">
-        <button class="icon-btn" id="btn-header-gym" title="ตารางฟิตเนส 1.5 ชม. (Jay Park Routine)" aria-label="ตารางฟิตเนส 1.5 ชม.">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6.5 6.5l11 11"></path>
-            <path d="M21 21l-1-1"></path>
-            <path d="M3 3l1 1"></path>
-            <path d="M18 22l4-4"></path>
-            <path d="M2 6l4-4"></path>
-            <path d="M3 10l7-7"></path>
-            <path d="M14 21l7-7"></path>
-          </svg>
-        </button>
-
         <button class="icon-btn" id="btn-notifications" title="ศูนย์แจ้งเตือน (Notifications)" aria-label="ศูนย์แจ้งเตือน">
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
@@ -199,26 +187,6 @@
         </div>
         <div class="vision-bento-grid" id="today-vision-grid" aria-label="Role Model Vision Board"></div>
 
-        <!-- Compact Gym Quick Entry Banner (Opens Dedicated Workout Page) -->
-        <div class="habits-vision-banner" id="today-gym-entry-banner" data-goto-tab="workout" role="button" tabindex="0" title="เปิดหน้าจัดตารางออกกำลังกาย 1.5 ชม." style="margin-bottom: 14px;">
-          <div class="habit-avatar" style="width:36px; height:36px; border-radius:10px;">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M6.5 6.5l11 11"></path>
-              <path d="M21 21l-1-1"></path>
-              <path d="M3 3l1 1"></path>
-              <path d="M18 22l4-4"></path>
-              <path d="M2 6l4-4"></path>
-              <path d="M3 10l7-7"></path>
-              <path d="M14 21l7-7"></path>
-            </svg>
-          </div>
-          <div class="vision-banner-info">
-            <div class="vision-banner-title">ตารางฟิตเนส 1.5 ชม. · อกส่วนบน & ไหล่ 3D</div>
-            <div class="vision-banner-sub" id="today-gym-banner-sub">แตะเพื่อเปิดหน้าจัดตารางออกกำลังกาย & เช็คเซ็ตซ้อม →</div>
-          </div>
-          <span class="section-link" style="flex-shrink:0;">หน้าฟิตเนส →</span>
-        </div>
-
         <!-- Today's Habits Quick Check-in -->
         <div class="section-header">
           <div class="section-title">
@@ -285,149 +253,85 @@
         <div class="todo-list" id="all-todos-container"></div>
       </section>
 
-      <!-- ==================== TAB 3: DEDICATED WORKOUT PLANNER & GYM COCKPIT ==================== -->
+      <!-- ==================== TAB 3: DEDICATED MINIMAL WORKOUT PLANNER ==================== -->
       <section class="tab-view" id="view-workout">
-        <!-- 1. Workout Planner Hero & Weekly Gym Schedule Organizer -->
-        <div class="hero-bento-card workout-hero-card">
-          <div class="hero-top">
-            <div class="hero-copy">
-              <div class="hero-eyebrow-row">
-                <div class="hero-eyebrow">
-                  <span class="status-led"></span>
-                  <span id="workout-page-date-label">ตารางซ้อมวันนี้</span>
-                </div>
-                <span class="workout-tag-pill subtle" id="workout-duration-pill">90 นาที · ครบทุกส่วน</span>
-              </div>
-              <div class="hero-greeting" style="font-size:1.12rem;">ตารางฟิตเนส 1.5 ชม. (Jay Park)</div>
-              <div class="hero-date-full" id="workout-status-sub">
-                เน้นสันอกส่วนบน 30° & หัวไหล่ 3 มิติ · เล่นได้ทุกวัน (ไปยิมทุก 2–3 วัน)
-              </div>
-            </div>
-            <div class="progress-ring-wrap">
-              <svg class="progress-ring-svg" viewBox="0 0 88 88">
-                <circle class="progress-ring-bg" cx="44" cy="44" r="34"></circle>
-                <circle class="progress-ring-value" id="workout-ring-circle" cx="44" cy="44" r="34" stroke="url(#telemetryGrad)" stroke-dasharray="213.63" stroke-dashoffset="213.63"></circle>
-              </svg>
-              <div class="progress-ring-center">
-                <span class="progress-ring-text" id="workout-overall-pct">0%</span>
-                <span class="progress-ring-sub">GYM</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="hero-metrics">
-            <div class="hero-metric-box">
-              <div class="hero-metric-label">
-                <span>ท่าที่ซ้อมครบ</span>
-                <strong id="workout-progress-badge">0/11 ท่า</strong>
-              </div>
-              <div class="hero-progress-track">
-                <div class="hero-progress-fill" id="workout-ex-bar" style="width: 0%"></div>
-              </div>
-            </div>
-            <div class="hero-metric-box">
-              <div class="hero-metric-label">
-                <span>จำนวนเซ็ตทั้งหมด</span>
-                <strong id="workout-sets-counter">0/33 เซ็ต</strong>
-              </div>
-              <div class="hero-progress-track">
-                <div class="hero-progress-fill emerald-bar" id="workout-progress-fill" style="width: 0%"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Weekly Gym Schedule Planner (เลือกจัดวันไปยิม 2–3 วัน/สัปดาห์) -->
-          <div class="workout-schedule-planner">
-            <div class="w-planner-header">
-              <span class="w-planner-title">จัดวันไปยิมในสัปดาห์</span>
-              <span class="w-planner-summary" id="workout-planned-summary">3 วัน/สัปดาห์</span>
-            </div>
-            <div class="chip-scroll-row" id="workout-preset-chips" style="margin-bottom:8px;">
-              <button type="button" class="filter-chip active" data-wpreset="flexible">ยืดหยุ่น (2–3 วันไปที)</button>
-              <button type="button" class="filter-chip" data-wpreset="3days">3 วัน (จ · พฤ · ส)</button>
-              <button type="button" class="filter-chip" data-wpreset="2days">2 วัน (อ · ศ)</button>
-            </div>
-            <div class="weekday-selector" id="workout-planned-days-row" aria-label="เลือกวันไปยิมในสัปดาห์"></div>
-          </div>
-        </div>
-
-        <!-- 2. Workout Mode Switch & Built-in Rest Countdown Timer -->
-        <div class="workout-blueprint-card" style="margin-bottom: 12px;">
-          <div class="workout-card-top" style="margin-bottom: 10px;">
-            <div>
-              <div style="font-size:0.82rem; font-weight:700; color:var(--text-primary);">โหมดเวลาซ้อม & นาฬิกาพักเซ็ต</div>
-              <div style="font-size:0.71rem; color:var(--text-secondary);">แตะปุ่มเซ็ตด้านล่างเพื่อเช็คและเริ่มนับเวลาพักอัตโนมัติ</div>
+        <!-- Minimal Summary & Weekly Schedule Card -->
+        <div class="workout-minimal-card">
+          <div class="wm-top-row">
+            <div class="wm-title-group">
+              <div class="wm-heading">Upper Chest & 3D Shoulders</div>
+              <div class="wm-sub" id="workout-status-sub">ตาราง 1.5 ชม. · เล่นซ้ำทุก 2–3 วัน · 0/33 เซ็ต</div>
             </div>
             <div class="workout-mode-switch" role="group" aria-label="เลือกโหมดเวลาซ้อม">
-              <button type="button" class="w-mode-btn active" data-wmode="full">90m เต็ม</button>
-              <button type="button" class="w-mode-btn" data-wmode="express">55m ด่วน</button>
+              <button type="button" class="w-mode-btn active" data-wmode="full">90m</button>
+              <button type="button" class="w-mode-btn" data-wmode="express">55m</button>
             </div>
           </div>
 
-          <div class="workout-timer-bar" id="workout-timer-bar" style="margin-bottom:0;">
+          <div class="wm-progress-track">
+            <div class="wm-progress-fill" id="workout-progress-fill" style="width: 0%"></div>
+          </div>
+
+          <!-- Single-Row Minimal 7-Day Gym Day Selector -->
+          <div class="wm-days-row">
+            <span class="wm-days-label" id="workout-planned-summary">วันซ้อม</span>
+            <div class="wm-days-pills" id="workout-planned-days-row" aria-label="เลือกวันไปยิมในสัปดาห์"></div>
+          </div>
+
+          <!-- Minimal Single-Row Rest Timer -->
+          <div class="wm-timer-row" id="workout-timer-bar">
             <div class="timer-display-group">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10"></circle>
                 <polyline points="12 6 12 12 16 14"></polyline>
               </svg>
-              <span class="timer-label" id="workout-timer-label">จับเวลาพักเซ็ต:</span>
+              <span class="timer-label">พักเซ็ต</span>
               <strong class="timer-clock" id="workout-timer-clock">พร้อมซ้อม</strong>
             </div>
             <div class="timer-preset-btns">
-              <button type="button" class="timer-chip" data-rest-sec="45">45s</button>
               <button type="button" class="timer-chip" data-rest-sec="60">60s</button>
               <button type="button" class="timer-chip" data-rest-sec="75">75s</button>
               <button type="button" class="timer-chip" data-rest-sec="90">90s</button>
-              <button type="button" class="timer-chip" data-rest-sec="120">120s</button>
               <button type="button" class="timer-chip stop" id="btn-stop-rest-timer" style="display:none;">หยุด</button>
             </div>
           </div>
         </div>
 
-        <!-- 3. Routine Organizer Toolbar & Phase Filter -->
-        <div class="section-header" style="margin-top: 6px;">
+        <!-- Minimal Routine Section Header -->
+        <div class="section-header" style="margin-top: 2px;">
           <div class="section-title">
-            <span>รายการท่าออกกำลังกาย</span>
+            <span>ตารางซ้อม</span>
             <span class="section-badge" id="workout-list-count-badge">11</span>
           </div>
-          <div style="display:flex; align-items:center; gap:8px; flex-shrink:0;">
-            <button type="button" class="section-link" id="btn-toggle-workout-edit-mode">✎ จัดการตาราง</button>
-            <button type="button" class="btn-primary-sm" id="btn-add-workout-exercise" style="padding:5px 10px; font-size:0.71rem;">+ เพิ่มท่า</button>
+          <div style="display:flex; align-items:center; gap:14px; flex-shrink:0;">
+            <button type="button" class="section-link" id="btn-toggle-workout-edit-mode">จัดการ</button>
+            <button type="button" class="section-link" id="btn-add-workout-exercise">+ เพิ่มท่า</button>
           </div>
         </div>
 
-        <!-- Edit Mode Banner (Shown when Edit Routine Mode is active) -->
+        <!-- Subtle Edit Mode Strip (Hidden unless organizing) -->
         <div class="workout-edit-banner" id="workout-edit-banner" style="display:none;">
-          <span>โหมดจัดตาราง: เลื่อนลำดับ ↑↓ แก้ไขจำนวนเซ็ต/ครั้ง หรือเพิ่ม-ลบท่าได้ตามต้องการ</span>
-          <button type="button" class="section-link" id="btn-reset-default-routine" style="color:var(--tesla-red); flex-shrink:0;">คืนค่ามาตรฐาน</button>
+          <span>แตะ ↑↓ เพื่อเรียงลำดับ หรือแก้ไขและลบท่าซ้อม</span>
+          <button type="button" class="section-link" id="btn-reset-default-routine" style="color:var(--tesla-red); flex-shrink:0;">คืนค่าเริ่มต้น</button>
         </div>
 
-        <!-- Phase Filter Chips -->
+        <!-- Clean Phase Filter Chips -->
         <div class="chip-scroll-row workout-phase-chips" id="workout-phase-chips">
-          <button type="button" class="filter-chip active" data-wphase="all">ทั้งหมด (ครบตาราง)</button>
-          <button type="button" class="filter-chip" data-wphase="warmup">1. วอร์มไหล่ (10m)</button>
-          <button type="button" class="filter-chip" data-wphase="chest">2. อกส่วนบน (25m)</button>
-          <button type="button" class="filter-chip" data-wphase="shoulders">3. หัวไหล่ 3D (25m)</button>
-          <button type="button" class="filter-chip" data-wphase="back_arms">4. หลัง & แขน (15m)</button>
-          <button type="button" class="filter-chip" data-wphase="legs_core">5. ขา & ท้อง (15m)</button>
+          <button type="button" class="filter-chip active" data-wphase="all">ทั้งหมด</button>
+          <button type="button" class="filter-chip" data-wphase="warmup">วอร์ม</button>
+          <button type="button" class="filter-chip" data-wphase="chest">อกส่วนบน</button>
+          <button type="button" class="filter-chip" data-wphase="shoulders">หัวไหล่ 3D</button>
+          <button type="button" class="filter-chip" data-wphase="back_arms">หลัง & แขน</button>
+          <button type="button" class="filter-chip" data-wphase="legs_core">ขา & ท้อง</button>
         </div>
 
-        <!-- 4. Exercise Cards Container -->
+        <!-- Minimal Exercise List -->
         <div class="workout-exercises-list" id="workout-page-list"></div>
 
-        <!-- 5. Post-Workout Nutrition & Session Actions -->
-        <div class="workout-blueprint-card" style="margin-top: 12px;">
-          <div class="workout-footer-box" style="margin-top:0; padding-top:0; border-top:none;">
-            <div class="workout-nutrition-note">
-              <strong>กฎเหล็ก & โภชนาการหลังซ้อม (ภายใน 1–2 ชม.):</strong>
-              หากท่าไหนยกครบ 12 ครั้งทุกเซ็ตแบบฟอร์มนิ่ง ให้เพิ่มน้ำหนักขึ้น 1–2.5 kg ในรอบถัดไป • หลังซ้อมทานมื้ออาหารปกติ + ไข่ต้ม 3 ฟอง (หรือนมถั่วเหลืองโปรตีนสูงฝาดำ 1 ขวด ~28g โปรตีน)
-            </div>
-            <div class="workout-footer-actions" style="grid-template-columns: repeat(3, minmax(0, 1fr));">
-              <button type="button" class="btn-outline" id="btn-reset-workout-session">รีเซ็ตเซ็ต</button>
-              <button type="button" class="btn-outline" id="btn-sync-workout-todo">ส่งเข้างานวันนี้</button>
-              <button type="button" class="btn-primary-sm" id="btn-complete-workout-session" style="justify-content:center;">✓ จบเซสชัน</button>
-            </div>
-          </div>
+        <!-- Minimal 2-Button Session Footer -->
+        <div class="wm-footer-actions">
+          <button type="button" class="btn-outline" id="btn-reset-workout-session">รีเซ็ตวันนี้</button>
+          <button type="button" class="btn-primary-sm" id="btn-complete-workout-session" style="justify-content:center;">✓ บันทึกจบเซสชัน</button>
         </div>
       </section>
 
@@ -450,20 +354,6 @@
 
         <!-- Role Model Motivation Banner inside Habits -->
         <div class="habits-vision-banner" id="habits-vision-banner"></div>
-
-        <!-- Quick Open 1.5-Hr Gym Blueprint Banner inside Habits -->
-        <div class="habits-vision-banner" id="habits-gym-banner" style="margin-top:-6px;">
-          <div class="habit-avatar" style="width:34px; height:34px; border-radius:9px;">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-            </svg>
-          </div>
-          <div class="vision-banner-info">
-            <div class="vision-banner-title">ตารางฟิตเนส 1.5 ชม. · Jay Park Upper-Chest & Shoulders</div>
-            <div class="vision-banner-sub" id="habits-gym-banner-sub">ตารางรวมเล่นได้ทุกวัน (2–3 วัน/สัปดาห์) · แตะเพื่อเช็คเซ็ตและจับเวลาพัก</div>
-          </div>
-          <span class="section-link" style="flex-shrink:0;">เปิดตาราง ↗</span>
-        </div>
 
         <div class="section-header" style="margin-top: 4px;">
           <div class="section-title">
@@ -551,14 +441,14 @@
       <section class="tab-view" id="view-settings">
         <div class="settings-group" style="border-color:var(--border-strong);">
           <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
-            <img src="assets/app-icon-192.png?v=13" alt="Jay Park Icon" style="width:52px; height:52px; border-radius:14px; object-fit:cover; border:1.5px solid var(--border-strong); flex-shrink:0;" />
+            <img src="assets/app-icon-192.png?v=14" alt="Jay Park Icon" style="width:52px; height:52px; border-radius:14px; object-fit:cover; border:1.5px solid var(--border-strong); flex-shrink:0;" />
             <div>
-              <h3 style="margin-bottom:2px;">ไอคอนแอป, รูป HD Jay Park & หน้าจัดตารางฟิตเนส (v13)</h3>
-              <p class="settings-desc" style="margin-bottom:0;">อัปเดตหน้าจัดตารางออกกำลังกายแยกโดยเฉพาะ พร้อมภาพ Jay Park ระดับ Natural HD ครบ 6 ลุค</p>
+              <h3 style="margin-bottom:2px;">ไอคอนแอป, รูป HD Jay Park & หน้าฟิตเนส Minimal (v14)</h3>
+              <p class="settings-desc" style="margin-bottom:0;">ดีไซน์หน้าจัดตารางฟิตเนสใหม่แบบ Minimal Clean สบายตา พร้อมภาพ Jay Park HD ครบ 6 ลุค</p>
             </div>
           </div>
           <button type="button" class="btn-primary-sm" id="btn-force-refresh-pwa" style="width:100%; justify-content:center; padding:10px;">
-            รีเฟรชแคชแอปเป็นเวอร์ชันล่าสุด (v13)
+            รีเฟรชแคชแอปเป็นเวอร์ชันล่าสุด (v14)
           </button>
         </div>
 
@@ -901,7 +791,7 @@
       </div>
 
       <div class="vision-stage-wrap">
-        <img id="vision-stage-img" class="vision-stage-img" src="./assets/jay-1.jpg?v=13" alt="Jay Park Role Model" />
+        <img id="vision-stage-img" class="vision-stage-img" src="./assets/jay-1.jpg?v=14" alt="Jay Park Role Model" />
         <button type="button" class="vision-nav-btn prev" id="btn-vision-prev" aria-label="ภาพก่อนหน้า">‹</button>
         <button type="button" class="vision-nav-btn next" id="btn-vision-next" aria-label="ภาพถัดไป">›</button>
         <div class="vision-stage-overlay">
@@ -1002,7 +892,7 @@
     </div>
   </div>
 
-  <script src="db.js?v=13"></script>
-  <script src="app.js?v=13"></script>
+  <script src="db.js?v=14"></script>
+  <script src="app.js?v=14"></script>
 </body>
 </html>
