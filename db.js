@@ -274,14 +274,21 @@ const JAY_PARK_WORKOUT_EXERCISES = [
   }
 ];
 
+function cloneDefaultExercises() {
+  return JAY_PARK_WORKOUT_EXERCISES.map((ex) => ({ ...ex }));
+}
+
 function createDefaultWorkoutState() {
   const weights = {};
   JAY_PARK_WORKOUT_EXERCISES.forEach((ex) => {
     weights[ex.id] = ex.defaultWeight;
   });
   return {
-    mode: 'full', // 'full' (90 mins, 11 items) | 'express' (55 mins, 9 items)
+    mode: 'full', // 'full' (90 mins) | 'express' (55 mins)
     activePhase: 'all', // 'all' | 'warmup' | 'chest' | 'shoulders' | 'back_arms' | 'legs_core'
+    schedulePreset: 'flexible', // 'flexible' (ทุก 2-3 วัน) | '3days' (จ-พฤ-ส) | '2days' (อ-ศ)
+    plannedDays: [1, 4, 6], // จันทร์, พฤหัสบดี, เสาร์ (เว้นพัก 48-72 ชม.)
+    exercises: cloneDefaultExercises(),
     weights,
     logsByDate: {}
   };
@@ -653,9 +660,30 @@ class DailyFlowStore {
 
     const defaultWorkout = createDefaultWorkoutState();
     const rawWorkout = data.workout && typeof data.workout === 'object' ? data.workout : {};
+    const customExercises = Array.isArray(rawWorkout.exercises) && rawWorkout.exercises.length > 0
+      ? rawWorkout.exercises.map((ex, idx) => ({
+        id: ex.id || `ex_custom_${idx}`,
+        code: ex.code || String(idx + 1).padStart(2, '0'),
+        phase: ex.phase || 'chest',
+        name: ex.name || 'ท่าออกกำลังกาย',
+        thaiSub: ex.thaiSub || '',
+        target: ex.target || 'โฟกัสกล้ามเนื้อ',
+        sets: Math.max(1, Math.min(10, Number(ex.sets) || 3)),
+        reps: ex.reps || '10–12 ครั้ง',
+        restSec: Math.max(15, Math.min(300, Number(ex.restSec) || 60)),
+        defaultWeight: ex.defaultWeight || '10 kg',
+        express: ex.express !== undefined ? !!ex.express : true,
+        isPriority: !!ex.isPriority,
+        cue: ex.cue || ''
+      }))
+      : cloneDefaultExercises();
+
     const workoutState = {
       mode: rawWorkout.mode === 'express' ? 'express' : 'full',
       activePhase: rawWorkout.activePhase || 'all',
+      schedulePreset: rawWorkout.schedulePreset || 'flexible',
+      plannedDays: Array.isArray(rawWorkout.plannedDays) ? rawWorkout.plannedDays : [1, 4, 6],
+      exercises: customExercises,
       weights: { ...defaultWorkout.weights, ...(rawWorkout.weights || {}) },
       logsByDate: rawWorkout.logsByDate && typeof rawWorkout.logsByDate === 'object'
         ? rawWorkout.logsByDate
@@ -796,7 +824,157 @@ class DailyFlowStore {
     this.notify();
   }
 
-  // --- Workout Operations (Jay Park 1.5-Hr Gym Blueprint) ---
+  // --- Workout Operations (Jay Park 1.5-Hr Gym Blueprint & Custom Organizer) ---
+  getWorkoutExercises() {
+    if (!this.state.workout || !Array.isArray(this.state.workout.exercises) || this.state.workout.exercises.length === 0) {
+      return cloneDefaultExercises();
+    }
+    return this.state.workout.exercises;
+  }
+
+  recalculateExerciseCodes() {
+    if (!this.state.workout || !Array.isArray(this.state.workout.exercises)) return;
+    let warmIdx = 1;
+    let mainIdx = 1;
+    const phaseOrder = ['warmup', 'chest', 'shoulders', 'back_arms', 'legs_core'];
+    this.state.workout.exercises.sort((a, b) => phaseOrder.indexOf(a.phase) - phaseOrder.indexOf(b.phase));
+    this.state.workout.exercises.forEach((ex) => {
+      if (ex.phase === 'warmup') {
+        ex.code = `W${warmIdx++}`;
+      } else {
+        ex.code = String(mainIdx++).padStart(2, '0');
+      }
+    });
+  }
+
+  saveWorkoutExercise(exData) {
+    if (!this.state.workout) this.state.workout = createDefaultWorkoutState();
+    if (!Array.isArray(this.state.workout.exercises)) {
+      this.state.workout.exercises = cloneDefaultExercises();
+    }
+    const list = this.state.workout.exercises;
+    const setsNum = Math.max(1, Math.min(10, Number(exData.sets) || 3));
+    const restNum = Math.max(15, Math.min(300, Number(exData.restSec) || 60));
+    const weightVal = (exData.weight || exData.defaultWeight || '10 kg').trim();
+
+    if (exData.id) {
+      const idx = list.findIndex((x) => x.id === exData.id);
+      if (idx !== -1) {
+        list[idx] = {
+          ...list[idx],
+          phase: exData.phase || list[idx].phase || 'chest',
+          name: (exData.name || list[idx].name).trim(),
+          thaiSub: (exData.thaiSub || '').trim(),
+          target: (exData.target || 'โฟกัสกล้ามเนื้อ').trim(),
+          sets: setsNum,
+          reps: (exData.reps || '8–12 ครั้ง').trim(),
+          restSec: restNum,
+          defaultWeight: weightVal,
+          express: exData.express !== undefined ? !!exData.express : list[idx].express,
+          isPriority: exData.isPriority !== undefined ? !!exData.isPriority : list[idx].isPriority,
+          cue: (exData.cue || '').trim()
+        };
+        this.state.workout.weights[exData.id] = weightVal;
+        this.recalculateExerciseCodes();
+        this.notify();
+        return list[idx];
+      }
+    }
+
+    const newId = generateId('ex');
+    const newEx = {
+      id: newId,
+      code: '01',
+      phase: exData.phase || 'chest',
+      name: (exData.name || 'ท่าออกกำลังกายใหม่').trim(),
+      thaiSub: (exData.thaiSub || '').trim(),
+      target: (exData.target || 'โฟกัสกล้ามเนื้อ').trim(),
+      sets: setsNum,
+      reps: (exData.reps || '8–12 ครั้ง').trim(),
+      restSec: restNum,
+      defaultWeight: weightVal,
+      express: exData.express !== undefined ? !!exData.express : true,
+      isPriority: !!exData.isPriority,
+      cue: (exData.cue || '').trim()
+    };
+    list.push(newEx);
+    this.state.workout.weights[newId] = weightVal;
+    this.recalculateExerciseCodes();
+    this.notify();
+    return newEx;
+  }
+
+  deleteWorkoutExercise(exId) {
+    if (!this.state.workout || !Array.isArray(this.state.workout.exercises)) return;
+    this.state.workout.exercises = this.state.workout.exercises.filter((x) => x.id !== exId);
+    this.recalculateExerciseCodes();
+    this.notify();
+  }
+
+  moveWorkoutExercise(exId, delta) {
+    if (!this.state.workout || !Array.isArray(this.state.workout.exercises)) return;
+    const list = this.state.workout.exercises;
+    const idx = list.findIndex((x) => x.id === exId);
+    if (idx === -1) return;
+    const targetPhase = list[idx].phase;
+    // Find adjacent item within the same phase
+    let swapIdx = -1;
+    if (delta < 0) {
+      for (let i = idx - 1; i >= 0; i--) {
+        if (list[i].phase === targetPhase) { swapIdx = i; break; }
+      }
+    } else {
+      for (let i = idx + 1; i < list.length; i++) {
+        if (list[i].phase === targetPhase) { swapIdx = i; break; }
+      }
+    }
+    if (swapIdx === -1) return;
+    const temp = list[idx];
+    list[idx] = list[swapIdx];
+    list[swapIdx] = temp;
+    this.recalculateExerciseCodes();
+    this.notify();
+  }
+
+  resetWorkoutRoutineToDefault() {
+    if (!this.state.workout) this.state.workout = createDefaultWorkoutState();
+    this.state.workout.exercises = cloneDefaultExercises();
+    JAY_PARK_WORKOUT_EXERCISES.forEach((ex) => {
+      if (!this.state.workout.weights[ex.id]) {
+        this.state.workout.weights[ex.id] = ex.defaultWeight;
+      }
+    });
+    this.notify();
+  }
+
+  toggleWorkoutPlannedDay(dayNum) {
+    if (!this.state.workout) this.state.workout = createDefaultWorkoutState();
+    const cur = Array.isArray(this.state.workout.plannedDays) ? [...this.state.workout.plannedDays] : [1, 4, 6];
+    const idx = cur.indexOf(dayNum);
+    if (idx === -1) {
+      cur.push(dayNum);
+      cur.sort((a, b) => a - b);
+    } else if (cur.length > 1) {
+      cur.splice(idx, 1);
+    }
+    this.state.workout.plannedDays = cur;
+    this.state.workout.schedulePreset = 'custom';
+    this.notify();
+  }
+
+  setWorkoutSchedulePreset(preset) {
+    if (!this.state.workout) this.state.workout = createDefaultWorkoutState();
+    this.state.workout.schedulePreset = preset;
+    if (preset === '2days') {
+      this.state.workout.plannedDays = [2, 5]; // อังคาร & ศุกร์ (พัก 2-3 วัน)
+    } else if (preset === '3days') {
+      this.state.workout.plannedDays = [1, 4, 6]; // จันทร์, พฤหัส, เสาร์
+    } else {
+      this.state.workout.plannedDays = [1, 4, 6]; // ยืดหยุ่น 2-3 วันไปที
+    }
+    this.notify();
+  }
+
   ensureWorkoutDateLog(dateStr = toLocalDateStr()) {
     if (!this.state.workout) {
       this.state.workout = createDefaultWorkoutState();
@@ -863,7 +1041,8 @@ class DailyFlowStore {
   completeWorkoutSession(dateStr = toLocalDateStr()) {
     const dayLog = this.ensureWorkoutDateLog(dateStr);
     const mode = this.state.workout.mode || 'full';
-    const exercises = JAY_PARK_WORKOUT_EXERCISES.filter((ex) => mode === 'full' || ex.express);
+    const allEx = this.getWorkoutExercises();
+    const exercises = allEx.filter((ex) => mode === 'full' || ex.express);
     exercises.forEach((ex) => {
       dayLog.completedSets[ex.id] = Array(ex.sets).fill(true);
     });
@@ -891,7 +1070,8 @@ class DailyFlowStore {
   syncWorkoutProgressToHabitAndTodo(dateStr, forceComplete = null) {
     const dayLog = this.ensureWorkoutDateLog(dateStr);
     const mode = this.state.workout?.mode || 'full';
-    const activeExercises = JAY_PARK_WORKOUT_EXERCISES.filter((ex) => mode === 'full' || ex.express);
+    const allEx = this.getWorkoutExercises();
+    const activeExercises = allEx.filter((ex) => mode === 'full' || ex.express);
 
     let doneExercisesCount = 0;
     activeExercises.forEach((ex) => {

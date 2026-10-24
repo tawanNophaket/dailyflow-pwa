@@ -54,7 +54,7 @@
   const ROLE_MODELS = [
     {
       id: 'jay-1',
-      src: './assets/jay-1.jpg?v=12',
+      src: './assets/jay-1.jpg?v=13',
       pillar: 'UPPER CHEST & 3D DELTS',
       badge: 'STAGE HD',
       shortTitle: 'อกบนตั้ง · ไหล่ 3D',
@@ -66,7 +66,7 @@
     },
     {
       id: 'jay-2',
-      src: './assets/jay-2.jpg?v=12',
+      src: './assets/jay-2.jpg?v=13',
       pillar: 'COLLARBONE & LION INK',
       badge: 'CHEST SHELF',
       shortTitle: 'สันอกบน · สิงโต',
@@ -78,7 +78,7 @@
     },
     {
       id: 'jay-3',
-      src: './assets/jay-3.jpg?v=12',
+      src: './assets/jay-3.jpg?v=13',
       pillar: 'TANK TOP FRAME',
       badge: 'WIDE DELTS',
       shortTitle: 'เสื้อกล้ามดำ · ไหล่กลม',
@@ -90,7 +90,7 @@
     },
     {
       id: 'jay-4',
-      src: './assets/jay-4.jpg?v=12',
+      src: './assets/jay-4.jpg?v=13',
       pillar: 'ICONIC CHARISMA',
       badge: 'BOSS AURA',
       shortTitle: 'ออร่าดำ · ผม Comma',
@@ -102,7 +102,7 @@
     },
     {
       id: 'jay-5',
-      src: './assets/jay-5.jpg?v=12',
+      src: './assets/jay-5.jpg?v=13',
       pillar: 'LEAN V-TAPER',
       badge: 'SERENADES 2025',
       shortTitle: 'ลีน V-Taper · ซิกแพค',
@@ -114,7 +114,7 @@
     },
     {
       id: 'jay-6',
-      src: './assets/jay-6.jpg?v=12',
+      src: './assets/jay-6.jpg?v=13',
       pillar: 'CORE & V-CUT ABS',
       badge: 'MIRROR FIT',
       shortTitle: 'Mirror · ร่องท้องชัด',
@@ -211,6 +211,7 @@
   function showToast(message) {
     const container = document.getElementById('toast-container');
     if (!container) return;
+    container.innerHTML = '';
     const toast = document.createElement('div');
     toast.className = 'toast-msg';
     toast.textContent = message;
@@ -219,7 +220,7 @@
       toast.style.opacity = '0';
       toast.style.transition = 'opacity 0.22s ease';
       setTimeout(() => toast.remove(), 220);
-    }, 2400);
+    }, 1800);
   }
 
   // --- Synthesized Tesla Dual-Tone Chime (Web Audio API) ---
@@ -331,8 +332,8 @@
         if (reg && reg.showNotification) {
           await reg.showNotification(title, {
             body,
-            icon: './assets/app-icon-192.png?v=12',
-            badge: './assets/app-icon-192.png?v=12',
+            icon: './assets/app-icon-192.png?v=13',
+            badge: './assets/app-icon-192.png?v=13',
             tag,
             renotify: true,
             vibrate: [180, 80, 180]
@@ -340,7 +341,7 @@
           return true;
         }
       }
-      new Notification(title, { body, icon: './assets/app-icon-192.png?v=12', tag });
+      new Notification(title, { body, icon: './assets/app-icon-192.png?v=13', tag });
       return true;
     } catch (_) {
       return false;
@@ -498,9 +499,15 @@
       settingsBtn.classList.toggle('active', tabName === 'settings');
     }
 
+    const headerGymBtn = document.getElementById('btn-header-gym');
+    if (headerGymBtn) {
+      headerGymBtn.classList.toggle('active', tabName === 'workout');
+    }
+
     const titles = {
       today: 'DAILYFLOW',
       todos: 'TASKS',
+      workout: 'GYM PLANNER',
       habits: 'HABITS',
       calendar: 'CALENDAR',
       settings: 'SYSTEM'
@@ -627,6 +634,16 @@
               <div class="workout-ex-sub">${escapeHtml(ex.thaiSub)}</div>
             </div>
           </div>
+          <div class="wex-edit-controls">
+            ${uiState.workoutEditMode ? `
+              <button type="button" class="wex-ctrl-btn" data-action="move-workout-ex" data-ex-id="${ex.id}" data-delta="-1" title="เลื่อนขึ้น">↑</button>
+              <button type="button" class="wex-ctrl-btn" data-action="move-workout-ex" data-ex-id="${ex.id}" data-delta="1" title="เลื่อนลง">↓</button>
+              <button type="button" class="wex-ctrl-btn" data-action="open-edit-workout-ex" data-ex-id="${ex.id}" title="แก้ไขท่า">${ICONS.edit}</button>
+              <button type="button" class="wex-ctrl-btn danger" data-action="delete-workout-ex" data-ex-id="${ex.id}" title="ลบท่า">${ICONS.trash}</button>
+            ` : `
+              <button type="button" class="wex-ctrl-btn" data-action="open-edit-workout-ex" data-ex-id="${ex.id}" title="ปรับแต่งท่า/เซ็ต">${ICONS.edit}</button>
+            `}
+          </div>
         </div>
 
         <div class="workout-ex-badges">
@@ -664,6 +681,37 @@
     `;
   }
 
+  function openWorkoutExerciseModal(exId = null) {
+    const allEx = store.getWorkoutExercises();
+    const existing = exId ? allEx.find((x) => x.id === exId) : null;
+    const weightsMap = store.state.workout?.weights || {};
+
+    document.getElementById('workout-ex-modal-title').textContent = existing
+      ? 'แก้ไขท่าออกกำลังกาย'
+      : 'เพิ่มท่าออกกำลังกายใหม่';
+    document.getElementById('wex-id-input').value = existing ? existing.id : '';
+    document.getElementById('wex-name-input').value = existing ? existing.name : '';
+    document.getElementById('wex-phase-select').value = existing
+      ? existing.phase
+      : (store.state.workout?.activePhase && store.state.workout.activePhase !== 'all'
+        ? store.state.workout.activePhase
+        : 'chest');
+    document.getElementById('wex-target-input').value = existing ? existing.target : 'อกส่วนบน · Priority';
+    document.getElementById('wex-sub-input').value = existing ? existing.thaiSub : '';
+    document.getElementById('wex-sets-input').value = existing ? existing.sets : 3;
+    document.getElementById('wex-reps-input').value = existing ? existing.reps : '8–12 ครั้ง';
+    document.getElementById('wex-rest-input').value = existing ? existing.restSec : 60;
+    document.getElementById('wex-weight-input').value = existing
+      ? (weightsMap[existing.id] || existing.defaultWeight || '12 kg')
+      : '12 kg';
+    document.getElementById('wex-cue-input').value = existing ? existing.cue : '';
+    document.getElementById('wex-priority-check').checked = existing ? !!existing.isPriority : true;
+    document.getElementById('wex-express-check').checked = existing ? !!existing.express : true;
+
+    openModal('workout-exercise-modal');
+    setTimeout(() => document.getElementById('wex-name-input').focus(), 100);
+  }
+
   function renderWorkoutBlueprint() {
     const focusDate = uiState.todayFocusDate || toLocalDateStr();
     const wState = store.state.workout || { mode: 'full', activePhase: 'all', weights: {}, logsByDate: {} };
@@ -671,8 +719,9 @@
     const activePhase = wState.activePhase || 'all';
     const weightsMap = wState.weights || {};
     const dayLog = wState.logsByDate?.[focusDate] || { completedSets: {}, sessionCompleted: false };
+    const allExercises = store.getWorkoutExercises();
 
-    const modeExercises = JAY_PARK_WORKOUT_EXERCISES.filter((ex) => mode === 'full' || ex.express);
+    const modeExercises = allExercises.filter((ex) => mode === 'full' || ex.express);
 
     let totalSetsAll = 0;
     let doneSetsAll = 0;
@@ -687,9 +736,31 @@
     });
 
     const pct = totalSetsAll > 0 ? Math.round((doneSetsAll / totalSetsAll) * 100) : 0;
+    const exPct = modeExercises.length > 0 ? Math.round((doneExCount / modeExercises.length) * 100) : 0;
+
+    const dateLabelEl = document.getElementById('workout-page-date-label');
+    if (dateLabelEl) {
+      dateLabelEl.textContent = `ตารางซ้อม · ${formatFullThaiDate(focusDate)}`;
+    }
+
+    const overallPctEl = document.getElementById('workout-overall-pct');
+    if (overallPctEl) overallPctEl.textContent = `${pct}%`;
+
+    const wRingCircle = document.getElementById('workout-ring-circle');
+    if (wRingCircle) {
+      const circumference = 213.63;
+      const offset = circumference - (pct / 100) * circumference;
+      wRingCircle.style.strokeDashoffset = `${offset}`;
+    }
 
     const badgeEl = document.getElementById('workout-progress-badge');
-    if (badgeEl) badgeEl.textContent = `${doneExCount}/${modeExercises.length}`;
+    if (badgeEl) badgeEl.textContent = `${doneExCount}/${modeExercises.length} ท่า`;
+
+    const exBarEl = document.getElementById('workout-ex-bar');
+    if (exBarEl) exBarEl.style.width = `${exPct}%`;
+
+    const listCountBadge = document.getElementById('workout-list-count-badge');
+    if (listCountBadge) listCountBadge.textContent = `${modeExercises.length} ท่า`;
 
     const durPill = document.getElementById('workout-duration-pill');
     if (durPill) durPill.textContent = mode === 'full' ? '90 นาที · ครบทุกส่วน' : '55 นาที · โหมดด่วน';
@@ -698,15 +769,56 @@
     if (fillEl) fillEl.style.width = `${pct}%`;
 
     const setsCounterEl = document.getElementById('workout-sets-counter');
-    if (setsCounterEl) setsCounterEl.textContent = `${doneSetsAll}/${totalSetsAll} เซ็ต (${pct}%)`;
+    if (setsCounterEl) setsCounterEl.textContent = `${doneSetsAll}/${totalSetsAll} เซ็ต`;
 
     const subStatusEl = document.getElementById('workout-status-sub');
     if (subStatusEl) {
       if (doneExCount === modeExercises.length && modeExercises.length > 0) {
         subStatusEl.textContent = `ซ้อมครบตารางของ ${formatShortThaiDate(focusDate)} แล้ว! พักกล้ามเนื้อ 48–72 ชม. แล้วลุยรอบถัดไป`;
       } else {
-        subStatusEl.textContent = `เน้นสันอกส่วนบน 30° และหัวไหล่กลมกว้าง · แตะปุ่มเซ็ตด้านล่างเพื่อเช็คและจับเวลาพักอัตโนมัติ`;
+        subStatusEl.textContent = `เน้นสันอกส่วนบน 30° และหัวไหล่กลมกว้าง · เล่นได้ทุกวัน (เว้นพัก 2–3 วัน)`;
       }
+    }
+
+    // Weekly Gym Schedule Planner (7-Day selector + Presets)
+    const plannedDays = Array.isArray(wState.plannedDays) ? wState.plannedDays : [1, 4, 6];
+    const presetVal = wState.schedulePreset || 'flexible';
+    const plannedSummaryEl = document.getElementById('workout-planned-summary');
+    if (plannedSummaryEl) {
+      const dayNames = [1, 2, 3, 4, 5, 6, 0]
+        .filter((d) => plannedDays.includes(d))
+        .map((d) => THAI_DAYS_SHORT[d]);
+      plannedSummaryEl.textContent = `${plannedDays.length} วัน/สัปดาห์ (${dayNames.join(' · ')})`;
+    }
+
+    document.querySelectorAll('#workout-preset-chips .filter-chip').forEach((chip) => {
+      chip.classList.toggle('active', chip.dataset.wpreset === presetVal);
+    });
+
+    const plannedDaysRow = document.getElementById('workout-planned-days-row');
+    if (plannedDaysRow) {
+      const orderedDays = [1, 2, 3, 4, 5, 6, 0];
+      plannedDaysRow.innerHTML = orderedDays.map((d) => {
+        const isPlanned = plannedDays.includes(d);
+        return `
+          <button
+            type="button"
+            class="weekday-btn ${isPlanned ? 'active' : ''}"
+            data-action="toggle-workout-planned-day"
+            data-day="${d}"
+          >
+            ${THAI_DAYS_SHORT[d]}
+          </button>
+        `;
+      }).join('');
+    }
+
+    // Edit Mode UI
+    const editBanner = document.getElementById('workout-edit-banner');
+    const editBtn = document.getElementById('btn-toggle-workout-edit-mode');
+    if (editBanner && editBtn) {
+      editBanner.style.display = uiState.workoutEditMode ? 'flex' : 'none';
+      editBtn.textContent = uiState.workoutEditMode ? '✓ เสร็จสิ้น' : '✎ จัดการตาราง';
     }
 
     // Mode switch active state
@@ -718,14 +830,6 @@
     document.querySelectorAll('#workout-phase-chips .filter-chip').forEach((chip) => {
       chip.classList.toggle('active', chip.dataset.wphase === activePhase);
     });
-
-    // Collapse state
-    const bodyEl = document.getElementById('workout-collapsible-body');
-    const collapseBtn = document.getElementById('btn-toggle-workout-collapse');
-    if (bodyEl && collapseBtn) {
-      bodyEl.style.display = uiState.workoutCollapsed ? 'none' : 'block';
-      collapseBtn.textContent = uiState.workoutCollapsed ? 'ขยาย ↓' : 'ย่อ ↑';
-    }
 
     // Build HTML grouped by phase
     const phasesToRender = activePhase === 'all'
@@ -744,20 +848,17 @@
       `;
     }).join('');
 
-    const listEl = document.getElementById('today-workout-list');
-    if (listEl) {
-      listEl.innerHTML = buildPhasesHTML(phasesToRender);
+    const pageListEl = document.getElementById('workout-page-list');
+    if (pageListEl) {
+      pageListEl.innerHTML = buildPhasesHTML(phasesToRender);
     }
 
-    const modalBodyEl = document.getElementById('workout-modal-body');
-    if (modalBodyEl) {
-      modalBodyEl.innerHTML = buildPhasesHTML(JAY_PARK_WORKOUT_PHASES);
-    }
+    const summaryText = `ความคืบหน้าวันนี้ ${doneSetsAll}/${totalSetsAll} เซ็ต (${pct}%) · แตะเพื่อเปิดหน้าจัดตารางฟิตเนส`;
+    const todayGymSub = document.getElementById('today-gym-banner-sub');
+    if (todayGymSub) todayGymSub.textContent = summaryText;
 
     const habitsGymSub = document.getElementById('habits-gym-banner-sub');
-    if (habitsGymSub) {
-      habitsGymSub.textContent = `ความคืบหน้าวันนี้ ${doneSetsAll}/${totalSetsAll} เซ็ต (${pct}%) · แตะเพื่อเปิดตารางซ้อม 90 นาที`;
-    }
+    if (habitsGymSub) habitsGymSub.textContent = summaryText;
 
     updateRestTimerUI();
   }
@@ -1552,37 +1653,80 @@
     document.getElementById('btn-sync-cal-ics').addEventListener('click', () => exportTasksToICS(uiState.calendarSelectedDate));
     document.getElementById('btn-export-ics').addEventListener('click', () => exportTasksToICS());
 
-    // Header Gym Shortcut Button & Workout Modal Triggers
+    // Header Gym Shortcut Button & Dedicated Workout Page Navigation
     const btnHeaderGym = document.getElementById('btn-header-gym');
     if (btnHeaderGym) {
       btnHeaderGym.addEventListener('click', () => {
-        renderWorkoutBlueprint();
-        openModal('workout-modal');
-      });
-    }
-
-    const btnOpenWorkoutModal = document.getElementById('btn-open-workout-modal');
-    if (btnOpenWorkoutModal) {
-      btnOpenWorkoutModal.addEventListener('click', () => {
-        renderWorkoutBlueprint();
-        openModal('workout-modal');
+        switchTab('workout');
       });
     }
 
     const habitsGymBanner = document.getElementById('habits-gym-banner');
     if (habitsGymBanner) {
       habitsGymBanner.addEventListener('click', () => {
-        renderWorkoutBlueprint();
-        openModal('workout-modal');
+        switchTab('workout');
       });
     }
 
-    const btnToggleWorkoutCollapse = document.getElementById('btn-toggle-workout-collapse');
-    if (btnToggleWorkoutCollapse) {
-      btnToggleWorkoutCollapse.addEventListener('click', () => {
-        uiState.workoutCollapsed = !uiState.workoutCollapsed;
-        localStorage.setItem('dailyflow_workout_collapsed', uiState.workoutCollapsed ? '1' : '0');
+    // Workout Schedule Preset Chips
+    const presetChipsRow = document.getElementById('workout-preset-chips');
+    if (presetChipsRow) {
+      presetChipsRow.addEventListener('click', (e) => {
+        const chip = e.target.closest('[data-wpreset]');
+        if (!chip) return;
+        store.setWorkoutSchedulePreset(chip.dataset.wpreset);
+        showToast('อัปเดตรูปแบบวันไปยิมแล้ว');
+      });
+    }
+
+    // Workout Routine Edit/Organize Mode Toggle
+    const btnToggleWorkoutEdit = document.getElementById('btn-toggle-workout-edit-mode');
+    if (btnToggleWorkoutEdit) {
+      btnToggleWorkoutEdit.addEventListener('click', () => {
+        uiState.workoutEditMode = !uiState.workoutEditMode;
         renderWorkoutBlueprint();
+        showToast(uiState.workoutEditMode ? 'เปิดโหมดจัดตาราง: แก้ไข/เรียงลำดับท่าได้' : 'บันทึกการจัดตารางเรียบร้อย');
+      });
+    }
+
+    const btnAddWorkoutEx = document.getElementById('btn-add-workout-exercise');
+    if (btnAddWorkoutEx) {
+      btnAddWorkoutEx.addEventListener('click', () => openWorkoutExerciseModal(null));
+    }
+
+    const btnResetDefaultRoutine = document.getElementById('btn-reset-default-routine');
+    if (btnResetDefaultRoutine) {
+      btnResetDefaultRoutine.addEventListener('click', () => {
+        if (confirm('ต้องการคืนค่ารายการท่าออกกำลังกายกลับเป็นตารางมาตรฐาน Jay Park 1.5 ชม. (11 ท่า) ใช่หรือไม่?')) {
+          store.resetWorkoutRoutineToDefault();
+          showToast('คืนค่าตารางมาตรฐาน Jay Park เรียบร้อย');
+        }
+      });
+    }
+
+    const workoutExForm = document.getElementById('workout-exercise-form');
+    if (workoutExForm) {
+      workoutExForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const id = document.getElementById('wex-id-input').value;
+        const name = document.getElementById('wex-name-input').value.trim();
+        if (!name) return;
+        store.saveWorkoutExercise({
+          id: id || null,
+          name,
+          phase: document.getElementById('wex-phase-select').value,
+          target: document.getElementById('wex-target-input').value,
+          thaiSub: document.getElementById('wex-sub-input').value,
+          sets: Number(document.getElementById('wex-sets-input').value) || 3,
+          reps: document.getElementById('wex-reps-input').value,
+          restSec: Number(document.getElementById('wex-rest-input').value) || 60,
+          weight: document.getElementById('wex-weight-input').value,
+          cue: document.getElementById('wex-cue-input').value,
+          isPriority: document.getElementById('wex-priority-check').checked,
+          express: document.getElementById('wex-express-check').checked
+        });
+        closeModal('workout-exercise-modal');
+        showToast(id ? 'อัปเดตท่าออกกำลังกายแล้ว' : 'เพิ่มท่าออกกำลังกายใหม่แล้ว');
       });
     }
 
@@ -1816,7 +1960,9 @@
 
     // Dock Center Add Button
     document.getElementById('fab-main-add').addEventListener('click', () => {
-      if (uiState.activeTab === 'habits') {
+      if (uiState.activeTab === 'workout') {
+        openWorkoutExerciseModal(null);
+      } else if (uiState.activeTab === 'habits') {
         openHabitModal();
       } else if (uiState.activeTab === 'calendar') {
         openTodoModal(null, uiState.calendarSelectedDate);
@@ -1919,6 +2065,17 @@
           store.updateWorkoutWeight(exId, nextWeight);
           showToast(`บันทึกน้ำหนัก ${nextWeight.trim() || 'BW'} เรียบร้อย`);
         }
+      } else if (action === 'open-edit-workout-ex') {
+        openWorkoutExerciseModal(actionEl.dataset.exId);
+      } else if (action === 'move-workout-ex') {
+        store.moveWorkoutExercise(actionEl.dataset.exId, Number(actionEl.dataset.delta));
+      } else if (action === 'delete-workout-ex') {
+        if (confirm('ต้องการลบท่าออกกำลังกายนี้ออกจากตารางใช่หรือไม่?')) {
+          store.deleteWorkoutExercise(actionEl.dataset.exId);
+          showToast('ลบท่าออกกำลังกายแล้ว');
+        }
+      } else if (action === 'toggle-workout-planned-day') {
+        store.toggleWorkoutPlannedDay(Number(actionEl.dataset.day));
       }
     });
 
@@ -2128,7 +2285,7 @@
     const btnForceRefreshPwa = document.getElementById('btn-force-refresh-pwa');
     if (btnForceRefreshPwa) {
       btnForceRefreshPwa.addEventListener('click', async () => {
-        showToast('กำลังล้างแคชและโหลดเวอร์ชันล่าสุด (v12)...');
+        showToast('กำลังล้างแคชและโหลดเวอร์ชันล่าสุด (v13)...');
         try {
           if ('caches' in window) {
             const keys = await caches.keys();
@@ -2248,12 +2405,12 @@
     if ('caches' in window) {
       caches.keys().then((keys) => {
         keys.forEach((k) => {
-          if (k !== 'dailyflow-pwa-v12') caches.delete(k);
+          if (k !== 'dailyflow-pwa-v13') caches.delete(k);
         });
       });
     }
     if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
-      navigator.serviceWorker.register('./sw.js?v=12').then((reg) => {
+      navigator.serviceWorker.register('./sw.js?v=13').then((reg) => {
         reg.update();
       }).catch((err) => {
         console.warn('SW registration skipped:', err);
