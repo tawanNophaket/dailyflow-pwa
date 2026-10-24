@@ -1,5 +1,5 @@
 /**
- * DailyFlow Storage & Domain Engine — Tesla Telemetry & Reminder Edition
+ * DailyFlow Storage & Domain Engine — Tesla Telemetry, Reminder & Jay Park 1.5-Hr Gym Blueprint Edition
  * Dual-persistence: LocalStorage (instant sync) + IndexedDB (durable mobile storage)
  */
 
@@ -62,10 +62,261 @@ function normalizeHabitIconKey(iconVal) {
 const DEFAULT_CATEGORIES = [
   { id: 'work', name: 'งาน', color: '#3e6ae1', icon: 'work' },
   { id: 'personal', name: 'ส่วนตัว', color: '#10b981', icon: 'mindfulness' },
-  { id: 'health', name: 'สุขภาพ', color: '#e31937', icon: 'fitness' },
+  { id: 'health', name: 'สุขภาพ & ฟิตเนส', color: '#e31937', icon: 'fitness' },
   { id: 'finance', name: 'การเงิน', color: '#f59e0b', icon: 'wealth' },
   { id: 'study', name: 'พัฒนาตัวเอง', color: '#8b5cf6', icon: 'reading' }
 ];
+
+// --- Jay Park 1.5-Hour (90-Min) All-in-One Gym Blueprint (Upper Chest & 3D Shoulders Priority) ---
+const JAY_PARK_WORKOUT_PHASES = [
+  {
+    id: 'warmup',
+    shortLabel: '1. วอร์มไหล่',
+    title: 'Phase 1 · วอร์มอัปเปิดข้อต่อหัวไหล่และสะบัก',
+    duration: '10 นาที',
+    subtitle: 'เตรียมเอ็นหมุนข้อไหล่ (Rotator Cuff) ก่อนดันอกบนและไหล่หนักในวันเดียวกัน'
+  },
+  {
+    id: 'chest',
+    shortLabel: '2. อกส่วนบน',
+    title: 'Phase 2 · Priority 1: ปั้นอกส่วนบน (Upper Chest Shelf)',
+    duration: '25 นาที',
+    subtitle: 'สร้างสันอกด้านบนใต้ไหปลาร้าให้นูนเต็มเวลาถอดเสื้อหรือใส่เสื้อกล้ามแบบ Jay Park'
+  },
+  {
+    id: 'shoulders',
+    shortLabel: '3. หัวไหล่ 3D',
+    title: 'Phase 3 · Priority 2: หัวไหล่กลมกว้าง 3 มิติ (3D Shoulders)',
+    duration: '25 นาที',
+    subtitle: 'ขยายโครงไหล่ข้างและไหล่หลังให้ส่วนสูง 184 cm ดูกว้างเป็นทรง V-Taper'
+  },
+  {
+    id: 'back_arms',
+    shortLabel: '4. หลัง & แขน',
+    title: 'Phase 4 · ดึงแผ่นหลัง V-Taper & ซูเปอร์เซ็ตแขนแน่น',
+    duration: '15 นาที',
+    subtitle: 'ดึงปีกหลังรับกับหัวไหล่ และปั๊มหน้าแขน-หลังแขนให้แน่นเต็มเสื้อโดยใช้เวลาสั้นที่สุด'
+  },
+  {
+    id: 'legs_core',
+    shortLabel: '5. ขา & ท้อง',
+    title: 'Phase 5 · ขาสมส่วน & ร่องท้อง 6-Pack / V-Cut',
+    duration: '15 นาที',
+    subtitle: 'กระตุ้นฮอร์โมนช่วงล่าง 1 ท่าหลัก และปั้นร่องท้องล่าง V-Cut สไตล์ Jay Park'
+  }
+];
+
+const JAY_PARK_WORKOUT_EXERCISES = [
+  {
+    id: 'w1',
+    code: 'W1',
+    phase: 'warmup',
+    name: 'External Rotation (ยางยืด/เคเบิลเปิดข้อไหล่)',
+    thaiSub: 'หมุนไหล่ + ดึงเปิดเอ็นหมุนข้อไหล่',
+    target: 'วอร์มข้อไหล่ (Rotator Cuff)',
+    sets: 2,
+    reps: '15 ครั้ง',
+    restSec: 45,
+    defaultWeight: 'เบาสุด',
+    express: true,
+    isPriority: false,
+    cue: 'หนีบศอกไว้ข้างลำตัว หมุนแขนท่อนล่างออกด้านข้างช้าๆ ช่วยป้องกันอาการบาดเจ็บไหล่หน้าเวลาเล่นอกบนคู่กับไหล่'
+  },
+  {
+    id: 'w2',
+    code: 'W2',
+    phase: 'warmup',
+    name: 'Incline Push-Up (วิดพื้นกับขอบม้านั่ง)',
+    thaiSub: 'กระตุ้นสะบักและกล้ามเนื้ออกส่วนบน',
+    target: 'เปิดสะบัก & อกส่วนบน',
+    sets: 2,
+    reps: '12 ครั้ง',
+    restSec: 45,
+    defaultWeight: 'Bodyweight',
+    express: true,
+    isPriority: false,
+    cue: 'โฟกัสยืดอกและบีบสะบักเข้าหากันตอนลง ดันตัวขึ้นพร้อมเกร็งเนินอกด้านบนเพื่อเปิดระบบประสาทก่อนยกจริง'
+  },
+  {
+    id: 'ex1',
+    code: '01',
+    phase: 'chest',
+    name: 'Incline Dumbbell Press (ม้านั่งเอียง 30°)',
+    thaiSub: 'ท่าหลักสร้างความหนาของสันอกส่วนบน',
+    target: 'อกส่วนบน · Priority #1',
+    sets: 4,
+    reps: '8–12 ครั้ง',
+    restSec: 90,
+    defaultWeight: '14 kg',
+    express: true,
+    isPriority: true,
+    cue: 'ปรับม้านั่งเอียงแค่ 30 องศา (ล็อกที่ 2 จากพื้น) ห้ามปรับสูง 45° เพราะไหล่หน้าจะแย่งงาน ตอนลงกางศอกทำมุม 45–60° กับลำตัว ดันขึ้นบีบเนินอกด้านบนโดยไม่ต้องเอาดัมเบลชนกัน'
+  },
+  {
+    id: 'ex2',
+    code: '02',
+    phase: 'chest',
+    name: 'Low-to-High Cable Fly (ดึงเคเบิลล่างขึ้นบน)',
+    thaiSub: 'หรือ Incline Machine Press เน้นบีบอกบน',
+    target: 'ร่องอกบนใต้ไหปลาร้า · Priority #1',
+    sets: 3,
+    reps: '12–15 ครั้ง',
+    restSec: 75,
+    defaultWeight: '7.5 kg',
+    express: true,
+    isPriority: true,
+    cue: 'ตั้งรอกเคเบิลต่ำสุด ก้าวขาออกมา 1 ก้าว ช้อนมือดึงสายเคเบิลเฉียงขึ้นประกบกันระดับอกบน/ปลายคาง แล้วเกร็งค้างไว้ 1–2 วินาทีทุกครั้ง'
+  },
+  {
+    id: 'ex3',
+    code: '03',
+    phase: 'shoulders',
+    name: 'Seated Dumbbell Shoulder Press',
+    thaiSub: 'ดันดัมเบลสร้างมวลหัวไหล่ (หรือ Machine Press)',
+    target: 'ความหนาหัวไหล่รวม · Priority #2',
+    sets: 3,
+    reps: '8–12 ครั้ง',
+    restSec: 90,
+    defaultWeight: '12 kg',
+    express: true,
+    isPriority: true,
+    cue: 'ตั้งพนักพิงเกือบตรง (75–80 องศา) เอาดัมเบลลงมาถึงระดับหู/คางเพื่อยืดกล้ามเนื้อไหล่ให้สุด แล้วดันขึ้นตรงๆ'
+  },
+  {
+    id: 'ex4',
+    code: '04',
+    phase: 'shoulders',
+    name: 'Dumbbell / Cable Lateral Raise',
+    thaiSub: 'กางไหล่ข้าง — ท่าไม้ตายขยายไหล่กว้างทรง Jay Park',
+    target: 'ไหล่ข้าง (Side Delts) · สำคัญที่สุด',
+    sets: 4,
+    reps: '12–15 ครั้ง',
+    restSec: 60,
+    defaultWeight: '6 kg',
+    express: true,
+    isPriority: true,
+    cue: 'ใช้น้ำหนักเบา-กลาง (4–6 kg) โน้มตัวไปข้างหน้านิดเดียว โฟกัส "ดันข้อศอกออกไปให้ไกลลำตัวที่สุด" ห้ามยักไหล่ให้บ่า (Traps) แย่งงาน'
+  },
+  {
+    id: 'ex5',
+    code: '05',
+    phase: 'shoulders',
+    name: 'Reverse Pec Deck / Rope Face Pull',
+    thaiSub: 'เล่นไหล่หลังให้กลม 3 มิติ & ปรับบุคลิกอกผาย',
+    target: 'ไหล่หลัง (Rear Delts) & บุคลิกภาพ',
+    sets: 3,
+    reps: '12–15 ครั้ง',
+    restSec: 60,
+    defaultWeight: '25 kg',
+    express: true,
+    isPriority: true,
+    cue: 'วาดแขนออกด้านหลังด้วยหัวไหล่หลัง ช่วยสร้างก้อนไหล่ให้ดูกลมจากมุมข้าง และดึงไหล่ไม่ให้ห่อจากการเล่นอก'
+  },
+  {
+    id: 'ex6',
+    code: '06',
+    phase: 'back_arms',
+    name: 'Wide-Grip Lat Pulldown',
+    thaiSub: 'ดึงเคเบิลสร้างปีกหลังทรง V-Taper',
+    target: 'ปีกหลังกว้างรับหัวไหล่',
+    sets: 3,
+    reps: '10–12 ครั้ง',
+    restSec: 75,
+    defaultWeight: '40 kg',
+    express: true,
+    isPriority: false,
+    cue: 'จับบาร์กว้างกว่าไหล่เล็กน้อย แอ่นอกขึ้น ดึงบาร์ลงมาหาอกส่วนบนโดยโฟกัสกดข้อศอกลงข้างลำตัว'
+  },
+  {
+    id: 'ex7',
+    code: '07',
+    phase: 'back_arms',
+    name: 'Superset แขน: Dumbbell Curl + Triceps Pushdown',
+    thaiSub: 'หน้าแขน 10–12 ครั้ง ต่อด้วยหลังแขน 12–15 ครั้งทันที',
+    target: 'หน้าแขน & หลังแขนแน่นเต็มเสื้อ',
+    sets: 3,
+    reps: '10–12 + 12–15',
+    restSec: 60,
+    defaultWeight: '10 / 20 kg',
+    express: false,
+    isPriority: false,
+    cue: 'เล่นหน้าแขนจบปุ๊บ เดินมากดเคเบิลหลังแขนต่อทันทีโดยไม่พัก แล้วค่อยพัก 60 วินาที ใช้เวลาแค่ 6–7 นาทีแต่แขนปั๊มแน่นครบ'
+  },
+  {
+    id: 'ex8',
+    code: '08',
+    phase: 'legs_core',
+    name: 'Leg Press หรือ Goblet Squat',
+    thaiSub: 'ถีบขาหรือสควอทกระตุ้นฮอร์โมนและรักษามวลขา',
+    target: 'ต้นขา & เผาผลาญพลังงาน',
+    sets: 3,
+    reps: '10–12 ครั้ง',
+    restSec: 75,
+    defaultWeight: '80 kg',
+    express: false,
+    isPriority: false,
+    cue: 'วางเท้ากว้างระดับไหล่ ย่อลงลึกพอดีแล้วถีบด้วยส้นเท้า ช่วยให้ช่วงล่างสมส่วนกับส่วนสูง 184 cm โดยไม่ล้าเกินไป'
+  },
+  {
+    id: 'ex9',
+    code: '09',
+    phase: 'legs_core',
+    name: 'Hanging Knee Raise + Cable Crunch',
+    thaiSub: 'โหนบาร์ยกเข่าปั้น V-Cut สลับดึงเคเบิลร่องท้อง 6-Pack',
+    target: 'ร่องท้อง 6-Pack & V-Cut ท้องล่าง',
+    sets: 3,
+    reps: '12–15 ครั้ง',
+    restSec: 45,
+    defaultWeight: 'Bodyweight',
+    express: true,
+    isPriority: false,
+    cue: 'ตอนยกเข่าขึ้น ให้ "ม้วนก้นกบขึ้นหาหน้าอก" (ไม่ยกขาเฉยๆ) เพื่อบีบท้องล่างและสร้างร่อง V-Cut ข้างเอวแบบ Jay Park'
+  }
+];
+
+function createDefaultWorkoutState() {
+  const weights = {};
+  JAY_PARK_WORKOUT_EXERCISES.forEach((ex) => {
+    weights[ex.id] = ex.defaultWeight;
+  });
+  return {
+    mode: 'full', // 'full' (90 mins, 11 items) | 'express' (55 mins, 9 items)
+    activePhase: 'all', // 'all' | 'warmup' | 'chest' | 'shoulders' | 'back_arms' | 'legs_core'
+    weights,
+    logsByDate: {}
+  };
+}
+
+function buildWorkoutTodoObject(dueDateStr) {
+  return {
+    id: 'todo_jaypark_gym_routine',
+    title: 'ฟิตเนส 1.5 ชม. — ตาราง Jay Park (เน้นอกส่วนบน & หัวไหล่ 3D)',
+    note: 'ตารางรวมเล่นได้ทุกวัน (ไปยิมทุก 2–3 วัน) • หลังซ้อมจัดมื้อหลัก + ไข่ต้ม 3 ฟอง หรือนมถั่วเหลืองฝาดำ ~28g โปรตีน',
+    dueDate: dueDateStr,
+    dueTime: '18:00',
+    reminderMinutes: '30',
+    notifiedKey: null,
+    snoozedUntil: null,
+    priority: 'high',
+    category: 'health',
+    tags: ['JayParkFit', 'อกบน-ไหล่'],
+    completed: false,
+    completedAt: null,
+    subtasks: [
+      { id: 'sub_jp_w', title: 'Warm-up 10 นาที: External Rotation 2×15 + Incline Push-Up 2×12', done: false },
+      { id: 'sub_jp_1', title: '1. [อกส่วนบน] Incline Dumbbell Press (เบาะเอียง 30°) — 4 เซ็ต × 8–12 ครั้ง', done: false },
+      { id: 'sub_jp_2', title: '2. [อกส่วนบน] Low-to-High Cable Fly (ดึงล่างขึ้นบนค้าง 2 วิ) — 3 เซ็ต × 12–15 ครั้ง', done: false },
+      { id: 'sub_jp_3', title: '3. [ไหล่รวม] Seated Dumbbell Shoulder Press — 3 เซ็ต × 8–12 ครั้ง', done: false },
+      { id: 'sub_jp_4', title: '4. [ไหล่ข้าง V-Taper] Dumbbell / Cable Lateral Raise — 4 เซ็ต × 12–15 ครั้ง', done: false },
+      { id: 'sub_jp_5', title: '5. [ไหล่หลัง 3D] Reverse Pec Deck / Rope Face Pull — 3 เซ็ต × 12–15 ครั้ง', done: false },
+      { id: 'sub_jp_6', title: '6. [หลัง V-Taper] Wide-Grip Lat Pulldown — 3 เซ็ต × 10–12 ครั้ง', done: false },
+      { id: 'sub_jp_7', title: '7. [แขน Superset] Dumbbell Curl + Cable Triceps Pushdown — 3 เซ็ต × 10–15 ครั้ง', done: false },
+      { id: 'sub_jp_8', title: '8. [ขา] Leg Press หรือ Goblet Squat — 3 เซ็ต × 10–12 ครั้ง', done: false },
+      { id: 'sub_jp_9', title: '9. [ร่องท้อง V-Cut] Hanging Knee Raise + Cable Crunch — 3 เซ็ต × 12–15 ครั้ง', done: false }
+    ],
+    createdAt: new Date().toISOString()
+  };
+}
 
 // --- Default Starter Data (Relative to Today) ---
 function createStarterData() {
@@ -76,7 +327,7 @@ function createStarterData() {
 
   const drinkLogs = {};
   const exerciseLogs = {};
-  const readLogs = {};
+  const proteinLogs = {};
   const sleepLogs = {};
 
   for (let i = 20; i >= 1; i--) {
@@ -84,16 +335,16 @@ function createStarterData() {
     const dayOfWeek = parseLocalDate(dStr).getDay();
     if (i <= 6 || i % 2 === 0 || i % 3 === 0) drinkLogs[dStr] = true;
     if ([1, 3, 5, 6].includes(dayOfWeek) && i !== 8) exerciseLogs[dStr] = true;
-    if (i <= 4 || i % 2 === 1) readLogs[dStr] = true;
+    if (i <= 5 || i % 2 === 1) proteinLogs[dStr] = true;
     if (i <= 3 || i % 3 !== 0) sleepLogs[dStr] = true;
   }
   drinkLogs[today] = true;
 
   return {
-    version: 2,
+    version: 3,
     updatedAt: new Date().toISOString(),
     settings: {
-      theme: 'dark', // Default to signature Tesla Obsidian Dark Mode
+      theme: 'dark',
       firstDayOfWeek: 1,
       showCompletedTodos: true,
       notificationsEnabled: false,
@@ -101,15 +352,17 @@ function createStarterData() {
       dailyBriefingTime: '08:30',
       lastBriefingDate: null
     },
+    workout: createDefaultWorkoutState(),
     categories: [...DEFAULT_CATEGORIES],
     todos: [
+      buildWorkoutTodoObject(today),
       {
         id: generateId('todo'),
         title: 'วางแผนเป้าหมายประจำสัปดาห์และจัดลำดับงานสำคัญ',
         note: 'ทบทวนโปรเจกต์ที่ต้องส่งและเคลียร์งานค้าง',
         dueDate: today,
         dueTime: '10:00',
-        reminderMinutes: '15', // 15 mins before
+        reminderMinutes: '15',
         notifiedKey: null,
         snoozedUntil: null,
         priority: 'high',
@@ -121,23 +374,6 @@ function createStarterData() {
           { id: generateId('sub'), title: 'เช็คตารางนัดหมายในปฏิทิน', done: true },
           { id: generateId('sub'), title: 'เลือกงานสำคัญสุด 3 ชิ้นของวันนี้', done: false }
         ],
-        createdAt: new Date().toISOString()
-      },
-      {
-        id: generateId('todo'),
-        title: 'ออกกำลังกายตอนเย็น / เดินเร็ว 30 นาที',
-        note: 'ยืดเหยียดกล้ามเนื้อหลังเลิกงาน',
-        dueDate: today,
-        dueTime: '18:00',
-        reminderMinutes: '15',
-        notifiedKey: null,
-        snoozedUntil: null,
-        priority: 'medium',
-        category: 'health',
-        tags: ['สุขภาพ'],
-        completed: false,
-        completedAt: null,
-        subtasks: [],
         createdAt: new Date().toISOString()
       },
       {
@@ -162,16 +398,16 @@ function createStarterData() {
       },
       {
         id: generateId('todo'),
-        title: 'ซื้อของใช้เข้าบ้าน (กาแฟ, ผลไม้, นม)',
-        note: 'แวะซูเปอร์มาร์เก็ตขากลับบ้าน',
+        title: 'ซื้อของเติมโปรตีน (ไข่ต้ม, นมถั่วเหลืองโปรตีนสูงฝาดำ, อกไก่)',
+        note: 'เตรียมไว้กินหลังซ้อมเวท 1.5 ชม. เพื่อปั้นอกบนและหัวไหล่',
         dueDate: inTwoDays,
         dueTime: '17:30',
         reminderMinutes: '0',
         notifiedKey: null,
         snoozedUntil: null,
-        priority: 'low',
-        category: 'personal',
-        tags: ['ซื้อของ'],
+        priority: 'medium',
+        category: 'health',
+        tags: ['โภชนาการ'],
         completed: false,
         completedAt: null,
         subtasks: [],
@@ -197,8 +433,26 @@ function createStarterData() {
     ],
     habits: [
       {
+        id: 'hab_jaypark_gym',
+        title: 'ฟิตเนส 1.5 ชม. (อกบน & ไหล่ Jay Park)',
+        icon: 'fitness',
+        color: '#e31937',
+        frequencyDays: [0, 1, 2, 3, 4, 5, 6],
+        logs: exerciseLogs,
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: 'hab_protein_target',
+        title: 'โปรตีนถึงเป้า (ไข่ต้ม 6 ฟอง / นมฝาดำ)',
+        icon: 'nutrition',
+        color: '#10b981',
+        frequencyDays: [0, 1, 2, 3, 4, 5, 6],
+        logs: proteinLogs,
+        createdAt: new Date().toISOString()
+      },
+      {
         id: generateId('hab'),
-        title: 'ดื่มน้ำเปล่า 8 แก้ว',
+        title: 'ดื่มน้ำเปล่า 8 แก้ว (ลีนคมชัด)',
         icon: 'hydration',
         color: '#3e6ae1',
         frequencyDays: [0, 1, 2, 3, 4, 5, 6],
@@ -207,25 +461,7 @@ function createStarterData() {
       },
       {
         id: generateId('hab'),
-        title: 'ออกกำลังกาย 30 นาที',
-        icon: 'fitness',
-        color: '#e31937',
-        frequencyDays: [1, 3, 5, 6],
-        logs: exerciseLogs,
-        createdAt: new Date().toISOString()
-      },
-      {
-        id: generateId('hab'),
-        title: 'อ่านหนังสือ 20 นาที',
-        icon: 'reading',
-        color: '#10b981',
-        frequencyDays: [0, 1, 2, 3, 4, 5, 6],
-        logs: readLogs,
-        createdAt: new Date().toISOString()
-      },
-      {
-        id: generateId('hab'),
-        title: 'เข้านอนก่อน 23:30 น.',
+        title: 'เข้านอนก่อน 23:30 น. (ฟื้นฟูกล้ามเนื้อ)',
         icon: 'sleep',
         color: '#f59e0b',
         frequencyDays: [0, 1, 2, 3, 4, 5, 6],
@@ -367,7 +603,6 @@ function getTodoReminderTimeMs(todo) {
   if (!y || !m || !d) return null;
 
   if (rem === '1440') {
-    // 1 day before at 09:00
     const target = new Date(y, m - 1, d - 1, 9, 0, 0, 0);
     return target.getTime();
   }
@@ -394,7 +629,9 @@ class DailyFlowStore {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw);
-        return this.normalizeState(parsed);
+        const normalized = this.normalizeState(parsed);
+        this.saveSync(normalized);
+        return normalized;
       }
     } catch (e) {
       console.warn('LocalStorage load warning:', e);
@@ -408,14 +645,91 @@ class DailyFlowStore {
     const fallback = createStarterData();
     if (!data || typeof data !== 'object') return fallback;
 
-    // Upgrade v1 theme 'system' to 'dark' for Tesla Luxury edition unless explicitly set in v2
     const isUpgradingFromV1 = !data.version || data.version < 2;
+    const isUpgradingToV3 = !data.version || data.version < 3;
     const resolvedTheme = isUpgradingFromV1
       ? 'dark'
       : (data.settings?.theme || 'dark');
 
+    const defaultWorkout = createDefaultWorkoutState();
+    const rawWorkout = data.workout && typeof data.workout === 'object' ? data.workout : {};
+    const workoutState = {
+      mode: rawWorkout.mode === 'express' ? 'express' : 'full',
+      activePhase: rawWorkout.activePhase || 'all',
+      weights: { ...defaultWorkout.weights, ...(rawWorkout.weights || {}) },
+      logsByDate: rawWorkout.logsByDate && typeof rawWorkout.logsByDate === 'object'
+        ? rawWorkout.logsByDate
+        : {}
+    };
+
+    let todos = Array.isArray(data.todos) ? data.todos.map((t) => ({
+      id: t.id || generateId('todo'),
+      title: t.title || 'ไม่มีชื่อรายการ',
+      note: t.note || '',
+      dueDate: t.dueDate || toLocalDateStr(),
+      dueTime: t.dueTime || '',
+      reminderMinutes: t.reminderMinutes !== undefined
+        ? String(t.reminderMinutes)
+        : (t.dueTime ? '15' : 'none'),
+      notifiedKey: t.notifiedKey || null,
+      snoozedUntil: t.snoozedUntil || null,
+      priority: ['high', 'medium', 'low'].includes(t.priority) ? t.priority : 'medium',
+      category: t.category || 'personal',
+      tags: Array.isArray(t.tags) ? t.tags : [],
+      completed: !!t.completed,
+      completedAt: t.completedAt || null,
+      subtasks: Array.isArray(t.subtasks) ? t.subtasks : [],
+      createdAt: t.createdAt || new Date().toISOString()
+    })) : [];
+
+    let habits = Array.isArray(data.habits) ? data.habits.map((h) => ({
+      id: h.id || generateId('hab'),
+      title: h.title || 'นิสัยใหม่',
+      icon: normalizeHabitIconKey(h.icon),
+      color: h.color || '#3e6ae1',
+      frequencyDays: Array.isArray(h.frequencyDays) && h.frequencyDays.length > 0
+        ? h.frequencyDays
+        : [0, 1, 2, 3, 4, 5, 6],
+      logs: h.logs && typeof h.logs === 'object' ? h.logs : {},
+      createdAt: h.createdAt || new Date().toISOString()
+    })) : [];
+
+    // Seamless upgrade to v3: inject Jay Park 1.5-Hr Gym Routine into existing user's Todos & Habits
+    if (isUpgradingToV3) {
+      const today = toLocalDateStr();
+      // Remove old generic "ออกกำลังกายตอนเย็น / เดินเร็ว 30 นาที" demo todo if present
+      todos = todos.filter((t) => t.title !== 'ออกกำลังกายตอนเย็น / เดินเร็ว 30 นาที');
+      const hasGymTodo = todos.some((t) => t.id === 'todo_jaypark_gym_routine' || t.title.includes('ฟิตเนส 1.5 ชม.'));
+      if (!hasGymTodo) {
+        todos.unshift(buildWorkoutTodoObject(today));
+      }
+
+      // Upgrade fitness habit to Jay Park 1.5-Hr routine playable any day (all 7 days enabled so 2-3x/wk flexible works anytime)
+      const fitHabIdx = habits.findIndex((h) => h.icon === 'fitness' || h.title.includes('ออกกำลังกาย') || h.title.includes('ฟิตเนส'));
+      if (fitHabIdx !== -1) {
+        habits[fitHabIdx] = {
+          ...habits[fitHabIdx],
+          id: habits[fitHabIdx].id || 'hab_jaypark_gym',
+          title: 'ฟิตเนส 1.5 ชม. (อกบน & ไหล่ Jay Park)',
+          icon: 'fitness',
+          color: '#e31937',
+          frequencyDays: [0, 1, 2, 3, 4, 5, 6]
+        };
+      } else {
+        habits.unshift({
+          id: 'hab_jaypark_gym',
+          title: 'ฟิตเนส 1.5 ชม. (อกบน & ไหล่ Jay Park)',
+          icon: 'fitness',
+          color: '#e31937',
+          frequencyDays: [0, 1, 2, 3, 4, 5, 6],
+          logs: {},
+          createdAt: new Date().toISOString()
+        });
+      }
+    }
+
     return {
-      version: 2,
+      version: 3,
       updatedAt: data.updatedAt || new Date().toISOString(),
       settings: {
         theme: resolvedTheme,
@@ -426,39 +740,12 @@ class DailyFlowStore {
         dailyBriefingTime: data.settings?.dailyBriefingTime || '08:30',
         lastBriefingDate: data.settings?.lastBriefingDate || null
       },
+      workout: workoutState,
       categories: Array.isArray(data.categories) && data.categories.length > 0
         ? data.categories
         : [...DEFAULT_CATEGORIES],
-      todos: Array.isArray(data.todos) ? data.todos.map((t) => ({
-        id: t.id || generateId('todo'),
-        title: t.title || 'ไม่มีชื่อรายการ',
-        note: t.note || '',
-        dueDate: t.dueDate || toLocalDateStr(),
-        dueTime: t.dueTime || '',
-        reminderMinutes: t.reminderMinutes !== undefined
-          ? String(t.reminderMinutes)
-          : (t.dueTime ? '15' : 'none'),
-        notifiedKey: t.notifiedKey || null,
-        snoozedUntil: t.snoozedUntil || null,
-        priority: ['high', 'medium', 'low'].includes(t.priority) ? t.priority : 'medium',
-        category: t.category || 'personal',
-        tags: Array.isArray(t.tags) ? t.tags : [],
-        completed: !!t.completed,
-        completedAt: t.completedAt || null,
-        subtasks: Array.isArray(t.subtasks) ? t.subtasks : [],
-        createdAt: t.createdAt || new Date().toISOString()
-      })) : [],
-      habits: Array.isArray(data.habits) ? data.habits.map((h) => ({
-        id: h.id || generateId('hab'),
-        title: h.title || 'นิสัยใหม่',
-        icon: normalizeHabitIconKey(h.icon),
-        color: h.color || '#3e6ae1',
-        frequencyDays: Array.isArray(h.frequencyDays) && h.frequencyDays.length > 0
-          ? h.frequencyDays
-          : [0, 1, 2, 3, 4, 5, 6],
-        logs: h.logs && typeof h.logs === 'object' ? h.logs : {},
-        createdAt: h.createdAt || new Date().toISOString()
-      })) : []
+      todos,
+      habits
     };
   }
 
@@ -507,6 +794,172 @@ class DailyFlowStore {
   updateSettings(partial) {
     this.state.settings = { ...this.state.settings, ...partial };
     this.notify();
+  }
+
+  // --- Workout Operations (Jay Park 1.5-Hr Gym Blueprint) ---
+  ensureWorkoutDateLog(dateStr = toLocalDateStr()) {
+    if (!this.state.workout) {
+      this.state.workout = createDefaultWorkoutState();
+    }
+    if (!this.state.workout.logsByDate) {
+      this.state.workout.logsByDate = {};
+    }
+    if (!this.state.workout.logsByDate[dateStr]) {
+      this.state.workout.logsByDate[dateStr] = {
+        completedSets: {},
+        sessionCompleted: false
+      };
+    }
+    return this.state.workout.logsByDate[dateStr];
+  }
+
+  toggleWorkoutSet(dateStr, exerciseId, setIdx, totalSets) {
+    const dayLog = this.ensureWorkoutDateLog(dateStr);
+    if (!Array.isArray(dayLog.completedSets[exerciseId])) {
+      dayLog.completedSets[exerciseId] = Array(totalSets).fill(false);
+    }
+    const arr = dayLog.completedSets[exerciseId];
+    while (arr.length < totalSets) arr.push(false);
+    arr[setIdx] = !arr[setIdx];
+    const isNowDone = arr[setIdx];
+
+    // Sync corresponding subtask in To-Do if present on this date
+    this.syncWorkoutProgressToHabitAndTodo(dateStr);
+    this.notify();
+    return isNowDone;
+  }
+
+  toggleWorkoutExerciseAllSets(dateStr, exerciseId, totalSets) {
+    const dayLog = this.ensureWorkoutDateLog(dateStr);
+    const currentArr = Array.isArray(dayLog.completedSets[exerciseId])
+      ? dayLog.completedSets[exerciseId]
+      : [];
+    const allDone = currentArr.length >= totalSets && currentArr.slice(0, totalSets).every(Boolean);
+    dayLog.completedSets[exerciseId] = Array(totalSets).fill(!allDone);
+    this.syncWorkoutProgressToHabitAndTodo(dateStr);
+    this.notify();
+    return !allDone;
+  }
+
+  updateWorkoutWeight(exerciseId, weightStr) {
+    if (!this.state.workout) this.state.workout = createDefaultWorkoutState();
+    if (!this.state.workout.weights) this.state.workout.weights = {};
+    this.state.workout.weights[exerciseId] = weightStr.trim() || 'BW';
+    this.notify();
+  }
+
+  setWorkoutMode(mode) {
+    if (!this.state.workout) this.state.workout = createDefaultWorkoutState();
+    this.state.workout.mode = mode === 'express' ? 'express' : 'full';
+    this.notify();
+  }
+
+  setWorkoutPhaseFilter(phase) {
+    if (!this.state.workout) this.state.workout = createDefaultWorkoutState();
+    this.state.workout.activePhase = phase || 'all';
+    this.notify();
+  }
+
+  completeWorkoutSession(dateStr = toLocalDateStr()) {
+    const dayLog = this.ensureWorkoutDateLog(dateStr);
+    const mode = this.state.workout.mode || 'full';
+    const exercises = JAY_PARK_WORKOUT_EXERCISES.filter((ex) => mode === 'full' || ex.express);
+    exercises.forEach((ex) => {
+      dayLog.completedSets[ex.id] = Array(ex.sets).fill(true);
+    });
+    dayLog.sessionCompleted = true;
+
+    // Automatically mark Fitness habit done on dateStr
+    const fitHabit = this.state.habits.find((h) => h.icon === 'fitness' || h.title.includes('ฟิตเนส') || h.title.includes('ออกกำลังกาย'));
+    if (fitHabit) {
+      if (!fitHabit.logs) fitHabit.logs = {};
+      fitHabit.logs[dateStr] = true;
+    }
+
+    this.syncWorkoutProgressToHabitAndTodo(dateStr, true);
+    this.notify();
+  }
+
+  resetWorkoutSession(dateStr = toLocalDateStr()) {
+    if (this.state.workout && this.state.workout.logsByDate && this.state.workout.logsByDate[dateStr]) {
+      delete this.state.workout.logsByDate[dateStr];
+    }
+    this.syncWorkoutProgressToHabitAndTodo(dateStr, false);
+    this.notify();
+  }
+
+  syncWorkoutProgressToHabitAndTodo(dateStr, forceComplete = null) {
+    const dayLog = this.ensureWorkoutDateLog(dateStr);
+    const mode = this.state.workout?.mode || 'full';
+    const activeExercises = JAY_PARK_WORKOUT_EXERCISES.filter((ex) => mode === 'full' || ex.express);
+
+    let doneExercisesCount = 0;
+    activeExercises.forEach((ex) => {
+      const setsArr = dayLog.completedSets[ex.id] || [];
+      const exDone = setsArr.length >= ex.sets && setsArr.slice(0, ex.sets).every(Boolean);
+      if (exDone) doneExercisesCount++;
+    });
+
+    const allDone = forceComplete !== null
+      ? forceComplete
+      : (activeExercises.length > 0 && doneExercisesCount === activeExercises.length);
+    dayLog.sessionCompleted = allDone;
+
+    if (allDone) {
+      const fitHabit = this.state.habits.find((h) => h.icon === 'fitness' || h.title.includes('ฟิตเนส') || h.title.includes('ออกกำลังกาย'));
+      if (fitHabit) {
+        if (!fitHabit.logs) fitHabit.logs = {};
+        fitHabit.logs[dateStr] = true;
+      }
+    }
+
+    // Sync with matching gym To-Do on dateStr if present
+    const gymTodo = this.state.todos.find((t) =>
+      t.dueDate === dateStr && (t.id === 'todo_jaypark_gym_routine' || t.title.includes('ฟิตเนส 1.5 ชม.'))
+    );
+    if (gymTodo && Array.isArray(gymTodo.subtasks)) {
+      const w1Done = (dayLog.completedSets.w1 || []).filter(Boolean).length >= 2;
+      const w2Done = (dayLog.completedSets.w2 || []).filter(Boolean).length >= 2;
+      const mapSubToEx = {
+        sub_jp_w: w1Done && w2Done,
+        sub_jp_1: (dayLog.completedSets.ex1 || []).filter(Boolean).length >= 4,
+        sub_jp_2: (dayLog.completedSets.ex2 || []).filter(Boolean).length >= 3,
+        sub_jp_3: (dayLog.completedSets.ex3 || []).filter(Boolean).length >= 3,
+        sub_jp_4: (dayLog.completedSets.ex4 || []).filter(Boolean).length >= 4,
+        sub_jp_5: (dayLog.completedSets.ex5 || []).filter(Boolean).length >= 3,
+        sub_jp_6: (dayLog.completedSets.ex6 || []).filter(Boolean).length >= 3,
+        sub_jp_7: (dayLog.completedSets.ex7 || []).filter(Boolean).length >= 3,
+        sub_jp_8: (dayLog.completedSets.ex8 || []).filter(Boolean).length >= 3,
+        sub_jp_9: (dayLog.completedSets.ex9 || []).filter(Boolean).length >= 3
+      };
+      gymTodo.subtasks.forEach((sub) => {
+        if (mapSubToEx[sub.id] !== undefined) {
+          sub.done = mapSubToEx[sub.id];
+        }
+      });
+      if (forceComplete === true || allDone) {
+        gymTodo.completed = true;
+        gymTodo.completedAt = new Date().toISOString();
+      } else if (forceComplete === false) {
+        gymTodo.completed = false;
+        gymTodo.completedAt = null;
+      }
+    }
+  }
+
+  addWorkoutToDateTodos(dateStr = toLocalDateStr()) {
+    const existing = this.state.todos.find((t) =>
+      t.dueDate === dateStr && (t.id === 'todo_jaypark_gym_routine' || t.title.includes('ฟิตเนส 1.5 ชม.'))
+    );
+    if (existing) {
+      return { added: false, todo: existing };
+    }
+    const newTodo = buildWorkoutTodoObject(dateStr);
+    newTodo.id = generateId('todo_gym');
+    this.state.todos.unshift(newTodo);
+    this.syncWorkoutProgressToHabitAndTodo(dateStr);
+    this.notify();
+    return { added: true, todo: newTodo };
   }
 
   // --- To-Do Operations ---
@@ -660,9 +1113,10 @@ class DailyFlowStore {
 
   clearAllData() {
     this.state = {
-      version: 2,
+      version: 3,
       updatedAt: new Date().toISOString(),
       settings: { ...this.state.settings },
+      workout: createDefaultWorkoutState(),
       categories: [...DEFAULT_CATEGORIES],
       todos: [],
       habits: []
@@ -680,5 +1134,7 @@ window.DailyFlowDB = {
   calculateHabitStats,
   getTodoReminderTimeMs,
   normalizeHabitIconKey,
-  DEFAULT_CATEGORIES
+  DEFAULT_CATEGORIES,
+  JAY_PARK_WORKOUT_PHASES,
+  JAY_PARK_WORKOUT_EXERCISES
 };

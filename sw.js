@@ -1,21 +1,23 @@
-const CACHE_NAME = 'dailyflow-pwa-v10';
+const CACHE_NAME = 'dailyflow-pwa-v12';
 const ASSETS = [
   './',
   './index.html',
-  './styles.css?v=10',
-  './db.js?v=10',
-  './app.js?v=10',
-  './manifest.json?v=10',
+  './styles.css?v=12',
+  './db.js?v=12',
+  './app.js?v=12',
+  './manifest.json?v=12',
   './apple-touch-icon.png',
-  './apple-touch-icon.png?v=10',
+  './apple-touch-icon.png?v=12',
   './icon.svg',
-  './icon.svg?v=10',
-  './assets/app-icon-192.png?v=10',
-  './assets/app-icon-512.png?v=10',
-  './assets/jay-1.jpg',
-  './assets/jay-2.jpg',
-  './assets/jay-3.jpg',
-  './assets/jay-4.jpg'
+  './icon.svg?v=12',
+  './assets/app-icon-192.png?v=12',
+  './assets/app-icon-512.png?v=12',
+  './assets/jay-1.jpg?v=12',
+  './assets/jay-2.jpg?v=12',
+  './assets/jay-3.jpg?v=12',
+  './assets/jay-4.jpg?v=12',
+  './assets/jay-5.jpg?v=12',
+  './assets/jay-6.jpg?v=12'
 ];
 
 self.addEventListener('install', (event) => {

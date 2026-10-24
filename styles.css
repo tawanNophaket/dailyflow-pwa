@@ -256,6 +256,14 @@ svg {
   align-items: center;
   gap: 5px;
   white-space: nowrap;
+  min-width: 0;
+  overflow: hidden;
+}
+
+#header-status-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .live-pulse-dot {
@@ -269,13 +277,13 @@ svg {
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   flex-shrink: 0;
 }
 
 .icon-btn {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: 10px;
   background: var(--bg-surface);
   border: 1px solid var(--border-hairline);
@@ -747,6 +755,7 @@ svg {
   justify-content: space-between;
   margin: 14px 0 8px;
   gap: 8px;
+  min-width: 0;
 }
 
 .section-title {
@@ -758,6 +767,14 @@ svg {
   align-items: center;
   gap: 7px;
   white-space: nowrap;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.section-title > span:first-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .section-badge {
@@ -1045,19 +1062,20 @@ svg {
 
 .vision-thumbs-row {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 6px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 5px;
 }
 
 .vision-thumb-btn {
-  height: 56px;
-  border-radius: 10px;
+  height: 52px;
+  border-radius: 9px;
   overflow: hidden;
   border: 1.5px solid var(--border-hairline);
   padding: 0;
   opacity: 0.58;
   transition: all 0.16s ease;
   background: var(--bg-subtle);
+  min-width: 0;
 }
 
 .vision-thumb-btn.active {
@@ -1071,6 +1089,460 @@ svg {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+/* ==========================================================================
+   JAY PARK 1.5-HOUR ALL-IN-ONE GYM BLUEPRINT (UPPER CHEST & 3D SHOULDERS)
+   ========================================================================== */
+.workout-blueprint-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  padding: 15px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-card);
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.workout-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 11px;
+}
+
+.workout-card-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.workout-eyebrow-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.workout-tag-pill {
+  font-size: 0.60rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 2px 7px;
+  border-radius: 99px;
+  background: var(--chip-active-bg);
+  color: var(--chip-active-fg);
+  border: 1px solid var(--chip-active-border);
+  white-space: nowrap;
+}
+
+.workout-tag-pill.subtle {
+  background: var(--bg-subtle);
+  color: var(--text-secondary);
+  border-color: var(--border-hairline);
+}
+
+.workout-card-heading {
+  font-size: 0.94rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+.workout-card-sub {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+  line-height: 1.38;
+}
+
+.workout-mode-switch {
+  display: flex;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-hairline);
+  border-radius: 10px;
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+.w-mode-btn {
+  font-size: 0.67rem;
+  font-weight: 600;
+  padding: 5px 8px;
+  border-radius: 8px;
+  color: var(--text-secondary);
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.w-mode-btn.active {
+  background: var(--chip-active-bg);
+  color: var(--chip-active-fg);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.workout-telemetry-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.workout-progress-track {
+  flex: 1;
+  height: 4px;
+  background: var(--border-hairline);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.workout-progress-fill {
+  height: 100%;
+  background: var(--text-primary);
+  border-radius: 99px;
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.workout-Sets-counter {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+/* Rest Countdown Timer Strip */
+.workout-timer-bar {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-hairline);
+  border-radius: 12px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 11px;
+}
+
+.workout-timer-bar.running {
+  border-color: var(--border-strong);
+}
+
+.timer-display-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  min-width: 0;
+}
+
+.timer-clock {
+  font-size: 0.77rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.timer-preset-btns {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.timer-chip {
+  font-size: 0.66rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 7px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  color: var(--text-secondary);
+  transition: all 0.14s ease;
+}
+
+.timer-chip:hover, .timer-chip.active {
+  background: var(--chip-active-bg);
+  color: var(--chip-active-fg);
+  border-color: var(--chip-active-border);
+}
+
+.timer-chip.stop {
+  background: var(--tesla-red-soft);
+  color: var(--tesla-red);
+  border-color: rgba(212, 84, 93, 0.28);
+}
+
+.workout-phase-chips {
+  margin-bottom: 10px;
+}
+
+.workout-exercises-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.workout-phase-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 2px 2px;
+  border-bottom: 1px solid var(--border-hairline);
+  margin-top: 4px;
+}
+
+.workout-phase-header:first-child {
+  margin-top: 0;
+}
+
+.workout-phase-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.workout-phase-time {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+.workout-ex-card {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-hairline);
+  border-radius: 13px;
+  padding: 11px 12px;
+  transition: all 0.16s ease;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.workout-ex-card.priority-ex {
+  border-color: var(--border-strong);
+}
+
+.workout-ex-card.ex-done {
+  opacity: 0.68;
+}
+
+.workout-ex-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.workout-ex-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  min-width: 0;
+  flex: 1;
+}
+
+.workout-ex-code {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-strong);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.workout-ex-card.ex-done .workout-ex-code {
+  background: var(--habit-done-icon-bg);
+  color: var(--habit-done-icon-fg);
+  border-color: transparent;
+}
+
+.workout-ex-info {
+  min-width: 0;
+  flex: 1;
+}
+
+.workout-ex-name {
+  font-size: 0.81rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+.workout-ex-sub {
+  font-size: 0.70rem;
+  color: var(--text-secondary);
+  margin-top: 1px;
+  line-height: 1.35;
+}
+
+.workout-ex-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  margin-top: 6px;
+}
+
+.w-meta-pill {
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.w-meta-pill.target-prio {
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+.w-meta-pill.interactive {
+  cursor: pointer;
+  transition: border-color 0.14s ease, color 0.14s ease;
+}
+
+.w-meta-pill.interactive:hover {
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+
+/* Tactile Set Checkboxes Row */
+.workout-sets-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  margin-top: 9px;
+}
+
+.w-set-btn {
+  height: 31px;
+  border-radius: 8px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  font-size: 0.69rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.w-set-btn:active {
+  transform: scale(0.97);
+}
+
+.w-set-btn.done {
+  background: var(--matrix-checked-bg);
+  border-color: var(--matrix-checked-border);
+  color: var(--matrix-checked-fg);
+}
+
+.workout-cue-text {
+  margin-top: 8px;
+  padding-top: 7px;
+  border-top: 1px dashed var(--border-hairline);
+  font-size: 0.70rem;
+  color: var(--text-secondary);
+  line-height: 1.42;
+}
+
+.workout-footer-box {
+  margin-top: 12px;
+  padding-top: 11px;
+  border-top: 1px solid var(--border-hairline);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.workout-nutrition-note {
+  font-size: 0.71rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-hairline);
+  border-radius: 10px;
+  padding: 9px 11px;
+}
+
+.workout-nutrition-note strong {
+  color: var(--text-primary);
+}
+
+.workout-footer-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.workout-footer-actions .btn-outline,
+.workout-footer-actions .btn-primary-sm {
+  width: 100%;
+  justify-content: center;
+  padding: 9px 10px;
+}
+
+.workout-modal-rules {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.w-rule-pill {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-hairline);
+  border-radius: 10px;
+  padding: 8px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.w-rule-pill strong {
+  display: block;
+  font-size: 0.69rem;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.w-rule-pill span {
+  display: block;
+  font-size: 0.63rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
 }
 
 /* --- Compact 2x2 Tactile Habit Capsules (Fits Above the Fold!) --- */

@@ -1,7 +1,8 @@
 /**
- * DailyFlow — Main Application Controller (Tesla Luxury OS & Telemetry Edition)
+ * DailyFlow — Main Application Controller (Tesla Luxury OS, Telemetry & Jay Park 1.5-Hr Gym Blueprint Edition)
  * Features: To-Do List, Habit Consistency Matrix, Unified Calendar,
- *           Web/SW Push Notifications, Tesla Harmonic Chime & .ICS Calendar Alarm Sync
+ *           Interactive 1.5-Hour Gym Routine (Upper Chest & 3D Shoulders),
+ *           Rest Countdown Timer, Web/SW Push Notifications, Tesla Harmonic Chime & .ICS Sync
  */
 
 (function () {
@@ -13,7 +14,9 @@
     generateId,
     calculateHabitStats,
     getTodoReminderTimeMs,
-    normalizeHabitIconKey
+    normalizeHabitIconKey,
+    JAY_PARK_WORKOUT_PHASES,
+    JAY_PARK_WORKOUT_EXERCISES
   } = window.DailyFlowDB;
 
   // --- Precision Vector SVG Icons (1.8px Stroke) ---
@@ -47,55 +50,79 @@
     return HABIT_ICONS[k] || HABIT_ICONS.energy;
   }
 
-  // --- Jay Park Role Model Vision Board Items (4 Images: Physique, Ink & Charisma) ---
+  // --- Jay Park Role Model Vision Board Items (6 Natural Photographic HD Images) ---
   const ROLE_MODELS = [
     {
       id: 'jay-1',
-      src: './assets/jay-1.jpg',
-      pillar: 'PHYSIQUE & INK',
-      badge: 'STAGE FIT',
-      shortTitle: 'หุ่นลีน · รอยสักอก',
-      shortSub: 'Six-Pack & Lion Ink',
-      title: 'Stage Physique & Chest Lion Tattoo',
-      subtitle: 'หุ่นลีน Six-Pack · รอยสักเต็มอกซ้ายและแขน',
-      focus: 'วินัยวันนี้: ออกกำลังกาย 30 นาที + คุมอาหารให้ลีนคมชัด เพื่อรักษากล้ามท้องและสัดส่วนช่วงบนให้เฟิร์มตลอดเวลา',
-      pos: '50% 24%'
+      src: './assets/jay-1.jpg?v=12',
+      pillar: 'UPPER CHEST & 3D DELTS',
+      badge: 'STAGE HD',
+      shortTitle: 'อกบนตั้ง · ไหล่ 3D',
+      shortSub: 'Upper Chest & Sleeve',
+      title: 'Sculpted Upper Chest Shelf & 3D Shoulders',
+      subtitle: 'สันอกส่วนบนตั้งชัด · หัวไหล่กลมรับกับรอยสักเต็มแขน',
+      focus: 'เป้าหมายฟิตเนส: โฟกัส Incline Dumbbell Press (เบาะเอียง 30°) + Lateral Raise เพื่อสร้างสันอกบนและหัวไหล่กลมกว้างแบบในภาพนี้',
+      pos: '50% 18%'
     },
     {
       id: 'jay-2',
-      src: './assets/jay-2.jpg',
-      pillar: 'INK & AESTHETIC',
-      badge: 'PASSION INK',
-      shortTitle: 'ลีนคม · รอยสัก',
-      shortSub: 'Rib & Neck Tattoo',
-      title: 'Lean Core & Iconic Ribcage Ink',
-      subtitle: 'ลำตัวลีนไร้ไขมัน · รอยสักสีข้างและเข็มทิศต้นคอ',
-      focus: 'วินัยวันนี้: ดื่มน้ำ 8 แก้ว ลดของทอด/หวาน เพื่อลดเปอร์เซ็นต์ไขมันให้เห็นไลน์กล้ามเนื้อด้านข้างชัดเจน',
-      pos: '50% 28%'
+      src: './assets/jay-2.jpg?v=12',
+      pillar: 'COLLARBONE & LION INK',
+      badge: 'CHEST SHELF',
+      shortTitle: 'สันอกบน · สิงโต',
+      shortSub: 'Thick Pecs & Collar',
+      title: 'Full Clavicular Pecs & Lion Chest Tattoo',
+      subtitle: 'ความหนาของกล้ามอกส่วนบนใต้ไหปลาร้าและรอยสักสิงโตคมชัด',
+      focus: 'เป้าหมายฟิตเนส: ดึง Low-to-High Cable Fly ช้อนจากล่างขึ้นบนค้างไว้ 1–2 วินาทีทุกครั้ง เพื่ออัดเลือดเข้าอกส่วนบนให้เต็มถึงไหปลาร้า',
+      pos: '50% 26%'
     },
     {
       id: 'jay-3',
-      src: './assets/jay-3.jpg',
-      pillar: 'CHARISMA & SLEEVE',
-      badge: 'FULL SLEEVE',
-      shortTitle: 'อกชัด · แขนสัก',
-      shortSub: 'Stage Smirk & Sleeve',
-      title: 'Sculpted Pecs & Full Tattoo Sleeve',
-      subtitle: 'กล้ามอกคมชัด · รอยสักเต็มแขนซ้ายและรอยยิ้มมั่นใจ',
-      focus: 'วินัยวันนี้: โฟกัสเวทเทรนนิ่งช่วงอก ไหล่ และแกนกลางลำตัว สร้างพลังและความมั่นใจในทุกท่วงท่า',
-      pos: '50% 22%'
+      src: './assets/jay-3.jpg?v=12',
+      pillar: 'TANK TOP FRAME',
+      badge: 'WIDE DELTS',
+      shortTitle: 'เสื้อกล้ามดำ · ไหล่กลม',
+      shortSub: '3D Delts & Tank Fit',
+      title: 'Stage Black Tank Top & Rounded Shoulder Frame',
+      subtitle: 'โครงไหล่ข้างและแขนแน่นเต็มเสื้อกล้ามดำ (Official Press HD)',
+      focus: 'เป้าหมายฟิตเนส: เก็บ Dumbbell Shoulder Press + Lateral Raise 4 เซ็ต + Superset แขน เพื่อใส่เสื้อกล้ามแล้วไหล่กว้างทรง V-Taper',
+      pos: '50% 18%'
     },
     {
       id: 'jay-4',
-      src: './assets/jay-4.jpg',
+      src: './assets/jay-4.jpg?v=12',
       pillar: 'ICONIC CHARISMA',
       badge: 'BOSS AURA',
-      shortTitle: 'ออร่า · โทนดำ',
-      shortSub: 'All-Black & Silver Chain',
-      title: 'All-Black Charisma & Compass Neck Ink',
-      subtitle: 'ลุคเสื้อดำโซ่เงิน · รอยสักเข็มทิศและรอยยิ้มมีเสน่ห์',
-      focus: 'วินัยวันนี้: โฟกัสงานสำคัญให้เสร็จ อ่านหนังสือ 20 นาที และพักผ่อนตรงเวลา เพื่อบุคลิกผู้นำที่นิ่งและทรงพลัง',
+      shortTitle: 'ออร่าดำ · ผม Comma',
+      shortSub: 'Comma Hair & Chain',
+      title: 'All-Black Collared Jacket, Comma Hair & Neck Ink',
+      subtitle: 'ลุคเสื้อปกดำโซ่เงิน · ทรงผม Comma กึ่งเปียกและรอยสักเข็มทิศต้นคอ',
+      focus: 'วินัยประจำวัน: ดูแลผิวหน้าให้เกลี้ยงคม เซ็ตผม Wet Comma เปิดหน้าผาก และรักษาบุคลิกอกผายไหล่ผึ่งจากท่า Reverse Pec Deck',
       pos: '50% 18%'
+    },
+    {
+      id: 'jay-5',
+      src: './assets/jay-5.jpg?v=12',
+      pillar: 'LEAN V-TAPER',
+      badge: 'SERENADES 2025',
+      shortTitle: 'ลีน V-Taper · ซิกแพค',
+      shortSub: 'Lean Waist & Chest',
+      title: '2025 Serenades & Body Rolls — Lean V-Taper',
+      subtitle: 'เอวสอบลีนคมชัดรับกับอกบนที่นูนตั้งและหัวไหล่กว้าง',
+      focus: 'เป้าหมายโภชนาการ: คุมอาหารลีน + จัดไข่ต้ม 6 ฟอง (หรือสลับนมถั่วเหลืองฝาดำ ~28g โปรตีน) เพื่อเพิ่มมวลกล้ามเนื้อโดยไม่เพิ่มไขมันรอบเอว',
+      pos: '50% 20%'
+    },
+    {
+      id: 'jay-6',
+      src: './assets/jay-6.jpg?v=12',
+      pillar: 'CORE & V-CUT ABS',
+      badge: 'MIRROR FIT',
+      shortTitle: 'Mirror · ร่องท้องชัด',
+      shortSub: 'Six-Pack & V-Cut',
+      title: 'Natural Mirror Selfie — Six-Pack & Lower V-Cut',
+      subtitle: 'ร่องท้อง 6-Pack และไลน์ V-Cut ท้องล่างคมชัดแบบธรรมชาติ',
+      focus: 'เป้าหมายฟิตเนส: ปิดท้ายตาราง 1.5 ชม. ด้วย Hanging Knee Raise (ม้วนก้นกบขึ้นหาอก) + Cable Crunch 3 เซ็ตทุกครั้งที่ไปยิม',
+      pos: '50% 22%'
     }
   ];
 
@@ -107,6 +134,10 @@
     visionFeaturedId: localStorage.getItem('dailyflow_vision_featured_jay') || 'jay-1',
     visionActiveId: 'jay-1',
     visionMonoTone: localStorage.getItem('dailyflow_vision_mono') === '1',
+    workoutCollapsed: localStorage.getItem('dailyflow_workout_collapsed') === '1',
+    restTimerSecLeft: 0,
+    restTimerTotalSec: 0,
+    restTimerInterval: null,
     todoFilterStatus: 'all',
     todoFilterCategory: 'all',
     todoSearchQuery: '',
@@ -132,8 +163,6 @@
     'ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.',
     'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'
   ];
-  const ENG_DAYS = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
-  const ENG_MONTHS_SHORT = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
   const THAI_DAYS_FULL = [
     'วันอาทิตย์', 'วันจันทร์', 'วันอังคาร', 'วันพุธ', 'วันพฤหัสบดี', 'วันศุกร์', 'วันเสาร์'
   ];
@@ -157,11 +186,6 @@
     const monthName = THAI_MONTHS[d.getMonth()];
     const year = d.getFullYear();
     return `${dayName}ที่ ${dayNum} ${monthName} ${year}`;
-  }
-
-  function formatEditorialEyebrow(dateStr) {
-    const d = parseLocalDate(dateStr);
-    return `TELEMETRY • ${ENG_DAYS[d.getDay()]} ${d.getDate()} ${ENG_MONTHS_SHORT[d.getMonth()]}`;
   }
 
   function formatShortThaiDate(dateStr) {
@@ -224,6 +248,74 @@
     } catch (_) {}
   }
 
+  // --- Workout Rest Countdown Timer Engine ---
+  function formatSecondsMMSS(sec) {
+    const s = Math.max(0, Math.floor(sec));
+    const mm = String(Math.floor(s / 60)).padStart(2, '0');
+    const ss = String(s % 60).padStart(2, '0');
+    return `${mm}:${ss}`;
+  }
+
+  function updateRestTimerUI() {
+    const bar = document.getElementById('workout-timer-bar');
+    const clock = document.getElementById('workout-timer-clock');
+    const stopBtn = document.getElementById('btn-stop-rest-timer');
+    if (!bar || !clock) return;
+
+    const isRunning = uiState.restTimerSecLeft > 0;
+    bar.classList.toggle('running', isRunning);
+    if (stopBtn) stopBtn.style.display = isRunning ? 'inline-flex' : 'none';
+
+    document.querySelectorAll('.timer-preset-btns .timer-chip[data-rest-sec]').forEach((btn) => {
+      const secVal = Number(btn.dataset.restSec);
+      btn.classList.toggle('active', isRunning && uiState.restTimerTotalSec === secVal);
+    });
+
+    if (isRunning) {
+      clock.textContent = `พักอีก ${formatSecondsMMSS(uiState.restTimerSecLeft)}`;
+    } else {
+      clock.textContent = 'พร้อมซ้อม';
+    }
+  }
+
+  function startRestTimer(seconds) {
+    const sec = Number(seconds) || 60;
+    if (uiState.restTimerInterval) {
+      clearInterval(uiState.restTimerInterval);
+      uiState.restTimerInterval = null;
+    }
+    uiState.restTimerTotalSec = sec;
+    uiState.restTimerSecLeft = sec;
+    updateRestTimerUI();
+
+    uiState.restTimerInterval = setInterval(() => {
+      uiState.restTimerSecLeft -= 1;
+      if (uiState.restTimerSecLeft <= 0) {
+        clearInterval(uiState.restTimerInterval);
+        uiState.restTimerInterval = null;
+        uiState.restTimerSecLeft = 0;
+        updateRestTimerUI();
+        playTeslaChime();
+        if ('vibrate' in navigator) {
+          try { navigator.vibrate([160, 70, 160]); } catch (_) {}
+        }
+        showToast('ครบเวลาพักเซ็ตแล้ว! ลุยเซ็ตต่อไปได้เลย');
+      } else {
+        updateRestTimerUI();
+      }
+    }, 1000);
+  }
+
+  function stopRestTimer() {
+    if (uiState.restTimerInterval) {
+      clearInterval(uiState.restTimerInterval);
+      uiState.restTimerInterval = null;
+    }
+    uiState.restTimerSecLeft = 0;
+    uiState.restTimerTotalSec = 0;
+    updateRestTimerUI();
+  }
+
   // --- Browser / Mobile Notification Dispatcher ---
   async function fireSystemNotification(title, body, tag = 'dailyflow-reminder') {
     playTeslaChime();
@@ -239,8 +331,8 @@
         if (reg && reg.showNotification) {
           await reg.showNotification(title, {
             body,
-            icon: './assets/app-icon-192.png?v=10',
-            badge: './assets/app-icon-192.png?v=10',
+            icon: './assets/app-icon-192.png?v=12',
+            badge: './assets/app-icon-192.png?v=12',
             tag,
             renotify: true,
             vibrate: [180, 80, 180]
@@ -248,7 +340,7 @@
           return true;
         }
       }
-      new Notification(title, { body, icon: './assets/app-icon-192.png?v=10', tag });
+      new Notification(title, { body, icon: './assets/app-icon-192.png?v=12', tag });
       return true;
     } catch (_) {
       return false;
@@ -265,7 +357,7 @@
     banner.classList.add('active');
 
     fireSystemNotification(
-      `⏰ แจ้งเตือนงาน: ${todo.title}`,
+      `แจ้งเตือนงาน: ${todo.title}`,
       `${timeLabel}${todo.note ? ' — ' + todo.note : ''}`,
       `todo-${todo.id}`
     );
@@ -289,7 +381,6 @@
       }
 
       const key = `${todo.dueDate}_${todo.dueTime}_${todo.reminderMinutes}_${todo.snoozedUntil || ''}`;
-      // Trigger if within [triggerMs, triggerMs + 30 minutes] and not notified yet
       if (nowMs >= triggerMs && nowMs <= triggerMs + 30 * 60 * 1000 && todo.notifiedKey !== key) {
         store.markTodoNotified(todo.id, key);
         triggerHeadsUpAlert(todo);
@@ -421,7 +512,7 @@
     renderAll();
   }
 
-  // --- Render Precision To-Do Card HTML (Clean Linear / Things 3 Metadata Layout) ---
+  // --- Render Precision To-Do Card HTML ---
   function renderTodoCardHTML(todo) {
     const today = toLocalDateStr();
     const isOverdue = !todo.completed && todo.dueDate && todo.dueDate < today;
@@ -487,7 +578,191 @@
     `;
   }
 
-  // --- 1. Render TODAY View (With Interactive 7-Day Date Scrubber & Compact Layout) ---
+  // --- Render Jay Park 1.5-Hour All-in-One Gym Blueprint ---
+  function renderExerciseCardHTML(ex, focusDate, dayLog, weightsMap) {
+    const setsArr = Array.isArray(dayLog.completedSets?.[ex.id])
+      ? dayLog.completedSets[ex.id]
+      : [];
+    const doneSetsCount = setsArr.slice(0, ex.sets).filter(Boolean).length;
+    const isExDone = doneSetsCount >= ex.sets;
+    const weightVal = weightsMap[ex.id] || ex.defaultWeight;
+
+    const setButtons = [];
+    for (let i = 0; i < ex.sets; i++) {
+      const isSetDone = !!setsArr[i];
+      setButtons.push(`
+        <button
+          type="button"
+          class="w-set-btn ${isSetDone ? 'done' : ''}"
+          data-action="toggle-workout-set"
+          data-date="${focusDate}"
+          data-ex-id="${ex.id}"
+          data-set-idx="${i}"
+          data-total-sets="${ex.sets}"
+          data-rest-sec="${ex.restSec}"
+        >
+          ${isSetDone ? ICONS.checkSm : ''}
+          <span>เซ็ต ${i + 1}</span>
+        </button>
+      `);
+    }
+
+    return `
+      <div class="workout-ex-card ${ex.isPriority ? 'priority-ex' : ''} ${isExDone ? 'ex-done' : ''}">
+        <div class="workout-ex-top">
+          <div class="workout-ex-left">
+            <button
+              type="button"
+              class="workout-ex-code"
+              data-action="toggle-workout-ex-all"
+              data-date="${focusDate}"
+              data-ex-id="${ex.id}"
+              data-total-sets="${ex.sets}"
+              title="แตะเพื่อเช็คครบทุกเซ็ต"
+            >
+              ${isExDone ? ICONS.check : escapeHtml(ex.code)}
+            </button>
+            <div class="workout-ex-info">
+              <div class="workout-ex-name">${escapeHtml(ex.name)}</div>
+              <div class="workout-ex-sub">${escapeHtml(ex.thaiSub)}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="workout-ex-badges">
+          <span class="w-meta-pill ${ex.isPriority ? 'target-prio' : ''}">${escapeHtml(ex.target)}</span>
+          <span class="w-meta-pill">${ex.sets} เซ็ต × ${escapeHtml(ex.reps)}</span>
+          <button
+            type="button"
+            class="w-meta-pill interactive"
+            data-action="start-rest-timer"
+            data-rest-sec="${ex.restSec}"
+            title="แตะเพื่อจับเวลาพัก ${ex.restSec} วินาที"
+          >
+            พัก ${ex.restSec}s
+          </button>
+          <button
+            type="button"
+            class="w-meta-pill interactive"
+            data-action="edit-workout-weight"
+            data-ex-id="${ex.id}"
+            data-ex-name="${escapeHtml(ex.name)}"
+            title="แตะเพื่อบันทึกน้ำหนักที่ใช้"
+          >
+            น้ำหนัก: ${escapeHtml(weightVal)} ✎
+          </button>
+        </div>
+
+        <div class="workout-sets-row" style="grid-template-columns: repeat(${Math.min(4, ex.sets)}, minmax(0, 1fr));">
+          ${setButtons.join('')}
+        </div>
+
+        <div class="workout-cue-text">
+          ${escapeHtml(ex.cue)}
+        </div>
+      </div>
+    `;
+  }
+
+  function renderWorkoutBlueprint() {
+    const focusDate = uiState.todayFocusDate || toLocalDateStr();
+    const wState = store.state.workout || { mode: 'full', activePhase: 'all', weights: {}, logsByDate: {} };
+    const mode = wState.mode === 'express' ? 'express' : 'full';
+    const activePhase = wState.activePhase || 'all';
+    const weightsMap = wState.weights || {};
+    const dayLog = wState.logsByDate?.[focusDate] || { completedSets: {}, sessionCompleted: false };
+
+    const modeExercises = JAY_PARK_WORKOUT_EXERCISES.filter((ex) => mode === 'full' || ex.express);
+
+    let totalSetsAll = 0;
+    let doneSetsAll = 0;
+    let doneExCount = 0;
+
+    modeExercises.forEach((ex) => {
+      totalSetsAll += ex.sets;
+      const arr = Array.isArray(dayLog.completedSets?.[ex.id]) ? dayLog.completedSets[ex.id] : [];
+      const doneInEx = arr.slice(0, ex.sets).filter(Boolean).length;
+      doneSetsAll += doneInEx;
+      if (doneInEx >= ex.sets) doneExCount++;
+    });
+
+    const pct = totalSetsAll > 0 ? Math.round((doneSetsAll / totalSetsAll) * 100) : 0;
+
+    const badgeEl = document.getElementById('workout-progress-badge');
+    if (badgeEl) badgeEl.textContent = `${doneExCount}/${modeExercises.length}`;
+
+    const durPill = document.getElementById('workout-duration-pill');
+    if (durPill) durPill.textContent = mode === 'full' ? '90 นาที · ครบทุกส่วน' : '55 นาที · โหมดด่วน';
+
+    const fillEl = document.getElementById('workout-progress-fill');
+    if (fillEl) fillEl.style.width = `${pct}%`;
+
+    const setsCounterEl = document.getElementById('workout-sets-counter');
+    if (setsCounterEl) setsCounterEl.textContent = `${doneSetsAll}/${totalSetsAll} เซ็ต (${pct}%)`;
+
+    const subStatusEl = document.getElementById('workout-status-sub');
+    if (subStatusEl) {
+      if (doneExCount === modeExercises.length && modeExercises.length > 0) {
+        subStatusEl.textContent = `ซ้อมครบตารางของ ${formatShortThaiDate(focusDate)} แล้ว! พักกล้ามเนื้อ 48–72 ชม. แล้วลุยรอบถัดไป`;
+      } else {
+        subStatusEl.textContent = `เน้นสันอกส่วนบน 30° และหัวไหล่กลมกว้าง · แตะปุ่มเซ็ตด้านล่างเพื่อเช็คและจับเวลาพักอัตโนมัติ`;
+      }
+    }
+
+    // Mode switch active state
+    document.querySelectorAll('.workout-mode-switch .w-mode-btn').forEach((btn) => {
+      btn.classList.toggle('active', btn.dataset.wmode === mode);
+    });
+
+    // Phase chips active state
+    document.querySelectorAll('#workout-phase-chips .filter-chip').forEach((chip) => {
+      chip.classList.toggle('active', chip.dataset.wphase === activePhase);
+    });
+
+    // Collapse state
+    const bodyEl = document.getElementById('workout-collapsible-body');
+    const collapseBtn = document.getElementById('btn-toggle-workout-collapse');
+    if (bodyEl && collapseBtn) {
+      bodyEl.style.display = uiState.workoutCollapsed ? 'none' : 'block';
+      collapseBtn.textContent = uiState.workoutCollapsed ? 'ขยาย ↓' : 'ย่อ ↑';
+    }
+
+    // Build HTML grouped by phase
+    const phasesToRender = activePhase === 'all'
+      ? JAY_PARK_WORKOUT_PHASES
+      : JAY_PARK_WORKOUT_PHASES.filter((p) => p.id === activePhase);
+
+    const buildPhasesHTML = (phasesList) => phasesList.map((phase) => {
+      const exInPhase = modeExercises.filter((ex) => ex.phase === phase.id);
+      if (exInPhase.length === 0) return '';
+      return `
+        <div class="workout-phase-header">
+          <span class="workout-phase-title">${escapeHtml(phase.title)}</span>
+          <span class="workout-phase-time">${escapeHtml(phase.duration)}</span>
+        </div>
+        ${exInPhase.map((ex) => renderExerciseCardHTML(ex, focusDate, dayLog, weightsMap)).join('')}
+      `;
+    }).join('');
+
+    const listEl = document.getElementById('today-workout-list');
+    if (listEl) {
+      listEl.innerHTML = buildPhasesHTML(phasesToRender);
+    }
+
+    const modalBodyEl = document.getElementById('workout-modal-body');
+    if (modalBodyEl) {
+      modalBodyEl.innerHTML = buildPhasesHTML(JAY_PARK_WORKOUT_PHASES);
+    }
+
+    const habitsGymSub = document.getElementById('habits-gym-banner-sub');
+    if (habitsGymSub) {
+      habitsGymSub.textContent = `ความคืบหน้าวันนี้ ${doneSetsAll}/${totalSetsAll} เซ็ต (${pct}%) · แตะเพื่อเปิดตารางซ้อม 90 นาที`;
+    }
+
+    updateRestTimerUI();
+  }
+
+  // --- 1. Render TODAY View ---
   function renderTodayView() {
     const today = toLocalDateStr();
     const focusDate = uiState.todayFocusDate || today;
@@ -547,7 +822,7 @@
     document.getElementById('today-overall-pill').textContent = `${overallPct}%`;
     const ringCircle = document.getElementById('today-ring-circle');
     if (ringCircle) {
-      const circumference = 213.63; // 2 * PI * 34
+      const circumference = 213.63;
       const offset = circumference - (overallPct / 100) * circumference;
       ringCircle.style.strokeDashoffset = `${offset}`;
     }
@@ -561,7 +836,7 @@
     const scrubberEl = document.getElementById('hero-week-scrubber');
     if (scrubberEl) {
       const curObj = parseLocalDate(focusDate);
-      const dowOffset = (curObj.getDay() + 6) % 7; // Monday = 0
+      const dowOffset = (curObj.getDay() + 6) % 7;
       const weekStart = new Date(curObj.getFullYear(), curObj.getMonth(), curObj.getDate() - dowOffset);
       const weekCells = [];
       for (let i = 0; i < 7; i++) {
@@ -596,7 +871,6 @@
       `).join('');
     }
 
-    // Update section headings & quick-add placeholder for focused date
     const quickInput = document.getElementById('quick-add-todo-input');
     if (quickInput) {
       quickInput.placeholder = isFocusingToday
@@ -604,8 +878,11 @@
         : `เพิ่มงานสำหรับ ${formatShortThaiDate(focusDate)}...`;
     }
 
-    // Render Role Model Vision Board (5-Card Bento Showcase)
+    // Render Role Model Vision Board (Top 4 in Bento Grid, all 6 in Lightbox)
     renderVisionBoard();
+
+    // Render 1.5-Hour Jay Park Gym Blueprint
+    renderWorkoutBlueprint();
 
     // Render Compact 2x2 Tactile Habit Capsules
     document.getElementById('today-habits-badge').textContent = `${doneHabitsToday}/${totalHabitsToday}`;
@@ -759,13 +1036,13 @@
     if (habitsBanner) {
       habitsBanner.innerHTML = `
         <div class="vision-avatar-stack">
-          ${ROLE_MODELS.map((rm) => `
+          ${ROLE_MODELS.slice(0, 4).map((rm) => `
             <img class="vision-avatar-item" src="${rm.src}" alt="${escapeHtml(rm.shortTitle)}" style="object-position:${rm.pos};" />
           `).join('')}
         </div>
         <div class="vision-banner-info">
-          <div class="vision-banner-title">Jay Park · หุ่นลีน & Charisma</div>
-          <div class="vision-banner-sub">เช็คอินวันนี้ ${doneTodayCount}/${habits.length} · แตะดู 4 ภาพต้นแบบ</div>
+          <div class="vision-banner-title">Jay Park · หุ่นลีน & Charisma (6 ลุค HD)</div>
+          <div class="vision-banner-sub">เช็คอินวันนี้ ${doneTodayCount}/${habits.length} · แตะดูภาพต้นแบบชัดระดับ HD</div>
         </div>
         <span class="section-link" style="flex-shrink:0;">เปิด ↗</span>
       `;
@@ -798,7 +1075,7 @@
       const st = statsMap[hab.id];
       const freq = hab.frequencyDays || [0, 1, 2, 3, 4, 5, 6];
       const freqLabel = freq.length === 7
-        ? 'ทุกวัน'
+        ? 'เล่นได้ทุกวัน (2–3 วัน/สัปดาห์)'
         : freq.map((d) => THAI_DAYS_SHORT[d]).join(' · ');
 
       return `
@@ -944,7 +1221,7 @@
     if (selTodos.length === 0) {
       calTodosContainer.innerHTML = `
         <div class="empty-state" style="padding:18px;">
-          <p>ไม่มีงานที่กำหนดไว้ในวันนี้</p>
+          <p>ไม่มีงานที่กำหนดไว้ในวันนี้ (กด "+ วันซ้อมยิม" เพื่อวางตารางฟิตเนส 1.5 ชม.)</p>
         </div>
       `;
     } else {
@@ -1087,7 +1364,6 @@
     openModal('notification-modal');
   }
 
-  // --- Modal Helpers ---
   // --- 6.5 Role Model Vision Board & Lightbox Modal ---
   function renderVisionBoard() {
     const grid = document.getElementById('today-vision-grid');
@@ -1101,9 +1377,9 @@
 
     const featured = ROLE_MODELS.find((r) => r.id === uiState.visionFeaturedId) || ROLE_MODELS[0];
     const others = ROLE_MODELS.filter((r) => r.id !== featured.id);
-    const ordered = [featured, ...others];
+    const orderedTop4 = [featured, ...others].slice(0, 4);
 
-    grid.innerHTML = ordered.map((rm, idx) => {
+    grid.innerHTML = orderedTop4.map((rm, idx) => {
       const isFeatured = idx === 0;
       return `
         <button type="button" class="vision-card ${isFeatured ? 'is-featured' : ''}" data-action="open-vision-item" data-id="${rm.id}">
@@ -1276,6 +1552,129 @@
     document.getElementById('btn-sync-cal-ics').addEventListener('click', () => exportTasksToICS(uiState.calendarSelectedDate));
     document.getElementById('btn-export-ics').addEventListener('click', () => exportTasksToICS());
 
+    // Header Gym Shortcut Button & Workout Modal Triggers
+    const btnHeaderGym = document.getElementById('btn-header-gym');
+    if (btnHeaderGym) {
+      btnHeaderGym.addEventListener('click', () => {
+        renderWorkoutBlueprint();
+        openModal('workout-modal');
+      });
+    }
+
+    const btnOpenWorkoutModal = document.getElementById('btn-open-workout-modal');
+    if (btnOpenWorkoutModal) {
+      btnOpenWorkoutModal.addEventListener('click', () => {
+        renderWorkoutBlueprint();
+        openModal('workout-modal');
+      });
+    }
+
+    const habitsGymBanner = document.getElementById('habits-gym-banner');
+    if (habitsGymBanner) {
+      habitsGymBanner.addEventListener('click', () => {
+        renderWorkoutBlueprint();
+        openModal('workout-modal');
+      });
+    }
+
+    const btnToggleWorkoutCollapse = document.getElementById('btn-toggle-workout-collapse');
+    if (btnToggleWorkoutCollapse) {
+      btnToggleWorkoutCollapse.addEventListener('click', () => {
+        uiState.workoutCollapsed = !uiState.workoutCollapsed;
+        localStorage.setItem('dailyflow_workout_collapsed', uiState.workoutCollapsed ? '1' : '0');
+        renderWorkoutBlueprint();
+      });
+    }
+
+    // Workout Mode Switch (90m Full vs 55m Express)
+    document.querySelectorAll('.workout-mode-switch .w-mode-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        store.setWorkoutMode(btn.dataset.wmode);
+        showToast(btn.dataset.wmode === 'express'
+          ? 'สลับเป็นโหมดด่วน 55 นาที (เน้นอกบน-ไหล่-หลัง-ท้อง)'
+          : 'สลับเป็นโหมดเต็มสูบ 90 นาที (ครบทั้ง 9 ท่าหลัก)');
+      });
+    });
+
+    // Workout Phase Filter Chips
+    const phaseChipsRow = document.getElementById('workout-phase-chips');
+    if (phaseChipsRow) {
+      phaseChipsRow.addEventListener('click', (e) => {
+        const chip = e.target.closest('[data-wphase]');
+        if (!chip) return;
+        store.setWorkoutPhaseFilter(chip.dataset.wphase);
+      });
+    }
+
+    // Preset Rest Timer Buttons
+    document.querySelectorAll('.timer-preset-btns .timer-chip[data-rest-sec]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const sec = Number(btn.dataset.restSec);
+        startRestTimer(sec);
+        showToast(`เริ่มจับเวลาพักเซ็ต ${sec} วินาที`);
+      });
+    });
+
+    const btnStopRestTimer = document.getElementById('btn-stop-rest-timer');
+    if (btnStopRestTimer) {
+      btnStopRestTimer.addEventListener('click', () => {
+        stopRestTimer();
+        showToast('หยุดจับเวลาพักเซ็ตแล้ว');
+      });
+    }
+
+    // Workout Footer Actions
+    const btnSyncWorkoutTodo = document.getElementById('btn-sync-workout-todo');
+    if (btnSyncWorkoutTodo) {
+      btnSyncWorkoutTodo.addEventListener('click', () => {
+        const focusDate = uiState.todayFocusDate || toLocalDateStr();
+        const res = store.addWorkoutToDateTodos(focusDate);
+        showToast(res.added
+          ? `เพิ่มตารางฟิตเนส 1.5 ชม. ลงในงานวันที่ ${formatShortThaiDate(focusDate)} แล้ว`
+          : `ซิงค์ความคืบหน้าเข้ากับงานฟิตเนสของ ${formatShortThaiDate(focusDate)} แล้ว`);
+      });
+    }
+
+    const btnCompleteWorkout = document.getElementById('btn-complete-workout-session');
+    if (btnCompleteWorkout) {
+      btnCompleteWorkout.addEventListener('click', () => {
+        const focusDate = uiState.todayFocusDate || toLocalDateStr();
+        store.completeWorkoutSession(focusDate);
+        playTeslaChime();
+        showToast('บันทึกจบเซสชันฟิตเนส 1.5 ชม. & เช็คอินนิสัยเรียบร้อย!');
+      });
+    }
+
+    const btnModalCompleteWorkout = document.getElementById('btn-modal-complete-workout');
+    if (btnModalCompleteWorkout) {
+      btnModalCompleteWorkout.addEventListener('click', () => {
+        const focusDate = uiState.todayFocusDate || toLocalDateStr();
+        store.completeWorkoutSession(focusDate);
+        closeModal('workout-modal');
+        playTeslaChime();
+        showToast('บันทึกจบเซสชันฟิตเนส 1.5 ชม. & เช็คอินนิสัยเรียบร้อย!');
+      });
+    }
+
+    const btnResetWorkoutSession = document.getElementById('btn-reset-workout-session');
+    if (btnResetWorkoutSession) {
+      btnResetWorkoutSession.addEventListener('click', () => {
+        const focusDate = uiState.todayFocusDate || toLocalDateStr();
+        store.resetWorkoutSession(focusDate);
+        showToast('รีเซ็ตเซ็ตฟิตเนสของวันนี้แล้ว');
+      });
+    }
+
+    const btnCalAddGym = document.getElementById('btn-cal-add-gym');
+    if (btnCalAddGym) {
+      btnCalAddGym.addEventListener('click', () => {
+        const res = store.addWorkoutToDateTodos(uiState.calendarSelectedDate);
+        showToast(res.added
+          ? `วางตารางฟิตเนส 1.5 ชม. ในวันที่ ${formatShortThaiDate(uiState.calendarSelectedDate)} แล้ว`
+          : 'มีตารางฟิตเนส 1.5 ชม. ในวันนี้อยู่แล้ว');
+      });
+    }
+
     // Enable Browser Notification Permission
     document.getElementById('btn-enable-browser-notif').addEventListener('click', async () => {
       if (!('Notification' in window)) {
@@ -1300,7 +1699,7 @@
         id: store.state.todos[0]?.id || 'test',
         title: store.state.todos[0]?.title || 'ทดสอบระบบแจ้งเตือน DailyFlow',
         dueDate: toLocalDateStr(),
-        dueTime: '10:00',
+        dueTime: '18:00',
         note: 'สัญญาณแจ้งเตือนพร้อมทำงานบนมือถือของคุณ'
       });
     });
@@ -1490,6 +1889,36 @@
       } else if (action === 'select-vision-thumb') {
         uiState.visionActiveId = actionEl.dataset.id;
         renderVisionModalContent();
+      } else if (action === 'toggle-workout-set') {
+        const dateStr = actionEl.dataset.date || uiState.todayFocusDate || toLocalDateStr();
+        const exId = actionEl.dataset.exId;
+        const setIdx = Number(actionEl.dataset.setIdx);
+        const totalSets = Number(actionEl.dataset.totalSets);
+        const restSec = Number(actionEl.dataset.restSec) || 60;
+        const nowDone = store.toggleWorkoutSet(dateStr, exId, setIdx, totalSets);
+        if (nowDone) {
+          startRestTimer(restSec);
+          showToast(`เช็คเซ็ต ${setIdx + 1} แล้ว · เริ่มจับเวลาพัก ${restSec}s`);
+        }
+      } else if (action === 'toggle-workout-ex-all') {
+        const dateStr = actionEl.dataset.date || uiState.todayFocusDate || toLocalDateStr();
+        const exId = actionEl.dataset.exId;
+        const totalSets = Number(actionEl.dataset.totalSets);
+        const allDone = store.toggleWorkoutExerciseAllSets(dateStr, exId, totalSets);
+        showToast(allDone ? 'เช็คครบทุกเซ็ตของท่านี้แล้ว ✓' : 'ยกเลิกการเช็คเซ็ตของท่านี้แล้ว');
+      } else if (action === 'start-rest-timer') {
+        const sec = Number(actionEl.dataset.restSec) || 60;
+        startRestTimer(sec);
+        showToast(`เริ่มจับเวลาพักเซ็ต ${sec} วินาที`);
+      } else if (action === 'edit-workout-weight') {
+        const exId = actionEl.dataset.exId;
+        const exName = actionEl.dataset.exName || '';
+        const curWeight = store.state.workout?.weights?.[exId] || '';
+        const nextWeight = prompt(`บันทึกน้ำหนักที่ใช้สำหรับท่า:\n${exName}`, curWeight);
+        if (nextWeight !== null) {
+          store.updateWorkoutWeight(exId, nextWeight);
+          showToast(`บันทึกน้ำหนัก ${nextWeight.trim() || 'BW'} เรียบร้อย`);
+        }
       }
     });
 
@@ -1699,7 +2128,7 @@
     const btnForceRefreshPwa = document.getElementById('btn-force-refresh-pwa');
     if (btnForceRefreshPwa) {
       btnForceRefreshPwa.addEventListener('click', async () => {
-        showToast('กำลังล้างแคชไอคอนเก่าและโหลดเวอร์ชันล่าสุด...');
+        showToast('กำลังล้างแคชและโหลดเวอร์ชันล่าสุด (v12)...');
         try {
           if ('caches' in window) {
             const keys = await caches.keys();
@@ -1784,9 +2213,9 @@
     });
 
     document.getElementById('btn-reset-demo').addEventListener('click', () => {
-      if (confirm('ต้องการโหลดข้อมูลตัวอย่างใหม่ใช่หรือไม่?')) {
+      if (confirm('ต้องการโหลดข้อมูลเริ่มต้นพร้อมตารางฟิตเนส Jay Park ใหม่ใช่หรือไม่?')) {
         store.resetToStarterData();
-        showToast('โหลดข้อมูลตัวอย่างแล้ว');
+        showToast('โหลดข้อมูลเริ่มต้นใหม่แล้ว');
       }
     });
 
@@ -1819,12 +2248,12 @@
     if ('caches' in window) {
       caches.keys().then((keys) => {
         keys.forEach((k) => {
-          if (k !== 'dailyflow-pwa-v7') caches.delete(k);
+          if (k !== 'dailyflow-pwa-v12') caches.delete(k);
         });
       });
     }
     if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
-      navigator.serviceWorker.register('./sw.js?v=7').then((reg) => {
+      navigator.serviceWorker.register('./sw.js?v=12').then((reg) => {
         reg.update();
       }).catch((err) => {
         console.warn('SW registration skipped:', err);
