@@ -762,7 +762,7 @@
       if (doneExCount === modeExercises.length && modeExercises.length > 0) {
         subStatusEl.textContent = `ซ้อมครบตารางของ ${formatShortThaiDate(focusDate)} แล้ว · พักกล้ามเนื้อ 48–72 ชม.`;
       } else {
-        const modeLabel = mode === 'full' ? 'ตาราง 1.5 ชม.' : 'โหมดด่วน 55 นาที';
+        const modeLabel = mode === 'full' ? `${modeExercises.length} ท่าจบ (60–75 นาที)` : `โหมดด่วน ${modeExercises.length} ท่า`;
         subStatusEl.textContent = `${modeLabel} · เล่นซ้ำทุก 2–3 วัน · ${doneSetsAll}/${totalSetsAll} เซ็ต`;
       }
     }
@@ -2384,12 +2384,12 @@
     if ('caches' in window) {
       caches.keys().then((keys) => {
         keys.forEach((k) => {
-          if (k !== 'dailyflow-pwa-v14') caches.delete(k);
+          if (k !== 'dailyflow-pwa-v15') caches.delete(k);
         });
       });
     }
     if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
-      navigator.serviceWorker.register('./sw.js?v=14').then((reg) => {
+      navigator.serviceWorker.register('./sw.js?v=15').then((reg) => {
         reg.update();
       }).catch((err) => {
         console.warn('SW registration skipped:', err);

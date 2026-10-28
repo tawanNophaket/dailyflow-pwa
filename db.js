@@ -67,210 +67,158 @@ const DEFAULT_CATEGORIES = [
   { id: 'study', name: 'พัฒนาตัวเอง', color: '#8b5cf6', icon: 'reading' }
 ];
 
-// --- Jay Park 1.5-Hour (90-Min) All-in-One Gym Blueprint (Upper Chest & 3D Shoulders Priority) ---
+// --- Jay Park 8-Exercise Easy & High-Impact Gym Blueprint (Upper Chest & 3D Shoulders Priority) ---
 const JAY_PARK_WORKOUT_PHASES = [
   {
-    id: 'warmup',
-    shortLabel: '1. วอร์มไหล่',
-    title: 'Phase 1 · วอร์มอัปเปิดข้อต่อหัวไหล่และสะบัก',
-    duration: '10 นาที',
-    subtitle: 'เตรียมเอ็นหมุนข้อไหล่ (Rotator Cuff) ก่อนดันอกบนและไหล่หนักในวันเดียวกัน'
-  },
-  {
     id: 'chest',
-    shortLabel: '2. อกส่วนบน',
-    title: 'Phase 2 · Priority 1: ปั้นอกส่วนบน (Upper Chest Shelf)',
-    duration: '25 นาที',
-    subtitle: 'สร้างสันอกด้านบนใต้ไหปลาร้าให้นูนเต็มเวลาถอดเสื้อหรือใส่เสื้อกล้ามแบบ Jay Park'
+    shortLabel: '1. อกส่วนบน',
+    title: 'Phase 1 · ปั้นอกส่วนบน (Upper Chest Priority)',
+    duration: '20 นาที',
+    subtitle: '2 ท่าหลักเล่นง่าย โฟกัสสันอกด้านบนและร่องอกให้เต็มชัด'
   },
   {
     id: 'shoulders',
-    shortLabel: '3. หัวไหล่ 3D',
-    title: 'Phase 3 · Priority 2: หัวไหล่กลมกว้าง 3 มิติ (3D Shoulders)',
+    shortLabel: '2. หัวไหล่ 3D',
+    title: 'Phase 2 · หัวไหล่กลมกว้าง 3 มิติ (3D Shoulders)',
     duration: '25 นาที',
-    subtitle: 'ขยายโครงไหล่ข้างและไหล่หลังให้ส่วนสูง 184 cm ดูกว้างเป็นทรง V-Taper'
+    subtitle: '3 ท่าบังคับขยายโครงไหล่หน้า-ข้าง-หลัง ให้ส่วนสูง 184 cm ดูกว้างสมส่วน'
   },
   {
     id: 'back_arms',
-    shortLabel: '4. หลัง & แขน',
-    title: 'Phase 4 · ดึงแผ่นหลัง V-Taper & ซูเปอร์เซ็ตแขนแน่น',
+    shortLabel: '3. หลัง & แขน',
+    title: 'Phase 3 · ปีกหลัง V-Taper & แขนแน่นเต็มเสื้อ',
     duration: '15 นาที',
-    subtitle: 'ดึงปีกหลังรับกับหัวไหล่ และปั๊มหน้าแขน-หลังแขนให้แน่นเต็มเสื้อโดยใช้เวลาสั้นที่สุด'
+    subtitle: 'ดึงหลัง 1 ท่าหลัก + แขนหน้า-หลัง 1 ท่าคู่ จบไวไม่ต้องเปลี่ยนอุปกรณ์เยอะ'
   },
   {
     id: 'legs_core',
-    shortLabel: '5. ขา & ท้อง',
-    title: 'Phase 5 · ขาสมส่วน & ร่องท้อง 6-Pack / V-Cut',
-    duration: '15 นาที',
-    subtitle: 'กระตุ้นฮอร์โมนช่วงล่าง 1 ท่าหลัก และปั้นร่องท้องล่าง V-Cut สไตล์ Jay Park'
+    shortLabel: '4. ขา & ท้อง',
+    title: 'Phase 4 · ขาสมส่วน & หน้าท้องคลีน (ท่าปิดท้ายเล่นง่าย)',
+    duration: '10 นาที',
+    subtitle: 'เครื่องถีบขาเซฟหลัง + นั่งยกเข่าบนม้านั่ง (ไม่ต้องโหนบาร์)'
   }
 ];
 
 const JAY_PARK_WORKOUT_EXERCISES = [
   {
-    id: 'w1',
-    code: 'W1',
-    phase: 'warmup',
-    name: 'External Rotation (ยางยืด/เคเบิลเปิดข้อไหล่)',
-    thaiSub: 'หมุนไหล่ + ดึงเปิดเอ็นหมุนข้อไหล่',
-    target: 'วอร์มข้อไหล่ (Rotator Cuff)',
-    sets: 2,
-    reps: '15 ครั้ง',
-    restSec: 45,
-    defaultWeight: 'เบาสุด',
-    express: true,
-    isPriority: false,
-    cue: 'หนีบศอกไว้ข้างลำตัว หมุนแขนท่อนล่างออกด้านข้างช้าๆ ช่วยป้องกันอาการบาดเจ็บไหล่หน้าเวลาเล่นอกบนคู่กับไหล่'
-  },
-  {
-    id: 'w2',
-    code: 'W2',
-    phase: 'warmup',
-    name: 'Incline Push-Up (วิดพื้นกับขอบม้านั่ง)',
-    thaiSub: 'กระตุ้นสะบักและกล้ามเนื้ออกส่วนบน',
-    target: 'เปิดสะบัก & อกส่วนบน',
-    sets: 2,
-    reps: '12 ครั้ง',
-    restSec: 45,
-    defaultWeight: 'Bodyweight',
-    express: true,
-    isPriority: false,
-    cue: 'โฟกัสยืดอกและบีบสะบักเข้าหากันตอนลง ดันตัวขึ้นพร้อมเกร็งเนินอกด้านบนเพื่อเปิดระบบประสาทก่อนยกจริง'
-  },
-  {
     id: 'ex1',
     code: '01',
     phase: 'chest',
-    name: 'Incline Dumbbell Press (ม้านั่งเอียง 30°)',
-    thaiSub: 'ท่าหลักสร้างความหนาของสันอกส่วนบน',
-    target: 'อกส่วนบน · Priority #1',
+    name: 'Incline Dumbbell Press 30°',
+    thaiSub: 'ดันดัมเบลอกส่วนบน ม้านั่งเอียง 30° (วอร์มลูกเบา 1 เซ็ตก่อนเริ่ม)',
+    target: 'อกส่วนบน',
     sets: 4,
     reps: '8–12 ครั้ง',
     restSec: 90,
     defaultWeight: '14 kg',
     express: true,
     isPriority: true,
-    cue: 'ปรับม้านั่งเอียงแค่ 30 องศา (ล็อกที่ 2 จากพื้น) ห้ามปรับสูง 45° เพราะไหล่หน้าจะแย่งงาน ตอนลงกางศอกทำมุม 45–60° กับลำตัว ดันขึ้นบีบเนินอกด้านบนโดยไม่ต้องเอาดัมเบลชนกัน'
+    cue: 'ปรับม้านั่งเอียงแค่ 30° (ล็อกที่ 2 จากพื้น) วอร์มด้วยดัมเบลเบาๆ 15 ครั้ง 1 เซ็ตก่อน แล้วเข้า 4 เซ็ตจริง ตอนลงกางศอกประมาณ 45–60° ดันขึ้นตรงๆ บีบเนินอกด้านบน'
   },
   {
     id: 'ex2',
     code: '02',
     phase: 'chest',
-    name: 'Low-to-High Cable Fly (ดึงเคเบิลล่างขึ้นบน)',
-    thaiSub: 'หรือ Incline Machine Press เน้นบีบอกบน',
-    target: 'ร่องอกบนใต้ไหปลาร้า · Priority #1',
+    name: 'Pec Deck / Machine Chest Press',
+    thaiSub: 'เครื่องหนีบอก หรือเครื่องดันอก (เครื่องล็อกฟอร์มให้ เล่นง่าย)',
+    target: 'ร่องอก & อกส่วนบน',
     sets: 3,
-    reps: '12–15 ครั้ง',
+    reps: '10–12 ครั้ง',
     restSec: 75,
-    defaultWeight: '7.5 kg',
+    defaultWeight: '35 kg',
     express: true,
     isPriority: true,
-    cue: 'ตั้งรอกเคเบิลต่ำสุด ก้าวขาออกมา 1 ก้าว ช้อนมือดึงสายเคเบิลเฉียงขึ้นประกบกันระดับอกบน/ปลายคาง แล้วเกร็งค้างไว้ 1–2 วินาทีทุกครั้ง'
+    cue: 'นั่งหลังชิดเบาะ ยืดอกขึ้น เครื่องจะช่วยบังคับทิศทางให้โดนอกเต็มๆ โดยไม่ต้องกะองศาสายเคเบิล ตอนบีบเข้าหากันให้เกร็งอกค้างไว้ 1 วินาที'
   },
   {
     id: 'ex3',
     code: '03',
     phase: 'shoulders',
-    name: 'Seated Dumbbell Shoulder Press',
-    thaiSub: 'ดันดัมเบลสร้างมวลหัวไหล่ (หรือ Machine Press)',
-    target: 'ความหนาหัวไหล่รวม · Priority #2',
+    name: 'Seated Shoulder Press',
+    thaiSub: 'นั่งดันไหล่ด้วยดัมเบล หรือเครื่อง Machine Shoulder Press',
+    target: 'ความหนาหัวไหล่',
     sets: 3,
     reps: '8–12 ครั้ง',
     restSec: 90,
     defaultWeight: '12 kg',
     express: true,
     isPriority: true,
-    cue: 'ตั้งพนักพิงเกือบตรง (75–80 องศา) เอาดัมเบลลงมาถึงระดับหู/คางเพื่อยืดกล้ามเนื้อไหล่ให้สุด แล้วดันขึ้นตรงๆ'
+    cue: 'นั่งพิงเบาะให้หลังมั่นคง ลดดัมเบลหรือมือจับลงมาถึงระดับหู/คาง แล้วดันขึ้นตรงๆ ท่านี้สร้างมวลหัวไหล่ได้ดีและเซฟหลัง'
   },
   {
     id: 'ex4',
     code: '04',
     phase: 'shoulders',
-    name: 'Dumbbell / Cable Lateral Raise',
-    thaiSub: 'กางไหล่ข้าง — ท่าไม้ตายขยายไหล่กว้างทรง Jay Park',
-    target: 'ไหล่ข้าง (Side Delts) · สำคัญที่สุด',
+    name: 'Dumbbell Lateral Raise',
+    thaiSub: 'กางดัมเบลด้านข้างลำตัว — ท่าหลักขยายไหล่กว้าง',
+    target: 'ไหล่ข้าง 3D',
     sets: 4,
     reps: '12–15 ครั้ง',
     restSec: 60,
     defaultWeight: '6 kg',
     express: true,
     isPriority: true,
-    cue: 'ใช้น้ำหนักเบา-กลาง (4–6 kg) โน้มตัวไปข้างหน้านิดเดียว โฟกัส "ดันข้อศอกออกไปให้ไกลลำตัวที่สุด" ห้ามยักไหล่ให้บ่า (Traps) แย่งงาน'
+    cue: 'ใช้น้ำหนักเบา (4–7 kg) ยืนหรือนั่งโน้มตัวไปข้างหน้านิดเดียว โฟกัสยกข้อศอกกางออกด้านข้างให้ถึงระดับไหล่ ห้ามยักบ่า'
   },
   {
     id: 'ex5',
     code: '05',
     phase: 'shoulders',
-    name: 'Reverse Pec Deck / Rope Face Pull',
-    thaiSub: 'เล่นไหล่หลังให้กลม 3 มิติ & ปรับบุคลิกอกผาย',
-    target: 'ไหล่หลัง (Rear Delts) & บุคลิกภาพ',
+    name: 'Reverse Pec Deck',
+    thaiSub: 'นั่งหันหน้าเข้าเครื่องใบเดิม กางแขนออกด้านหลัง',
+    target: 'ไหล่หลัง & อกผาย',
     sets: 3,
     reps: '12–15 ครั้ง',
     restSec: 60,
     defaultWeight: '25 kg',
     express: true,
     isPriority: true,
-    cue: 'วาดแขนออกด้านหลังด้วยหัวไหล่หลัง ช่วยสร้างก้อนไหล่ให้ดูกลมจากมุมข้าง และดึงไหล่ไม่ให้ห่อจากการเล่นอก'
+    cue: 'ใช้เครื่องตัวเดียวกับท่าที่ 02 แค่ปรับแขนเครื่องแล้วนั่งหันหน้าเข้าเบาะ วาดแขนออกด้านหลังด้วยหัวไหล่หลัง ช่วยให้ไหล่กลมครบ 3 มิติ'
   },
   {
     id: 'ex6',
     code: '06',
     phase: 'back_arms',
     name: 'Wide-Grip Lat Pulldown',
-    thaiSub: 'ดึงเคเบิลสร้างปีกหลังทรง V-Taper',
-    target: 'ปีกหลังกว้างรับหัวไหล่',
+    thaiSub: 'ดึงบาร์เคเบิลลงหาอกส่วนบน สร้างปีกหลัง V-Taper',
+    target: 'แผ่นหลัง V-Taper',
     sets: 3,
     reps: '10–12 ครั้ง',
     restSec: 75,
     defaultWeight: '40 kg',
     express: true,
     isPriority: false,
-    cue: 'จับบาร์กว้างกว่าไหล่เล็กน้อย แอ่นอกขึ้น ดึงบาร์ลงมาหาอกส่วนบนโดยโฟกัสกดข้อศอกลงข้างลำตัว'
+    cue: 'จับบาร์กว้างกว่าไหล่เล็กน้อย ล็อกเข่าให้แน่น แอ่นอกขึ้นเล็กน้อยแล้วดึงบาร์ลงมาที่อกส่วนบนโดยโฟกัสกดข้อศอกลง'
   },
   {
     id: 'ex7',
     code: '07',
     phase: 'back_arms',
-    name: 'Superset แขน: Dumbbell Curl + Triceps Pushdown',
-    thaiSub: 'หน้าแขน 10–12 ครั้ง ต่อด้วยหลังแขน 12–15 ครั้งทันที',
-    target: 'หน้าแขน & หลังแขนแน่นเต็มเสื้อ',
+    name: 'Dumbbell Curl + Triceps Pushdown',
+    thaiSub: 'ยกดัมเบลหน้าแขน 12 ครั้ง ต่อด้วยกดเคเบิลหลังแขน 12 ครั้ง',
+    target: 'หน้าแขน & หลังแขน',
     sets: 3,
-    reps: '10–12 + 12–15',
+    reps: '12 + 12 ครั้ง',
     restSec: 60,
     defaultWeight: '10 / 20 kg',
     express: false,
     isPriority: false,
-    cue: 'เล่นหน้าแขนจบปุ๊บ เดินมากดเคเบิลหลังแขนต่อทันทีโดยไม่พัก แล้วค่อยพัก 60 วินาที ใช้เวลาแค่ 6–7 นาทีแต่แขนปั๊มแน่นครบ'
+    cue: 'ยืนพับศอกยกดัมเบลหน้าแขนจบปุ๊บ เดินมากดสายเคเบิลหลังแขนต่อทันที แล้วค่อยพัก 60 วินาที เล่นง่ายและแขนแน่นไวมาก'
   },
   {
     id: 'ex8',
     code: '08',
     phase: 'legs_core',
-    name: 'Leg Press หรือ Goblet Squat',
-    thaiSub: 'ถีบขาหรือสควอทกระตุ้นฮอร์โมนและรักษามวลขา',
-    target: 'ต้นขา & เผาผลาญพลังงาน',
+    name: 'Leg Press + Seated Knee Tuck',
+    thaiSub: 'เครื่องถีบขา 12 ครั้ง + นั่งขอบม้านั่งยกเข่าเข้าหาอก 15 ครั้ง',
+    target: 'ต้นขา & ร่องท้อง',
     sets: 3,
-    reps: '10–12 ครั้ง',
-    restSec: 75,
+    reps: '12 + 15 ครั้ง',
+    restSec: 60,
     defaultWeight: '80 kg',
-    express: false,
-    isPriority: false,
-    cue: 'วางเท้ากว้างระดับไหล่ ย่อลงลึกพอดีแล้วถีบด้วยส้นเท้า ช่วยให้ช่วงล่างสมส่วนกับส่วนสูง 184 cm โดยไม่ล้าเกินไป'
-  },
-  {
-    id: 'ex9',
-    code: '09',
-    phase: 'legs_core',
-    name: 'Hanging Knee Raise + Cable Crunch',
-    thaiSub: 'โหนบาร์ยกเข่าปั้น V-Cut สลับดึงเคเบิลร่องท้อง 6-Pack',
-    target: 'ร่องท้อง 6-Pack & V-Cut ท้องล่าง',
-    sets: 3,
-    reps: '12–15 ครั้ง',
-    restSec: 45,
-    defaultWeight: 'Bodyweight',
     express: true,
     isPriority: false,
-    cue: 'ตอนยกเข่าขึ้น ให้ "ม้วนก้นกบขึ้นหาหน้าอก" (ไม่ยกขาเฉยๆ) เพื่อบีบท้องล่างและสร้างร่อง V-Cut ข้างเอวแบบ Jay Park'
+    cue: 'ถีบขาบนเครื่อง Leg Press เสร็จแล้ว มานั่งจับขอบม้านั่ง เอนตัวนิดนึงแล้วยกเข่าคู่เข้าหาหน้าอก 15 ครั้ง (ง่ายกว่าโหนบาร์เยอะและโดนท้องล่างเต็มๆ)'
   }
 ];
 
@@ -297,8 +245,8 @@ function createDefaultWorkoutState() {
 function buildWorkoutTodoObject(dueDateStr) {
   return {
     id: 'todo_jaypark_gym_routine',
-    title: 'ฟิตเนส 1.5 ชม. — ตาราง Jay Park (เน้นอกส่วนบน & หัวไหล่ 3D)',
-    note: 'ตารางรวมเล่นได้ทุกวัน (ไปยิมทุก 2–3 วัน) • หลังซ้อมจัดมื้อหลัก + ไข่ต้ม 3 ฟอง หรือนมถั่วเหลืองฝาดำ ~28g โปรตีน',
+    title: 'ฟิตเนส (8 ท่าจบ เล่นง่าย) — เน้นอกส่วนบน & หัวไหล่ 3D',
+    note: 'ตารางรวม 8 ท่า เล่นซ้ำทุก 2–3 วัน (ประมาณ 60–75 นาที) • หลังซ้อมจัดมื้อหลัก + ไข่ต้ม 3 ฟอง หรือนมถั่วเหลืองฝาดำ ~28g โปรตีน',
     dueDate: dueDateStr,
     dueTime: '18:00',
     reminderMinutes: '30',
@@ -306,20 +254,18 @@ function buildWorkoutTodoObject(dueDateStr) {
     snoozedUntil: null,
     priority: 'high',
     category: 'health',
-    tags: ['JayParkFit', 'อกบน-ไหล่'],
+    tags: ['JayParkFit', '8ท่าจบ'],
     completed: false,
     completedAt: null,
     subtasks: [
-      { id: 'sub_jp_w', title: 'Warm-up 10 นาที: External Rotation 2×15 + Incline Push-Up 2×12', done: false },
-      { id: 'sub_jp_1', title: '1. [อกส่วนบน] Incline Dumbbell Press (เบาะเอียง 30°) — 4 เซ็ต × 8–12 ครั้ง', done: false },
-      { id: 'sub_jp_2', title: '2. [อกส่วนบน] Low-to-High Cable Fly (ดึงล่างขึ้นบนค้าง 2 วิ) — 3 เซ็ต × 12–15 ครั้ง', done: false },
-      { id: 'sub_jp_3', title: '3. [ไหล่รวม] Seated Dumbbell Shoulder Press — 3 เซ็ต × 8–12 ครั้ง', done: false },
-      { id: 'sub_jp_4', title: '4. [ไหล่ข้าง V-Taper] Dumbbell / Cable Lateral Raise — 4 เซ็ต × 12–15 ครั้ง', done: false },
-      { id: 'sub_jp_5', title: '5. [ไหล่หลัง 3D] Reverse Pec Deck / Rope Face Pull — 3 เซ็ต × 12–15 ครั้ง', done: false },
-      { id: 'sub_jp_6', title: '6. [หลัง V-Taper] Wide-Grip Lat Pulldown — 3 เซ็ต × 10–12 ครั้ง', done: false },
-      { id: 'sub_jp_7', title: '7. [แขน Superset] Dumbbell Curl + Cable Triceps Pushdown — 3 เซ็ต × 10–15 ครั้ง', done: false },
-      { id: 'sub_jp_8', title: '8. [ขา] Leg Press หรือ Goblet Squat — 3 เซ็ต × 10–12 ครั้ง', done: false },
-      { id: 'sub_jp_9', title: '9. [ร่องท้อง V-Cut] Hanging Knee Raise + Cable Crunch — 3 เซ็ต × 12–15 ครั้ง', done: false }
+      { id: 'sub_jp_1', title: '01. [อกส่วนบน] Incline Dumbbell Press 30° — 4 เซ็ต × 8–12 ครั้ง', done: false },
+      { id: 'sub_jp_2', title: '02. [ร่องอก/อกบน] Pec Deck / Machine Chest Press — 3 เซ็ต × 10–12 ครั้ง', done: false },
+      { id: 'sub_jp_3', title: '03. [ไหล่รวม] Seated Shoulder Press — 3 เซ็ต × 8–12 ครั้ง', done: false },
+      { id: 'sub_jp_4', title: '04. [ไหล่ข้าง 3D] Dumbbell Lateral Raise — 4 เซ็ต × 12–15 ครั้ง', done: false },
+      { id: 'sub_jp_5', title: '05. [ไหล่หลัง] Reverse Pec Deck — 3 เซ็ต × 12–15 ครั้ง', done: false },
+      { id: 'sub_jp_6', title: '06. [ปีกหลัง V-Taper] Wide-Grip Lat Pulldown — 3 เซ็ต × 10–12 ครั้ง', done: false },
+      { id: 'sub_jp_7', title: '07. [แขนคู่] Dumbbell Curl + Triceps Pushdown — 3 เซ็ต × 12 ครั้ง', done: false },
+      { id: 'sub_jp_8', title: '08. [ขา & ท้อง] Leg Press + Seated Knee Tuck — 3 เซ็ต × 12–15 ครั้ง', done: false }
     ],
     createdAt: new Date().toISOString()
   };
@@ -348,7 +294,7 @@ function createStarterData() {
   drinkLogs[today] = true;
 
   return {
-    version: 3,
+    version: 4,
     updatedAt: new Date().toISOString(),
     settings: {
       theme: 'dark',
@@ -654,13 +600,14 @@ class DailyFlowStore {
 
     const isUpgradingFromV1 = !data.version || data.version < 2;
     const isUpgradingToV3 = !data.version || data.version < 3;
+    const isUpgradingToV4 = !data.version || data.version < 4;
     const resolvedTheme = isUpgradingFromV1
       ? 'dark'
       : (data.settings?.theme || 'dark');
 
     const defaultWorkout = createDefaultWorkoutState();
     const rawWorkout = data.workout && typeof data.workout === 'object' ? data.workout : {};
-    const customExercises = Array.isArray(rawWorkout.exercises) && rawWorkout.exercises.length > 0
+    const customExercises = (!isUpgradingToV4 && Array.isArray(rawWorkout.exercises) && rawWorkout.exercises.length > 0)
       ? rawWorkout.exercises.map((ex, idx) => ({
         id: ex.id || `ex_custom_${idx}`,
         code: ex.code || String(idx + 1).padStart(2, '0'),
@@ -680,11 +627,11 @@ class DailyFlowStore {
 
     const workoutState = {
       mode: rawWorkout.mode === 'express' ? 'express' : 'full',
-      activePhase: rawWorkout.activePhase || 'all',
+      activePhase: rawWorkout.activePhase === 'warmup' ? 'all' : (rawWorkout.activePhase || 'all'),
       schedulePreset: rawWorkout.schedulePreset || 'flexible',
       plannedDays: Array.isArray(rawWorkout.plannedDays) ? rawWorkout.plannedDays : [1, 4, 6],
       exercises: customExercises,
-      weights: { ...defaultWorkout.weights, ...(rawWorkout.weights || {}) },
+      weights: { ...(rawWorkout.weights || {}), ...defaultWorkout.weights },
       logsByDate: rawWorkout.logsByDate && typeof rawWorkout.logsByDate === 'object'
         ? rawWorkout.logsByDate
         : {}
@@ -756,8 +703,19 @@ class DailyFlowStore {
       }
     }
 
+    if (isUpgradingToV4) {
+      const today = toLocalDateStr();
+      const gymTodoIdx = todos.findIndex((t) => t.id === 'todo_jaypark_gym_routine' || t.title.includes('ฟิตเนส'));
+      if (gymTodoIdx !== -1) {
+        todos[gymTodoIdx] = {
+          ...buildWorkoutTodoObject(todos[gymTodoIdx].dueDate || today),
+          completed: todos[gymTodoIdx].completed
+        };
+      }
+    }
+
     return {
-      version: 3,
+      version: 4,
       updatedAt: data.updatedAt || new Date().toISOString(),
       settings: {
         theme: resolvedTheme,
